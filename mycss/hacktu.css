@@ -1,0 +1,10 @@
+@font-face{
+  font-family:'HackFont' ;  /* 字体名自定义即可 */
+  src:url('/fonts/ZhuZiAWan.woff2'); /* 字体文件路径 */
+  font-display : swap;
+}
+
+h1#site-title {
+  font-family: 'HackFont', sans-serif;
+}
+
