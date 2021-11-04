@@ -19,8 +19,13 @@
 }
 
 [data-theme="dark"]
-  #recent-posts > .recent-post-item, div#page, div#archive, div#tag, div#category{
+div#page, div#archive, div#tag, div#category{
     background:rgba(0, 0, 0, 0.9);
+    }
+
+[data-theme="dark"]
+  #recent-posts > .recent-post-item{
+    background:rgba(0, 0, 0, 0.7);
     }
 
 [data-theme="dark"]
