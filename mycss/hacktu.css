@@ -8,30 +8,6 @@
   font-family: 'HackFont', sans-serif;
 }
 
-/* 首页文章卡片 */
-#recent-posts > .recent-post-item, div#page, div#archive, div#tag, div#category{
-    background:rgba(255, 255, 255, 0.9);
-}
-
-/* 首页侧栏卡片 */
-.card-widget{
-  background:rgba(255, 255, 255, 0.9)!important;
-}
-
-[data-theme="dark"]
-div#page, div#archive, div#tag, div#category{
-    background:rgba(0, 0, 0, 0.9);
-    }
-
-[data-theme="dark"]
-  #recent-posts > .recent-post-item{
-    background:rgba(0, 0, 0, 0.7);
-    }
-
-[data-theme="dark"]
-  .card-widget{
-    background:rgba(0, 0, 0, 0.9)!important;
-    }
 
 #footer{
   opacity: 0.5;
@@ -59,14 +35,14 @@ div#page, div#archive, div#tag, div#category{
     }
 [data-theme="dark"]
   #web_bg{
-    background: url(/security-wiki/img/darkmode.webp)!important;
+    background: url(/security-wiki/img/darkmode.webp);
     /*重新定义background会导致原有定位属性失效，所以也需要再声明一次加权的定位属性*/
     background-position: center !important;
     background-size: cover !important;
     background-repeat: no-repeat !important;
     }
 #web_bg{
-  background: url(/security-wiki/img/lightmode.jpg)!important;
+  background: url(/security-wiki/img/lightmode.jpg);
   /*重新定义background会导致原有定位属性失效，所以也需要再声明一次加权的定位属性*/
   background-position: center !important;
   background-size: cover !important;
