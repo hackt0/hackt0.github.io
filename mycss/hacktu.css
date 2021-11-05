@@ -58,14 +58,14 @@ div#page, div#archive, div#tag, div#category{
     background: transparent!important;
     }
 [data-theme="dark"]
-  #body-wrap{
-    background: url(/security-wiki/img/comment_bg.png)!important;
+  #web_bg{
+    background: url(/security-wiki/img/darkmode.webp)!important;
     /*重新定义background会导致原有定位属性失效，所以也需要再声明一次加权的定位属性*/
     background-position: center !important;
     background-size: cover !important;
     background-repeat: no-repeat !important;
     }
-#body-wrap{
+#web_bg{
   background: url(/security-wiki/img/index.png)!important;
   /*重新定义background会导致原有定位属性失效，所以也需要再声明一次加权的定位属性*/
   background-position: center !important;
