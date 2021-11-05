@@ -58,15 +58,8 @@
     background: rgba(0, 0, 0, 0.5)!important;
     }
 
-.read-mode #aside-content .card-widget{
-      background: rgba(200, 140, 68, 0.5)!important;
-    }
-.read-mode div#post{
-    background: rgba(200, 140, 68, 0.5)!important;
-    }
-
 .read-mode #body-wrap{
-  background: url('')!important;
+  background: rgba(186, 167, 139, 0.5);
   /*重新定义background会导致原有定位属性失效，所以也需要再声明一次加权的定位属性*/
   background-position: center !important;
   background-size: cover !important;
@@ -74,15 +67,13 @@
 }
 
 [data-theme="dark"]
-  .read-mode #aside-content .card-widget{
-        background: rgba(0, 0, 0, 0.5)!important;
-        color: #ffffff;
-      }
-[data-theme="dark"]  
-  .read-mode div#post{
-      background: rgba(0, 0, 0, 0.5)!important;
-      color: #ffffff;
-      }
+.read-mode #body-wrap{
+  background: rgba(0, 0, 0, 0.5);
+  /*重新定义background会导致原有定位属性失效，所以也需要再声明一次加权的定位属性*/
+  background-position: center !important;
+  background-size: cover !important;
+  background-repeat: no-repeat !important;
+}
 
 h1::before, h2::before, h3::before, h4::before, h5::before, h6::before {
     -webkit-animation: ccc 1.6s linear infinite ;
