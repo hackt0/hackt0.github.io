@@ -1,2 +1,2 @@
 ## hacktuのblog
-https://hackt0.github.io/security-wiki/
+https://hackt0.github.io
