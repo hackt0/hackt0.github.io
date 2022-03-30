@@ -1,0 +1,441 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="dark"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>项目立项管理 | Hackt0's Blog</title><meta name="author" content="Hackt0"><meta name="copyright" content="Hackt0"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#0d0d0d"><meta name="description" content="软考信息系统项目管理（高级），第三章项目立项管理重点，参考马军老师视频课程">
+<meta property="og:type" content="article">
+<meta property="og:title" content="项目立项管理">
+<meta property="og:url" content="https://hackt0.github.io/2022/03/30/%E7%AB%8B%E9%A1%B9%E7%AE%A1%E7%90%86/index.html">
+<meta property="og:site_name" content="Hackt0&#39;s Blog">
+<meta property="og:description" content="软考信息系统项目管理（高级），第三章项目立项管理重点，参考马军老师视频课程">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://s2.loli.net/2022/03/29/qUDFKvLbuswVlXC.png">
+<meta property="article:published_time" content="2022-03-30T04:15:40.000Z">
+<meta property="article:modified_time" content="2022-03-30T10:24:29.956Z">
+<meta property="article:author" content="Hackt0">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://s2.loli.net/2022/03/29/qUDFKvLbuswVlXC.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://hackt0.github.io/2022/03/30/%E7%AB%8B%E9%A1%B9%E7%AE%A1%E7%90%86/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.10.5/dist/instantsearch.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/instantsearch.js@2.10.5/dist/instantsearch.min.js" defer></script><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: {"appId":"MGYGNAH3O5","apiKey":"3eeae4db1b545a6ee9d89482f136b49a","indexName":"hexo-blog","hits":{"per_page":6},"languages":{"input_placeholder":"搜索文章","hits_empty":"找不到您查询的内容：${query}","hits_stats":"找到 ${hits} 条结果，用时 ${time} 毫秒"}},
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: {"limitDay":180,"position":"top","messagePrev":"It has been","messageNext":"days since the last update, the content of the article may be outdated."},
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"limitCount":50,"languages":{"author":"作者: Hackt0","link":"链接: ","source":"来源: Hackt0's Blog","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+    },
+    fancybox: {
+      js: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isanchor: true
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '项目立项管理',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2022-03-30 18:24:29'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+          const isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+          const isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+          const hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+
+          if (t === undefined) {
+            if (isLightMode) activateLightMode()
+            else if (isDarkMode) activateDarkMode()
+            else if (isNotSpecified || hasNoSupport) {
+              const now = new Date()
+              const hour = now.getHours()
+              const isNight = hour <= 6 || hour >= 18
+              isNight ? activateDarkMode() : activateLightMode()
+            }
+            window.matchMedia('(prefers-color-scheme: dark)').addListener(function (e) {
+              if (saveToLocal.get('theme') === undefined) {
+                e.matches ? activateDarkMode() : activateLightMode()
+              }
+            })
+          } else if (t === 'light') activateLightMode()
+          else activateDarkMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if (GLOBAL_CONFIG_SITE.isHome && /iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    document.addEventListener('pjax:complete', detectApple)})(window)</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/sviptzk/HexoStaticFile@master/Hexo/css/custom.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/HCLonely/images@master/others/heartbeat.min.css"><link rel="stylesheet" href="/mycss/hacktu.css"><!-- hexo injector head_end start --><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/l-lin/font-awesome-animation/dist/font-awesome-animation.min.css" media="defer" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-butterfly-tag-plugins-plus@latest/lib/tag_plugins.min.css" media="defer" onload="this.media='all'"><script async src="https://cdn.jsdelivr.net/npm/hexo-butterfly-tag-plugins-plus@latest/lib/carousel-touch.min.js"></script><!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.4.0"></head><body><div id="web_bg" style="background:url(https://s2.loli.net/2022/03/29/qUDFKvLbuswVlXC.png);background-attachment: local;background-position: center;background-size: cover;background-repeat: no-repeat;"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/hackto.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">10</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">标签</div><div class="length-num">6</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">分类</div><div class="length-num">6</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fas fa-book"></i><span> 找文章</span><i class="fas fa-chevron-down expand hide"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-code-branch"></i><span> 分类</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-calendar-check"></i><span> 归档</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fas fa-folder"></i><span> 资源</span><i class="fas fa-chevron-down expand hide"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/share/"><i class="fa-fw fab fa-slideshare"></i><span> 分享</span></a></li><li><a class="site-page child" href="/books/"><i class="fa-fw fas fa-book-open"></i><span> 书籍</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/comments/"><i class="fa-fw far fa-clipboard"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://s2.loli.net/2022/03/29/qUDFKvLbuswVlXC.png')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">Hackt0's Blog</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fas fa-book"></i><span> 找文章</span><i class="fas fa-chevron-down expand hide"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-code-branch"></i><span> 分类</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-calendar-check"></i><span> 归档</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fas fa-folder"></i><span> 资源</span><i class="fas fa-chevron-down expand hide"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/share/"><i class="fa-fw fab fa-slideshare"></i><span> 分享</span></a></li><li><a class="site-page child" href="/books/"><i class="fa-fw fas fa-book-open"></i><span> 书籍</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/comments/"><i class="fa-fw far fa-clipboard"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">项目立项管理</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2022-03-30T04:15:40.000Z" title="发表于 2022-03-30 12:15:40">2022-03-30</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2022-03-30T10:24:29.956Z" title="更新于 2022-03-30 18:24:29">2022-03-30</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E8%BD%AF%E8%80%83/">软考</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">3.6k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>10分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="项目立项管理"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span><span class="post-meta-separator">|</span><span class="post-meta-commentcount"><i class="far fa-comments fa-fw post-meta-icon"></i><span class="post-meta-label">评论数:</span><a href="/2022/03/30/%E7%AB%8B%E9%A1%B9%E7%AE%A1%E7%90%86/#post-comment"><span id="twikoo-count"></span></a></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h3 id="立项管理内容"><a href="#立项管理内容" class="headerlink" title="立项管理内容"></a>立项管理内容</h3><p>&emsp;&emsp;项目立项一般包括提交<strong>项目建议书、项目可行性研究、项目招标与投标</strong>等内容。</p>
+<h4 id="项目建议书"><a href="#项目建议书" class="headerlink" title="项目建议书"></a>项目建议书</h4><p>&emsp;&emsp;<font color="red">项目建议书（又称立项申请）是<strong>项目建设单位</strong>向<strong>上级主管部门</strong>提交项目申请时所必须的文件，是对拟建项目提出的框架性的总体设想。在项目建议书批准后， 方可开展对外工作。</font></p>
+<font color="red">(选择题)项目建议书应该包括的核心内容如下:</font>
+
+<ol>
+<li><font color="red">项目的必要性。</font></li>
+<li><font color="red">项目的市场预测。</font></li>
+<li><font color="red">产品方案或服务的市场预测。</font></li>
+<li><font color="red">项目建设必需的条件。</font>
+
+</li>
+</ol>
+<h4 id="项目可行性研究报告"><a href="#项目可行性研究报告" class="headerlink" title="项目可行性研究报告"></a>项目可行性研究报告</h4><p>&emsp;&emsp;可行性研究具有预见性、公正性、可靠性、科学性的特点。</p>
+<font color="red">可行性研究内容一般包含如下内容：</font>
+
+<ol>
+<li><font color="red">投资必要性</font></li>
+<li><font color="red">技术的可行性</font></li>
+<li><font color="red">财务可行性</font></li>
+<li><font color="red">组织可行性</font></li>
+<li><font color="red">经济可行性</font></li>
+<li><font color="red">社会可行性</font></li>
+<li><font color="red">风险因素及对策</font>
+
+</li>
+</ol>
+<h4 id="项目招投标"><a href="#项目招投标" class="headerlink" title="项目招投标"></a>项目招投标</h4><p>（会有专门的课程讲法规）</p>
+<p>&emsp;&emsp;为防止投标人在投标后撤标或在中标后拒不签订合同，招标人通常都要求投标人提供—定比例或金额的投标保证金。招标人决定中标人后，未中标的投标人已缴纳的保证金即予退还。</p>
+<p>&emsp;&emsp;如果以邮寄方式送达的，投标人必须留出邮寄时间，保证投标文件能够在截止日期之前送达招标人指定的地点，而不是以 “ 邮戳为准＂。在截止时间后送达的投标文件，即已经过了招标有效期的，招标人应当原封退回，不得进入开标阶段。</p>
+<h3 id="可行性研究"><a href="#可行性研究" class="headerlink" title="可行性研究"></a>可行性研究</h3><h4 id="可行性研究的内容"><a href="#可行性研究的内容" class="headerlink" title="可行性研究的内容"></a>可行性研究的内容</h4><h5 id="技术可行性分析"><a href="#技术可行性分析" class="headerlink" title="技术可行性分析"></a>技术可行性分析</h5><font color="red">技术可行性分析—般应当考虑以下因素。</font>
+
+<ol>
+<li><font color="red">进行项目开发的风险。在给定的限制范围和时间期限内，能否设计出预期的系统并实现必须的功能和性能。</font></li>
+<li><font color="red">人力资源的有效性。可以用于项目开发的**技术人员**队伍是否可以建立， 是否存在人力资源不足、技术能力欠缺等问题， 是否可以在市场上或者通过培训获得所需要的**熟练技术人员**。</font></li>
+<li><font color="red">技术能力的可能性。相关技术的发展趋势和当前所掌握的技术是否支持该项目的开发， 市场上是否存在支持该技术的开发环境、平台和工具。</font></li>
+<li><font color="red">物资（产品）的可用性。是否存在可以用于建立系统的其他资源，如—些设备以及可行的替代产品等。</font>
+
+</li>
+</ol>
+<h5 id="经济可行性分析"><a href="#经济可行性分析" class="headerlink" title="经济可行性分析"></a>经济可行性分析</h5><font color="red">经济可行性分析具体包括支出分析、收益分析、投资回报分析以及敏感性分析等：</font>
+
+<ol>
+<li><font color="red">支出分析：信息系统项目的支出可以分为一次性支出和非一次性支出两类。</font></li>
+<li><font color="red">收益分析： 信息系统项目的收益包括直接收益、间接收益以及其他方面的收益等。</font></li>
+<li><font color="red">收益投资比、投资回收期分析： 对投入产出进行对比分析， 以确定项目的收益率和投资回收期等经济指标。（之后会学计算题）</font></li>
+<li><font color="red">敏感性分析：当诸如设备和软件配置、处理速度要求、系统的工作负荷类型和负荷量等关键性因素变化时，对支出和收益产生影响的估计。</font>
+
+</li>
+</ol>
+<p>&emsp;&emsp;除了上述的经济方面的分析外，一般还需要对项目的社会效益进行分析。例如，通过项目的实施，可以在管理水平、技术手段、人员素质等方面获得潜在的效益。</p>
+<h5 id="运行环境可行性分析"><a href="#运行环境可行性分析" class="headerlink" title="运行环境可行性分析"></a>运行环境可行性分析</h5><p>&emsp;&emsp;运行环境是制约信息系统在用户单位发挥效益的关键。因此，需要从用户单位（企业）的管理体制、管理方法、规章制度、工作习惯、人员素质（甚至包括人员的心理承受能力、接受新知识和技能的积极性等）、数据资源积累、硬件（包含系统软件）平台等多方面进行评估， 以确定软件系统在交付以后， 是否能够在用户单位顺利运行。</p>
+<h5 id="其他方面的可行性分析"><a href="#其他方面的可行性分析" class="headerlink" title="其他方面的可行性分析"></a>其他方面的可行性分析</h5><p>&emsp;&emsp;信息系统项目的可行性研究除了前面介绍的技术、经济和运行环境可行性分析外，还包括了诸如<strong>法律可行性、社会可行性</strong>等方面的可行性分析。</p>
+<h4 id="可行性研究的步骤"><a href="#可行性研究的步骤" class="headerlink" title="可行性研究的步骤"></a>可行性研究的步骤</h4><p>&emsp;&emsp;<font color="red">—般地，可行性研究分为初步可行性研究、详细可行性研究、可行性研究报告三个基本的阶段</font></p>
+<p>&emsp;&emsp;（不要求会）可行性研究可以归纳成几个基本步骤：</p>
+<pre><code>(1)确定项目规模和目标。
+(2)研究正在运行的系统。
+(3)建立新系统的逻辑模型。
+(4)导出和评价各种方案。
+(5)推荐可行性方案。
+(6)编写可行性研究报告。
+(7)递交可行性研究报告。
+</code></pre><h4 id="初步可行性研究"><a href="#初步可行性研究" class="headerlink" title="初步可行性研究"></a>初步可行性研究</h4><h5 id="初步可行性研究的定义及目的"><a href="#初步可行性研究的定义及目的" class="headerlink" title="初步可行性研究的定义及目的"></a>初步可行性研究的定义及目的</h5><p>&emsp;&emsp;初步可行性研究—般是在对市场或者客户情况进行调查后， 对项目进行的初步评估。</p>
+<p>&emsp;&emsp;详细可行性研究需要对项目在技术、经济、社会、运行环境、法律等方面进行深入的调查研究和分析， 是一项费时、费力的工作， 特别是大型的或比较复杂的项目更是如此。</p>
+<p>&emsp;&emsp;进行初步可行性评估， 可以从几个方面进行衡量， 以便决定是否开始详细可行性研究：</p>
+<pre><code>(1)分析项目的前途，从而决定是否应该继续深入调查研究。
+(2)初步估计和确定项目中的关键技术及核心问题，以确定是否需要解决。
+(3)初步估计必须进行的辅助研究， 以解决项目的核心间题， 并判断是否具备必要的技术、实验、人力条件作为支持。
+</code></pre><p>&emsp;&emsp;<font color="red">经过初步可行性研究， 可以形成<strong>初步可行性研究报告</strong></font></p>
+<h5 id="初步可行性研究的结果及作用"><a href="#初步可行性研究的结果及作用" class="headerlink" title="初步可行性研究的结果及作用"></a>初步可行性研究的结果及作用</h5><p>&emsp;&emsp;<font color="red">初步项目可行性研究的内容与详细的项目可行性研究基本相同，</font>要包括以下内容：市场情况、信息系统设计开发能力、配件、网络物理布局、技术和设备选择、网络安装工程、企业管理费、人力资源、项目实施及经济评价。</p>
+<p>&emsp;&emsp;<font color="red">在初步项目可行性研究之前可进行项目机会研究， 如果就投资可能性已进行了项目机会研究， 那么项目的初步可行性研究阶段往往可以省去。</font></p>
+<h5 id="辅助（功能）研究"><a href="#辅助（功能）研究" class="headerlink" title="辅助（功能）研究"></a>辅助（功能）研究</h5><p>&emsp;&emsp;<font color="red">辅助（功能）研究包括项目的一个或几个方面， 但不是所有方面</font></p>
+<h4 id="详细可行性研究"><a href="#详细可行性研究" class="headerlink" title="详细可行性研究"></a>详细可行性研究</h4><p>&emsp;&emsp;<strong>机会研究、 初步可行性研究、 详细可行性研究、 评估与决策</strong>是投资前时期的四个阶段。 在实际工作中， 前三个阶段依项目的规模和繁简程度可把前两个阶段省略或合二为—，但详细可行性研究是不可缺少的。 升级改造项目只做初步和详细研究， 小项目一般只进行详细可行性研究。</p>
+<h5 id="详细可行性研究的原则与程序框架"><a href="#详细可行性研究的原则与程序框架" class="headerlink" title="详细可行性研究的原则与程序框架"></a>详细可行性研究的原则与程序框架</h5><p>&emsp;&emsp;（可以不看）详细可行性研究的基本原则：</p>
+<pre><code>(1)科学性原则。
+(2)客观性原则。
+(3)公正性原则。
+</code></pre><h5 id="详细可行性研究的方法"><a href="#详细可行性研究的方法" class="headerlink" title="详细可行性研究的方法"></a>详细可行性研究的方法</h5><p>&emsp;&emsp;（可以不看，只需了解是详细可行性研究的方法即可）可行性研究的方法很多， 如经济评价法、市场预测法、投资估算法和增量净效益法等。</p>
+<p>&emsp;&emsp;增量净效益法(有无比较法)：将有项目时的成本（效益）与无项目时的成本（效益）进行比较， 求得两者差额，即为增量成本（效益）， 这种方法称之为有无比较法。</p>
+<h5 id="详细可行性研究的内容"><a href="#详细可行性研究的内容" class="headerlink" title="详细可行性研究的内容"></a>详细可行性研究的内容</h5><font color="red">信息系统项目详细可行性研究的内容，一般可以归纳如下（常给出几点考缺少哪点，大概率是缺钱相关的）：</font>
+
+<ol>
+<li><font color="red">概述</font>：提出项目开发的背景、必要性和经济意义， 研究项目工作的依据和范围，产品交付的形式、种类、数量。</li>
+<li><font color="red">需求确定</font>： 调查研究国内外客户的需求情况， 对国内外的技术趋势进行分析，确定项目的规模、目标、产品、方案和发展方向。</li>
+<li><font color="red">现有资源、设施情况分析</font>： 调查现有的资源（包括硬件设备、软件系统、数据、规章制度等种类与数量， 以及这些资源的使用情况和可能的更新情况）。</li>
+<li><font color="red">设计（初步）技术方案</font>： 确定项目的总体和详细目标、范围， 总体的结构和组成， 核心技术和关键问题、产品的功能与性能。</li>
+<li><font color="red">项目实施进度计划建议</font>。</li>
+<li><font color="red"><strong>投资估算和资金筹措计划</strong></font>。</li>
+<li><font color="red">项目组织、人力资源、技术培训计划</font>： 包括现有的人员规模、组织结构、人员层次、个人技术能力、人员技术培训计划等。</li>
+<li><font color="red"><strong>经济和社会效益分析（效果评价）</strong></font>。</li>
+<li><font color="red">合作／协作方式</font>。</li>
+</ol>
+<h4 id="效益的预测与评估"><a href="#效益的预测与评估" class="headerlink" title="效益的预测与评估"></a>效益的预测与评估</h4><p>&emsp;&emsp;对于效益的量化及计算方法有函数求解法、相关关系法、模糊数学法、专家意见法（德尔菲法）、成本降低法、利润增加发</p>
+<h3 id="项目评估与论证"><a href="#项目评估与论证" class="headerlink" title="项目评估与论证"></a>项目评估与论证</h3><h4 id="项目论证"><a href="#项目论证" class="headerlink" title="项目论证"></a>项目论证</h4><h5 id="项目论证的概念"><a href="#项目论证的概念" class="headerlink" title="项目论证的概念"></a>项目论证的概念</h5><p>&emsp;&emsp;项目论证是指对拟实施项目技术上的先进性、适用性， 经济上的合理性、盈利性， 实施上的可能性、风险性进行全面科学的综合分析， 为项目决策提供客观依据的一种技术经济研究活动。</p>
+<h5 id="项目论证的作用"><a href="#项目论证的作用" class="headerlink" title="项目论证的作用"></a>项目论证的作用</h5><font color="red">项目前评价的作用主要体现在以下几个方面：</font>
+
+<ol>
+<li><font color="red">项目论证是确定项目是否实施的依据。</font></li>
+<li><font color="red">项目论证是筹措资金、向银行贷款的依据。</font></li>
+<li><font color="red">项目论证是编制计划、设计、采购、施工以及机构设备、资源配置的依据。</font></li>
+<li><font color="red">项目论证是防范风险、提高项目效率的重要保证。</font>
+
+</li>
+</ol>
+<h5 id="项目论证的阶段划分"><a href="#项目论证的阶段划分" class="headerlink" title="项目论证的阶段划分"></a>项目论证的阶段划分</h5><p>项目论证一般分为机会研究、初步可行性研究和详细可行性研究三个阶段。</p>
+<p><img src="https://s2.loli.net/2022/03/30/D6B7XKoJabm8OHy.png" alt="image-20220330143617293"></p>
+<h5 id="项目论证的一般程序"><a href="#项目论证的一般程序" class="headerlink" title="项目论证的一般程序"></a>项目论证的一般程序</h5><p>（只考过一次，可以不看，看的话提取关键字记住顺序）项目论证的一般程序，一般有以下七个主要步骤：</p>
+<pre><code>(1) 明确项目范围和业主目标。
+(2) 收集并分析相关资料。
+(3) 拟定多种可行的能够相互替代的实施方案。
+(4) 多方案分析、比较。
+(5) 选择最优方案进一步详细全面地论证
+(6) 编制项目论证报告、环境影响报告书和采购方式审批报告。
+(7) 编制资金筹措计划和项目实施进度计划。
+</code></pre><h5 id="项目评估"><a href="#项目评估" class="headerlink" title="项目评估"></a>项目评估</h5><h5 id="项目评估的含义及其依据"><a href="#项目评估的含义及其依据" class="headerlink" title="项目评估的含义及其依据"></a>项目评估的含义及其依据</h5><p>&emsp;&emsp;项目评估指在项目可行性研究的基础上， 由<font color="red">第三方（国家、银行或有关机构）</font>根据国家颁布的政策、 法规、 方法、 参数和条例等， 从项目（或企业）、国民经济、社会角度出发，对拟建项目建设的必要性、建设条件、生产条件、产品市场需求、工程技术、经济效益和社会效益等进行评价、 分析和论证，进而判断其是否可行的一个评估过程。项目评估是项目投资前期进行决策管理的重要环节，<font color="red">其目的是审查项目可行性研究的可靠性真实性和客观性，为银行的贷款决策或行政主管部门的审批决策提供科学依据。</font></p>
+<font color="red">项目评估的最终成果是项目评估报告。</font>
+
+<p>&emsp;&emsp;项目评估的依据包括如下项目:</p>
+<pre><code>项目建议书及其批准文件。
+项目可行性研究报告。
+报送单位的申请报告及主管部门的初审意见。
+有关资源、配件、燃料、水、电、交通、通信、资金（包括外汇）等方面的协议文件。
+必需的其他文件和资料。
+</code></pre><h3 id="补充考点："><a href="#补充考点：" class="headerlink" title="补充考点："></a>补充考点：</h3><ol>
+<li>项目论证与评估是项目立项前的最后一关，“先论证(评估)，后决策”是现代项目管理的一项基本原则。</li>
+<li>项目可行性研究报告的编制内容与项目建议书批复内容有重大变更的，应重新报批项目建议书。项目初步设计方案和投资概算报告的编制内容与项目可行性研究报告批复内容有重大变更或变更投资<font color="red">超出已批复总投资额度10%的</font>，应重新报批可行性研究报告。项目初步设计方案和投资概算报告的编制内容与项目可行性研究报告批复内容有少量调整且其调整内容未超出已批复总投资额度10%的，需在提交项目初步设计方案和投资概算报告时<font color="red">以独立章节对调整部分进行定量补充说明</font>。</li>
+<li>3、项目识别是承建方项目立项的第一步，其目的在于选择投资机会、鉴别投资方向。从政策导向中寻找项目机会、从市场需求中寻找项目机会、从技术发展中寻找项目机会。承建方的项目立顶注意表现在:我公司人员是否满足要求，技术水平是否足够、竞争对手如何、是否赚钱。<br>项目机会选择主要渠道包括：(1)国家政策，产业导向；(2)市场需求；(3)技术发展；(4)特定事件。</li>
+</ol>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">Hackt0</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://hackt0.github.io/2022/03/30/%E7%AB%8B%E9%A1%B9%E7%AE%A1%E7%90%86/">https://hackt0.github.io/2022/03/30/%E7%AB%8B%E9%A1%B9%E7%AE%A1%E7%90%86/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://hackt0.github.io" target="_blank">Hackt0's Blog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"></div><div class="post_share"><div class="social-share" data-image="https://s2.loli.net/2022/03/29/qUDFKvLbuswVlXC.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><div class="post-reward"><div class="reward-button button--animated"><i class="fas fa-qrcode"></i> 打赏</div><div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="/img/wechat.jpg" target="_blank"><img class="post-qr-code-img" src="/img/wechat.jpg" alt="微信"/></a><div class="post-qr-code-desc">微信</div></li><li class="reward-item"><a href="/img/alipay.jpg" target="_blank"><img class="post-qr-code-img" src="/img/alipay.jpg" alt="支付宝"/></a><div class="post-qr-code-desc">支付宝</div></li></ul></div></div><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="twikoo-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/img/hackto.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Hackt0</div><div class="author-info__description"></div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">10</div></a></div><div class="card-info-data-item is-center"><a href="/tags/"><div class="headline">标签</div><div class="length-num">6</div></a></div><div class="card-info-data-item is-center"><a href="/categories/"><div class="headline">分类</div><div class="length-num">6</div></a></div></div><a class="button--animated" id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/hackt0"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/hackt0" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:zmj20160625@gmail.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a><a class="social-icon" href="https://www.jianshu.com/u/568bc1fd7ed9" target="_blank" title=""><i class="fa fa-book"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>公告</span></div><div class="announcement_content">    欢迎访问本站，若喜欢请收藏，如有疑问敬请留言</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AB%8B%E9%A1%B9%E7%AE%A1%E7%90%86%E5%86%85%E5%AE%B9"><span class="toc-number">1.</span> <span class="toc-text">立项管理内容</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%A1%B9%E7%9B%AE%E5%BB%BA%E8%AE%AE%E4%B9%A6"><span class="toc-number">1.1.</span> <span class="toc-text">项目建议书</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%A1%B9%E7%9B%AE%E5%8F%AF%E8%A1%8C%E6%80%A7%E7%A0%94%E7%A9%B6%E6%8A%A5%E5%91%8A"><span class="toc-number">1.2.</span> <span class="toc-text">项目可行性研究报告</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%A1%B9%E7%9B%AE%E6%8B%9B%E6%8A%95%E6%A0%87"><span class="toc-number">1.3.</span> <span class="toc-text">项目招投标</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%AF%E8%A1%8C%E6%80%A7%E7%A0%94%E7%A9%B6"><span class="toc-number">2.</span> <span class="toc-text">可行性研究</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8F%AF%E8%A1%8C%E6%80%A7%E7%A0%94%E7%A9%B6%E7%9A%84%E5%86%85%E5%AE%B9"><span class="toc-number">2.1.</span> <span class="toc-text">可行性研究的内容</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%8A%80%E6%9C%AF%E5%8F%AF%E8%A1%8C%E6%80%A7%E5%88%86%E6%9E%90"><span class="toc-number">2.1.1.</span> <span class="toc-text">技术可行性分析</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E7%BB%8F%E6%B5%8E%E5%8F%AF%E8%A1%8C%E6%80%A7%E5%88%86%E6%9E%90"><span class="toc-number">2.1.2.</span> <span class="toc-text">经济可行性分析</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E8%BF%90%E8%A1%8C%E7%8E%AF%E5%A2%83%E5%8F%AF%E8%A1%8C%E6%80%A7%E5%88%86%E6%9E%90"><span class="toc-number">2.1.3.</span> <span class="toc-text">运行环境可行性分析</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%85%B6%E4%BB%96%E6%96%B9%E9%9D%A2%E7%9A%84%E5%8F%AF%E8%A1%8C%E6%80%A7%E5%88%86%E6%9E%90"><span class="toc-number">2.1.4.</span> <span class="toc-text">其他方面的可行性分析</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8F%AF%E8%A1%8C%E6%80%A7%E7%A0%94%E7%A9%B6%E7%9A%84%E6%AD%A5%E9%AA%A4"><span class="toc-number">2.2.</span> <span class="toc-text">可行性研究的步骤</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%9D%E6%AD%A5%E5%8F%AF%E8%A1%8C%E6%80%A7%E7%A0%94%E7%A9%B6"><span class="toc-number">2.3.</span> <span class="toc-text">初步可行性研究</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%88%9D%E6%AD%A5%E5%8F%AF%E8%A1%8C%E6%80%A7%E7%A0%94%E7%A9%B6%E7%9A%84%E5%AE%9A%E4%B9%89%E5%8F%8A%E7%9B%AE%E7%9A%84"><span class="toc-number">2.3.1.</span> <span class="toc-text">初步可行性研究的定义及目的</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%88%9D%E6%AD%A5%E5%8F%AF%E8%A1%8C%E6%80%A7%E7%A0%94%E7%A9%B6%E7%9A%84%E7%BB%93%E6%9E%9C%E5%8F%8A%E4%BD%9C%E7%94%A8"><span class="toc-number">2.3.2.</span> <span class="toc-text">初步可行性研究的结果及作用</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E8%BE%85%E5%8A%A9%EF%BC%88%E5%8A%9F%E8%83%BD%EF%BC%89%E7%A0%94%E7%A9%B6"><span class="toc-number">2.3.3.</span> <span class="toc-text">辅助（功能）研究</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%AF%A6%E7%BB%86%E5%8F%AF%E8%A1%8C%E6%80%A7%E7%A0%94%E7%A9%B6"><span class="toc-number">2.4.</span> <span class="toc-text">详细可行性研究</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E8%AF%A6%E7%BB%86%E5%8F%AF%E8%A1%8C%E6%80%A7%E7%A0%94%E7%A9%B6%E7%9A%84%E5%8E%9F%E5%88%99%E4%B8%8E%E7%A8%8B%E5%BA%8F%E6%A1%86%E6%9E%B6"><span class="toc-number">2.4.1.</span> <span class="toc-text">详细可行性研究的原则与程序框架</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E8%AF%A6%E7%BB%86%E5%8F%AF%E8%A1%8C%E6%80%A7%E7%A0%94%E7%A9%B6%E7%9A%84%E6%96%B9%E6%B3%95"><span class="toc-number">2.4.2.</span> <span class="toc-text">详细可行性研究的方法</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E8%AF%A6%E7%BB%86%E5%8F%AF%E8%A1%8C%E6%80%A7%E7%A0%94%E7%A9%B6%E7%9A%84%E5%86%85%E5%AE%B9"><span class="toc-number">2.4.3.</span> <span class="toc-text">详细可行性研究的内容</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%95%88%E7%9B%8A%E7%9A%84%E9%A2%84%E6%B5%8B%E4%B8%8E%E8%AF%84%E4%BC%B0"><span class="toc-number">2.5.</span> <span class="toc-text">效益的预测与评估</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A1%B9%E7%9B%AE%E8%AF%84%E4%BC%B0%E4%B8%8E%E8%AE%BA%E8%AF%81"><span class="toc-number">3.</span> <span class="toc-text">项目评估与论证</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%A1%B9%E7%9B%AE%E8%AE%BA%E8%AF%81"><span class="toc-number">3.1.</span> <span class="toc-text">项目论证</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E9%A1%B9%E7%9B%AE%E8%AE%BA%E8%AF%81%E7%9A%84%E6%A6%82%E5%BF%B5"><span class="toc-number">3.1.1.</span> <span class="toc-text">项目论证的概念</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E9%A1%B9%E7%9B%AE%E8%AE%BA%E8%AF%81%E7%9A%84%E4%BD%9C%E7%94%A8"><span class="toc-number">3.1.2.</span> <span class="toc-text">项目论证的作用</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E9%A1%B9%E7%9B%AE%E8%AE%BA%E8%AF%81%E7%9A%84%E9%98%B6%E6%AE%B5%E5%88%92%E5%88%86"><span class="toc-number">3.1.3.</span> <span class="toc-text">项目论证的阶段划分</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E9%A1%B9%E7%9B%AE%E8%AE%BA%E8%AF%81%E7%9A%84%E4%B8%80%E8%88%AC%E7%A8%8B%E5%BA%8F"><span class="toc-number">3.1.4.</span> <span class="toc-text">项目论证的一般程序</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E9%A1%B9%E7%9B%AE%E8%AF%84%E4%BC%B0"><span class="toc-number">3.1.5.</span> <span class="toc-text">项目评估</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E9%A1%B9%E7%9B%AE%E8%AF%84%E4%BC%B0%E7%9A%84%E5%90%AB%E4%B9%89%E5%8F%8A%E5%85%B6%E4%BE%9D%E6%8D%AE"><span class="toc-number">3.1.6.</span> <span class="toc-text">项目评估的含义及其依据</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%A1%A5%E5%85%85%E8%80%83%E7%82%B9%EF%BC%9A"><span class="toc-number">4.</span> <span class="toc-text">补充考点：</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2022/03/30/%E7%AB%8B%E9%A1%B9%E7%AE%A1%E7%90%86/" title="项目立项管理"><img src="https://s2.loli.net/2022/03/29/qUDFKvLbuswVlXC.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="项目立项管理"/></a><div class="content"><a class="title" href="/2022/03/30/%E7%AB%8B%E9%A1%B9%E7%AE%A1%E7%90%86/" title="项目立项管理">项目立项管理</a><time datetime="2022-03-30T04:15:40.000Z" title="发表于 2022-03-30 12:15:40">2022-03-30</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/03/29/%E4%BF%A1%E6%81%AF%E7%B3%BB%E7%BB%9F%E9%A1%B9%E7%9B%AE%E7%AE%A1%E7%90%86%E5%9F%BA%E7%A1%80/" title="信息系统项目管理基础"><img src="https://s2.loli.net/2022/03/29/qUDFKvLbuswVlXC.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="信息系统项目管理基础"/></a><div class="content"><a class="title" href="/2022/03/29/%E4%BF%A1%E6%81%AF%E7%B3%BB%E7%BB%9F%E9%A1%B9%E7%9B%AE%E7%AE%A1%E7%90%86%E5%9F%BA%E7%A1%80/" title="信息系统项目管理基础">信息系统项目管理基础</a><time datetime="2022-03-29T05:30:22.000Z" title="发表于 2022-03-29 13:30:22">2022-03-29</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/03/28/%E4%BF%A1%E6%81%AF%E5%8C%96%E5%92%8C%E4%BF%A1%E6%81%AF%E7%B3%BB%E7%BB%9F/" title="信息化和信息系统重点"><img src="https://s2.loli.net/2022/03/29/qUDFKvLbuswVlXC.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="信息化和信息系统重点"/></a><div class="content"><a class="title" href="/2022/03/28/%E4%BF%A1%E6%81%AF%E5%8C%96%E5%92%8C%E4%BF%A1%E6%81%AF%E7%B3%BB%E7%BB%9F/" title="信息化和信息系统重点">信息化和信息系统重点</a><time datetime="2022-03-28T08:39:04.000Z" title="发表于 2022-03-28 16:39:04">2022-03-28</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/03/22/%E6%A1%88%E4%BE%8B%E5%88%86%E6%9E%90%E4%BB%8B%E7%BB%8D/" title="案例分析基本介绍"><img src="https://s2.loli.net/2022/03/29/qUDFKvLbuswVlXC.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="案例分析基本介绍"/></a><div class="content"><a class="title" href="/2022/03/22/%E6%A1%88%E4%BE%8B%E5%88%86%E6%9E%90%E4%BB%8B%E7%BB%8D/" title="案例分析基本介绍">案例分析基本介绍</a><time datetime="2022-03-22T08:39:04.000Z" title="发表于 2022-03-22 16:39:04">2022-03-22</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/12/13/%E6%A0%B8%E5%BC%B9%E7%BA%A7!log4j%202%E6%BC%8F%E6%B4%9E%E5%8E%9F%E7%90%86%E5%8F%8A%E5%A4%8D%E7%8E%B0/" title="log4j 2漏洞原理及复现"><img src="/img/log4j2.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="log4j 2漏洞原理及复现"/></a><div class="content"><a class="title" href="/2021/12/13/%E6%A0%B8%E5%BC%B9%E7%BA%A7!log4j%202%E6%BC%8F%E6%B4%9E%E5%8E%9F%E7%90%86%E5%8F%8A%E5%A4%8D%E7%8E%B0/" title="log4j 2漏洞原理及复现">log4j 2漏洞原理及复现</a><time datetime="2021-12-13T01:42:42.000Z" title="发表于 2021-12-13 09:42:42">2021-12-13</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url('https://s2.loli.net/2022/03/29/qUDFKvLbuswVlXC.png')"><div id="footer-wrap"><div class="copyright">&copy;2021 - 2022  <i id="heartbeat" class="fa fas fa-heartbeat"></i> Hackt0</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text">Thanks for reading</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="algolia-search"><div class="search-dialog"><div class="search-dialog__title" id="algolia-search-title">Algolia</div><div id="algolia-input-panel"><div id="algolia-search-input"></div></div><hr/><div id="algolia-search-results"><div id="algolia-hits"></div><div id="algolia-pagination"></div><div id="algolia-stats"></div></div><span class="search-close-button"><i class="fas fa-times"></i></span></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script>function panguFn () {
+  if (typeof pangu === 'object') pangu.autoSpacingPage()
+  else {
+    getScript('https://cdn.jsdelivr.net/npm/pangu/dist/browser/pangu.min.js')
+      .then(() => {
+        pangu.autoSpacingPage()
+      })
+  }
+}
+
+function panguInit () {
+  if (true){
+    GLOBAL_CONFIG_SITE.isPost && panguFn()
+  } else {
+    panguFn()
+  }
+}
+
+document.addEventListener('DOMContentLoaded', panguInit)</script><script src="/js/search/algolia.js"></script><div class="js-pjax"><script>(()=>{
+  const $countDom = document.getElementById('twikoo-count')
+  const init = () => {
+    twikoo.init(Object.assign({
+      el: '#twikoo-wrap',
+      envId: 'hacktu-9g31g5f1db7a6774',
+      region: ''
+    }, null))
+  }
+
+  const getCount = () => {
+    twikoo.getCommentsCount({
+      envId: 'hacktu-9g31g5f1db7a6774',
+      region: '',
+      urls: [window.location.pathname],
+      includeReply: false
+    }).then(function (res) {
+      $countDom.innerText = res[0].count
+    }).catch(function (err) {
+      console.error(err);
+    });
+  }
+
+  const loadTwikoo = (bool = false) => {
+    if (typeof twikoo === 'object') {
+      init()
+      bool && $countDom && setTimeout(getCount,0)
+    } else {
+      getScript('https://cdn.jsdelivr.net/npm/twikoo/dist/twikoo.all.min.js').then(()=> {
+        init()
+        bool && $countDom && setTimeout(getCount,0)
+      })
+    }
+  }
+
+  if ('Twikoo' === 'Twikoo' || !false) {
+    if (false) btf.loadComment(document.getElementById('twikoo-wrap'), loadTwikoo)
+    else loadTwikoo(true)
+  } else {
+    window.loadOtherComment = () => {
+      loadTwikoo()
+    }
+  }
+})()</script></div><script id="click-heart" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/click-heart.min.js" async="async" mobile="false"></script><script src="https://cdn.jsdelivr.net/npm/pjax/pjax.min.js"></script><script>let pjaxSelectors = [
+  'title',
+  '#config-diff',
+  '#body-wrap',
+  '#rightside-config-hide',
+  '#rightside-config-show',
+  '#web_bg',
+  '.js-pjax'
+]
+
+if (false) {
+  pjaxSelectors.unshift('meta[property="og:image"]', 'meta[property="og:title"]', 'meta[property="og:url"]')
+}
+
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: false,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:send', function () {
+
+  // removeEventListener scroll 
+  window.removeEventListener('scroll', window.tocScrollFn)
+  window.removeEventListener('scroll', scrollCollect)
+
+  typeof preloader === 'object' && preloader.initLoading()
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof chatBtnFn === 'function' && chatBtnFn()
+  typeof panguInit === 'function' && panguInit()
+
+  // google analytics
+  typeof gtag === 'function' && gtag('config', '', {'page_path': window.location.pathname});
+
+  // baidu analytics
+  typeof _hmt === 'object' && _hmt.push(['_trackPageview',window.location.pathname]);
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // Analytics
+  if (false) {
+    MtaH5.pgv()
+  }
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+
+  typeof preloader === 'object' && preloader.endLoading()
+})
+
+document.addEventListener('pjax:error', (e) => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/404.html')
+  }
+})</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><!-- hexo injector body_end start --><script async src="//at.alicdn.com/t/font_2032782_8d5kxvn09md.js"></script><!-- hexo injector body_end end --></body></html>
