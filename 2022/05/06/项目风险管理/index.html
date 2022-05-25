@@ -1,0 +1,495 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="dark"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>项目风险管理 | Hackt0's Blog</title><meta name="keywords" content="Textual Criticism"><meta name="author" content="Hackt0"><meta name="copyright" content="Hackt0"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#0d0d0d"><meta name="description" content="软考信息系统项目管理（高级），第十一章项目风险管理重点，参考马军老师视频课程">
+<meta property="og:type" content="article">
+<meta property="og:title" content="项目风险管理">
+<meta property="og:url" content="https://hackt0.github.io/2022/05/06/%E9%A1%B9%E7%9B%AE%E9%A3%8E%E9%99%A9%E7%AE%A1%E7%90%86/index.html">
+<meta property="og:site_name" content="Hackt0&#39;s Blog">
+<meta property="og:description" content="软考信息系统项目管理（高级），第十一章项目风险管理重点，参考马军老师视频课程">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://s2.loli.net/2022/03/29/qUDFKvLbuswVlXC.png">
+<meta property="article:published_time" content="2022-05-06T08:47:23.000Z">
+<meta property="article:modified_time" content="2022-05-11T14:41:29.720Z">
+<meta property="article:author" content="Hackt0">
+<meta property="article:tag" content="Textual Criticism">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://s2.loli.net/2022/03/29/qUDFKvLbuswVlXC.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://hackt0.github.io/2022/05/06/%E9%A1%B9%E7%9B%AE%E9%A3%8E%E9%99%A9%E7%AE%A1%E7%90%86/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: {"limitDay":180,"position":"top","messagePrev":"It has been","messageNext":"days since the last update, the content of the article may be outdated."},
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"limitCount":50,"languages":{"author":"作者: Hackt0","link":"链接: ","source":"来源: Hackt0's Blog","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+    },
+    fancybox: {
+      js: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isanchor: true
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '项目风险管理',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2022-05-11 22:41:29'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+          const isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+          const isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+          const hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+
+          if (t === undefined) {
+            if (isLightMode) activateLightMode()
+            else if (isDarkMode) activateDarkMode()
+            else if (isNotSpecified || hasNoSupport) {
+              const now = new Date()
+              const hour = now.getHours()
+              const isNight = hour <= 6 || hour >= 18
+              isNight ? activateDarkMode() : activateLightMode()
+            }
+            window.matchMedia('(prefers-color-scheme: dark)').addListener(function (e) {
+              if (saveToLocal.get('theme') === undefined) {
+                e.matches ? activateDarkMode() : activateLightMode()
+              }
+            })
+          } else if (t === 'light') activateLightMode()
+          else activateDarkMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if (GLOBAL_CONFIG_SITE.isHome && /iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    document.addEventListener('pjax:complete', detectApple)})(window)</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/sviptzk/HexoStaticFile@master/Hexo/css/custom.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/HCLonely/images@master/others/heartbeat.min.css"><link rel="stylesheet" href="/mycss/hacktu.css"><!-- hexo injector head_end start --><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/assets/font-awesome-animation.min.css" media="defer" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-butterfly-tag-plugins-plus@latest/lib/tag_plugins.min.css" media="defer" onload="this.media='all'"><script async src="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/assets/carousel-touch.js"></script><!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.4.0"></head><body><div id="web_bg" style="background:url(https://s2.loli.net/2022/03/29/qUDFKvLbuswVlXC.png);background-attachment: local;background-position: center;background-size: cover;background-repeat: no-repeat;"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/hackto.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">18</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">标签</div><div class="length-num">6</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">分类</div><div class="length-num">6</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fas fa-book"></i><span> 找文章</span><i class="fas fa-chevron-down expand hide"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-code-branch"></i><span> 分类</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-calendar-check"></i><span> 归档</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fas fa-folder"></i><span> 资源</span><i class="fas fa-chevron-down expand hide"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/share/"><i class="fa-fw fab fa-slideshare"></i><span> 分享</span></a></li><li><a class="site-page child" href="/books/"><i class="fa-fw fas fa-book-open"></i><span> 书籍</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/comments/"><i class="fa-fw far fa-clipboard"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://s2.loli.net/2022/03/29/qUDFKvLbuswVlXC.png')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">Hackt0's Blog</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fas fa-book"></i><span> 找文章</span><i class="fas fa-chevron-down expand hide"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-code-branch"></i><span> 分类</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-calendar-check"></i><span> 归档</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fas fa-folder"></i><span> 资源</span><i class="fas fa-chevron-down expand hide"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/share/"><i class="fa-fw fab fa-slideshare"></i><span> 分享</span></a></li><li><a class="site-page child" href="/books/"><i class="fa-fw fas fa-book-open"></i><span> 书籍</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/comments/"><i class="fa-fw far fa-clipboard"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">项目风险管理</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2022-05-06T08:47:23.000Z" title="发表于 2022-05-06 16:47:23">2022-05-06</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2022-05-11T14:41:29.720Z" title="更新于 2022-05-11 22:41:29">2022-05-11</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E8%BD%AF%E8%80%83/">软考</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">2.2k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>6分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="项目风险管理"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span><span class="post-meta-separator">|</span><span class="post-meta-commentcount"><i class="far fa-comments fa-fw post-meta-icon"></i><span class="post-meta-label">评论数:</span><a href="/2022/05/06/%E9%A1%B9%E7%9B%AE%E9%A3%8E%E9%99%A9%E7%AE%A1%E7%90%86/#post-comment"><span id="twikoo-count"></span></a></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><font color="red">### 10大管理学习主线</font>
+
+<ol>
+<li><font color="red">每个管理领域有哪些过程？</font></li>
+<li><font color="red">每个过程的输入（做XX的依据）、输出（做XX的结果）、工具和技术（用XX方法和工具）是什么？</font></li>
+<li><font color="red">每个管理领域有什么问题，应该怎么解决？</font></li>
+<li><font color="red">每个管理领域和其余管理领域的关系是什么？</font>
+
+</li>
+</ol>
+<font color="red">凡是控制过程，输入一定包含计划和绩效数据，结果必定包含变更和更新，一般来说包含绩效信息(整体控制除外，输入为绩效信息，输出为绩效报告)</font>
+
+<font color="red">凡规划XX管理必定输出XX管理计划，作用是为管理XX提供指南和方向，其输入包含项目管理计划、项目章程</font>
+
+<font color="red">编写XX计划的工具和技术一定有专家判断和会议</font>
+
+<font color="red">任何基准变更都需要通过正式的变更控制程序才能变更</font>
+
+<h3 id="项目风险管理概述"><a href="#项目风险管理概述" class="headerlink" title="项目风险管理概述"></a>项目风险管理概述</h3><h4 id="项目风险定义"><a href="#项目风险定义" class="headerlink" title="项目风险定义"></a>项目风险定义</h4><p>项目风险既包括对项目目标的威胁，也包括促进项目目标的机会。</p>
+<h4 id="风险的属性"><a href="#风险的属性" class="headerlink" title="风险的属性"></a>风险的属性</h4><h5 id="风险事件的随机性"><a href="#风险事件的随机性" class="headerlink" title="风险事件的随机性"></a>风险事件的随机性</h5><p>风险事件的发生及其后果都具有偶然性。</p>
+<h5 id="风险的相对性"><a href="#风险的相对性" class="headerlink" title="风险的相对性"></a>风险的相对性</h5><p>风险总是相对项目活动主体而言的。同样的风险对于不同的主体有不同的影响</p>
+<h5 id="风险的可变性"><a href="#风险的可变性" class="headerlink" title="风险的可变性"></a>风险的可变性</h5><ol>
+<li>风险性质的变化</li>
+<li>风险后果的变化</li>
+<li>出现新风险</li>
+</ol>
+<h4 id="风险的分类"><a href="#风险的分类" class="headerlink" title="风险的分类"></a>风险的分类</h4><font color="red">按风险后果划分</font>
+
+<ol>
+<li><font color="red">纯粹风险： 不能带来机会、无获得利益可能的风险， 叫纯粹风险。</font>
+</li>
+<li><font color="red">投机风险： 既可能带来机会、获得利益， 又隐含威胁、造成损失的风险， 叫投机风险</font>
+
+</li>
+</ol>
+<h4 id="风险成本及其负担"><a href="#风险成本及其负担" class="headerlink" title="风险成本及其负担"></a>风险成本及其负担</h4><p>&emsp;&emsp;风险事件造成的损失或减少的收益以及为防止发生风险事件采取预防措施而支付的费用， 都构成了风险成本。 </p>
+<p>&emsp;&emsp;风险成本包括有形成本、无形成本以及预防与控制风险的成本。</p>
+<p>&emsp;&emsp;风险损失的有形成本包括风险事件造成的直接损失和间接损失。</p>
+<p>&emsp;&emsp;风险损失的无形成本指由于风险所具有的不确定性而使项目主体在风险事件发生之前或之后付出的代价。主要表现在如下几个方面：</p>
+<ol>
+<li>风险损失减少了机会</li>
+<li>风险阻碍了生产率的提高</li>
+<li>风险造成资源分配不当</li>
+</ol>
+<h4 id="风险管理的过程"><a href="#风险管理的过程" class="headerlink" title="风险管理的过程"></a>风险管理的过程</h4><font color="red">项目风险管理包括项目风险管理规划、风险识别、分析、应对和监控的过程。项目风险管理过程包括：</font>
+
+<ol>
+<li><font color="red">风险管理规划——决定如何进行规划和实施项目风险管理活动。</font></li>
+<li><font color="red">风险识别——判断哪些风险会影响项目， 并以书面形式记录其特点。</font></li>
+<li><font color="red">定性风险分析——对风险概率和影响进行评估和汇总， 进而对风险进行排序， 以便随后进一步分析或行动。</font></li>
+<li><font color="red">定量风险分析——就识别的风险对项目总体目标的影响进行定量分析。</font></li>
+<li><font color="red">风险应对规划——针对项目目标制订提高机会、降低威胁的方案和行动。</font></li>
+<li><font color="red">风险监控——在整个项目生命周期中， 跟踪已识别的风险、监测残余风险、识别新风险和实施风险应对计划，并对其有效性进行评估。</font>
+
+</li>
+</ol>
+<h4 id="项目风险管理在项目管理中的地位和作用"><a href="#项目风险管理在项目管理中的地位和作用" class="headerlink" title="项目风险管理在项目管理中的地位和作用"></a>项目风险管理在项目管理中的地位和作用</h4><p>无重要考点</p>
+<h3 id="规划风险管理"><a href="#规划风险管理" class="headerlink" title="规划风险管理"></a>规划风险管理</h3><h4 id="规划风险管理的依据"><a href="#规划风险管理的依据" class="headerlink" title="规划风险管理的依据"></a>规划风险管理的依据</h4><font color="red">风险管理规划的依据如下：</font>
+
+<ol>
+<li><font color="red">项目管理计划</font></li>
+<li><font color="red">项目章程</font></li>
+<li><font color="red">干系人登记册</font></li>
+<li>事业环境因素</li>
+<li>组织过程资产</li>
+</ol>
+<h4 id="规划风险管理的工具和技术"><a href="#规划风险管理的工具和技术" class="headerlink" title="规划风险管理的工具和技术"></a>规划风险管理的工具和技术</h4><p>规划风险管理的工具与技术主要如下：</p>
+<ol>
+<li>分析技术用来理解和定义项目的总体风险管理环境</li>
+<li>专家判断</li>
+<li>会议</li>
+</ol>
+<h4 id="规划风险管理的成果"><a href="#规划风险管理的成果" class="headerlink" title="规划风险管理的成果"></a>规划风险管理的成果</h4><ol>
+<li><font color="red">风险管理计划</font>
+- <font color="red">方法论</font>
+- <font color="red">角色与职责</font>
+- <font color="red">预算</font>
+- <font color="red">时间安排</font>
+- <font color="red">风险类别</font>
+- <font color="red">风险概率和影响的定义</font>
+- <font color="red">概率和影响矩阵</font>
+- <font color="red">修改的项目干系人承受度</font>
+- <font color="red">报告格式</font>
+- <font color="red">跟踪</font>
+
+</li>
+</ol>
+<h3 id="识别风险"><a href="#识别风险" class="headerlink" title="识别风险"></a>识别风险</h3><p>&emsp;&emsp;识别风险指确定哪些风险会影响项目， 并将其特性记载成文。参加识别风险的人员通常可包括：项目经理、项目团队成员、风险管理团队（如有）、项目团队之外的相关领域专家、顾客、最终用户、其他项目经理、利害关系者和风险管理专家。应鼓励<font color="red">所有项目人员参与</font>风险的识别。</p>
+<p>&emsp;&emsp;识别风险是一项<font color="red">反复过程</font>。识别风险过程通常会直接引入下一个过程， 即定性风险分析过程。有时，如果识别风险过程是由经验丰富的风险经理完成的； 则可直接进入定量识别风险过程通常会直接引入下一个过程， 定性风险分析过程。有时，如果识别风险过程是由经验丰富的风险经理完成的；则可直接进入定量</p>
+<h4 id="风险识别依据"><a href="#风险识别依据" class="headerlink" title="风险识别依据"></a>风险识别依据</h4><p>风险识别的依据如下：</p>
+<ol>
+<li><font color="red">风险管理计划</font></li>
+<li><font color="red">成本管理计划</font></li>
+<li><font color="red">进度管理计划</font></li>
+<li><font color="red">质量管理计划</font></li>
+<li><font color="red">人力资源管理计划</font></li>
+<li>范围基准</li>
+<li><font color="red">活动成本估算和活动持续时间估算</font></li>
+<li><font color="red">干系人登记册</font></li>
+<li>项目文件</li>
+<li><font color="red">采购文件</font></li>
+<li>事业环境因素</li>
+<li>组织过程资产</li>
+</ol>
+<h4 id="风险识别的工具和技术"><a href="#风险识别的工具和技术" class="headerlink" title="风险识别的工具和技术"></a>风险识别的工具和技术</h4><ol>
+<li><font color="red">文档审查</font>
+</li>
+<li><font color="red">信息收集技术</font>
+
+<ul>
+<li><font color="red">头脑风暴</font></li>
+<li><font color="red">德尔菲技术</font></li>
+<li><font color="red">访谈</font></li>
+<li><font color="red">根本原因分析</font>
+</li>
+</ul>
+</li>
+<li><font color="red">核对表分析</font>
+</li>
+<li><font color="red">假设分析</font>
+</li>
+<li><font color="red">图解技术</font>
+
+<ul>
+<li><font color="red">因果图，又被称做石川图或鱼骨图， 用于识别风险的成因。</font></li>
+<li><font color="red">系统或过程流程图， 显示系统各要素之间如何相互联系， 以及因果传导机制。</font></li>
+<li><font color="red">影响图。显示因果影响， 按时间顺序排列的事件， 以及变量与结果之间的其他</font>
+</li>
+</ul>
+</li>
+<li><font color="red">SWOT分析</font>
+
+<font color="red">SWOT技术从项目的每个优势(Strength)、劣势(Weakness) 、机会(Opportunity)和威胁(Threat)出发， 对项目进行考察， 把产生千内部的风险都包括在内， 从而更全面地考虑风险。</font>
+</li>
+<li><p>专家判断</p>
+</li>
+</ol>
+<h4 id="风险识别的成果"><a href="#风险识别的成果" class="headerlink" title="风险识别的成果"></a>风险识别的成果</h4><font color="red">风险识别过程的成果一般载入风险登记册中。</font>
+
+<font color="red">风险识别过程的主要成果形成项目管理计划中风险登记册的最初记录。包括：</font>
+
+<ol>
+<li><font color="red">已识别风险清单</font></li>
+<li><font color="red">潜在应对措施清单</font></li>
+<li><font color="red">风险根本原因</font></li>
+<li><font color="red">风险类别更新</font>
+
+</li>
+</ol>
+<h3 id="实施定性风险分析"><a href="#实施定性风险分析" class="headerlink" title="实施定性风险分析"></a>实施定性风险分析</h3><p>定性风险分析指通过<strong>考虑风险发生的概率</strong>， 风险发生后对项目目标的影响和其他因素（如时间框架和项目4大制约条件，即成本、进度、范围和质量的风险承受度水平），对<strong>已识别风险的优先级</strong>进行评估。</p>
+<p>定性风险分析通常是为风险应对规划过程确立优先级的—种经济、有效和快捷的方法， 并为定量风险分析（如果需要该过程）奠定基础。</p>
+<h4 id="实施定性风险分析的依据"><a href="#实施定性风险分析的依据" class="headerlink" title="实施定性风险分析的依据"></a>实施定性风险分析的依据</h4><p>实施定性风险的依据如下：</p>
+<ol>
+<li><font color="red">风险管理计划</font></li>
+<li><font color="red">范围基准</font></li>
+<li><font color="red">风险登记册</font></li>
+<li>事业环境因素</li>
+<li>组织过程资产</li>
+</ol>
+<h4 id="实施定性风险分析的工具与技术"><a href="#实施定性风险分析的工具与技术" class="headerlink" title="实施定性风险分析的工具与技术"></a>实施定性风险分析的工具与技术</h4><p>实施定性风险分析的工具与技术如下：</p>
+<ol>
+<li><font color="red">风险概率与影响评估</font>
+
+<font color="red">风险概率评估系指调查每项具体风险发生的可能性。风险影响评估旨在调查风险对项目目标（如时间、成本、范围或质量）的潜在影响， 既包括消极影响或威胁， 也包括积极影响或机会。</font>
+</li>
+<li><font color="red">概率和影响矩阵</font>
+</li>
+<li><font color="red">风险数据质量评估</font>
+
+<font color="red">定性风险分析要具有可信度， 就要求使用**准确和无偏颇**的数据。风险数据质量分析就是评估有关风险的数据对风险管理的有用程度的—种技术。它包括检查人们对风险的理解程度， 以及风险数据的精确性、质量、可靠性和完整性。</font>
+</li>
+<li><font color="red">风险分类</font>
+</li>
+<li><font color="red">风险紧迫性评估</font>
+
+<font color="red">需要近期采取应对措施的风险可被视为亟需解决的风险。实施风险应对措施所需的时间、风险征兆、警告和风险等级等都可作为确定风险优先级或紧迫性的指标。</font>
+</li>
+<li><p>专家判断</p>
+</li>
+</ol>
+<h4 id="实施定性风险分析的成果"><a href="#实施定性风险分析的成果" class="headerlink" title="实施定性风险分析的成果"></a>实施定性风险分析的成果</h4></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">Hackt0</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://hackt0.github.io/2022/05/06/%E9%A1%B9%E7%9B%AE%E9%A3%8E%E9%99%A9%E7%AE%A1%E7%90%86/">https://hackt0.github.io/2022/05/06/%E9%A1%B9%E7%9B%AE%E9%A3%8E%E9%99%A9%E7%AE%A1%E7%90%86/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://hackt0.github.io" target="_blank">Hackt0's Blog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Textual-Criticism/">Textual Criticism</a></div><div class="post_share"><div class="social-share" data-image="https://s2.loli.net/2022/03/29/qUDFKvLbuswVlXC.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><div class="post-reward"><div class="reward-button button--animated"><i class="fas fa-qrcode"></i> 打赏</div><div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="/img/wechat.jpg" target="_blank"><img class="post-qr-code-img" src="/img/wechat.jpg" alt="微信"/></a><div class="post-qr-code-desc">微信</div></li><li class="reward-item"><a href="/img/alipay.jpg" target="_blank"><img class="post-qr-code-img" src="/img/alipay.jpg" alt="支付宝"/></a><div class="post-qr-code-desc">支付宝</div></li></ul></div></div><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2022/03/28/%E4%BF%A1%E6%81%AF%E5%8C%96%E5%92%8C%E4%BF%A1%E6%81%AF%E7%B3%BB%E7%BB%9F/" title="信息化和信息系统重点"><img class="cover" src="https://s2.loli.net/2022/03/29/qUDFKvLbuswVlXC.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-03-28</div><div class="title">信息化和信息系统重点</div></div></a></div><div><a href="/2022/03/29/%E4%BF%A1%E6%81%AF%E7%B3%BB%E7%BB%9F%E9%A1%B9%E7%9B%AE%E7%AE%A1%E7%90%86%E5%9F%BA%E7%A1%80/" title="信息系统项目管理基础"><img class="cover" src="https://s2.loli.net/2022/03/29/qUDFKvLbuswVlXC.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-03-29</div><div class="title">信息系统项目管理基础</div></div></a></div><div><a href="/2022/03/22/%E6%A1%88%E4%BE%8B%E5%88%86%E6%9E%90%E4%BB%8B%E7%BB%8D/" title="案例分析基本介绍"><img class="cover" src="https://s2.loli.net/2022/03/29/qUDFKvLbuswVlXC.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-03-22</div><div class="title">案例分析基本介绍</div></div></a></div></div></div><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="twikoo-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/img/hackto.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Hackt0</div><div class="author-info__description"></div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">18</div></a></div><div class="card-info-data-item is-center"><a href="/tags/"><div class="headline">标签</div><div class="length-num">6</div></a></div><div class="card-info-data-item is-center"><a href="/categories/"><div class="headline">分类</div><div class="length-num">6</div></a></div></div><a class="button--animated" id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/hackt0"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/hackt0" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:zmj20160625@gmail.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a><a class="social-icon" href="https://www.jianshu.com/u/568bc1fd7ed9" target="_blank" title=""><i class="fa fa-book"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>公告</span></div><div class="announcement_content">    欢迎访问本站，若喜欢请收藏，如有疑问敬请留言</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A1%B9%E7%9B%AE%E9%A3%8E%E9%99%A9%E7%AE%A1%E7%90%86%E6%A6%82%E8%BF%B0"><span class="toc-number">1.</span> <span class="toc-text">项目风险管理概述</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%A1%B9%E7%9B%AE%E9%A3%8E%E9%99%A9%E5%AE%9A%E4%B9%89"><span class="toc-number">1.1.</span> <span class="toc-text">项目风险定义</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%A3%8E%E9%99%A9%E7%9A%84%E5%B1%9E%E6%80%A7"><span class="toc-number">1.2.</span> <span class="toc-text">风险的属性</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E9%A3%8E%E9%99%A9%E4%BA%8B%E4%BB%B6%E7%9A%84%E9%9A%8F%E6%9C%BA%E6%80%A7"><span class="toc-number">1.2.1.</span> <span class="toc-text">风险事件的随机性</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E9%A3%8E%E9%99%A9%E7%9A%84%E7%9B%B8%E5%AF%B9%E6%80%A7"><span class="toc-number">1.2.2.</span> <span class="toc-text">风险的相对性</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E9%A3%8E%E9%99%A9%E7%9A%84%E5%8F%AF%E5%8F%98%E6%80%A7"><span class="toc-number">1.2.3.</span> <span class="toc-text">风险的可变性</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%A3%8E%E9%99%A9%E7%9A%84%E5%88%86%E7%B1%BB"><span class="toc-number">1.3.</span> <span class="toc-text">风险的分类</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%A3%8E%E9%99%A9%E6%88%90%E6%9C%AC%E5%8F%8A%E5%85%B6%E8%B4%9F%E6%8B%85"><span class="toc-number">1.4.</span> <span class="toc-text">风险成本及其负担</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%A3%8E%E9%99%A9%E7%AE%A1%E7%90%86%E7%9A%84%E8%BF%87%E7%A8%8B"><span class="toc-number">1.5.</span> <span class="toc-text">风险管理的过程</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%A1%B9%E7%9B%AE%E9%A3%8E%E9%99%A9%E7%AE%A1%E7%90%86%E5%9C%A8%E9%A1%B9%E7%9B%AE%E7%AE%A1%E7%90%86%E4%B8%AD%E7%9A%84%E5%9C%B0%E4%BD%8D%E5%92%8C%E4%BD%9C%E7%94%A8"><span class="toc-number">1.6.</span> <span class="toc-text">项目风险管理在项目管理中的地位和作用</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%A7%84%E5%88%92%E9%A3%8E%E9%99%A9%E7%AE%A1%E7%90%86"><span class="toc-number">2.</span> <span class="toc-text">规划风险管理</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%A7%84%E5%88%92%E9%A3%8E%E9%99%A9%E7%AE%A1%E7%90%86%E7%9A%84%E4%BE%9D%E6%8D%AE"><span class="toc-number">2.1.</span> <span class="toc-text">规划风险管理的依据</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%A7%84%E5%88%92%E9%A3%8E%E9%99%A9%E7%AE%A1%E7%90%86%E7%9A%84%E5%B7%A5%E5%85%B7%E5%92%8C%E6%8A%80%E6%9C%AF"><span class="toc-number">2.2.</span> <span class="toc-text">规划风险管理的工具和技术</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%A7%84%E5%88%92%E9%A3%8E%E9%99%A9%E7%AE%A1%E7%90%86%E7%9A%84%E6%88%90%E6%9E%9C"><span class="toc-number">2.3.</span> <span class="toc-text">规划风险管理的成果</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AF%86%E5%88%AB%E9%A3%8E%E9%99%A9"><span class="toc-number">3.</span> <span class="toc-text">识别风险</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%A3%8E%E9%99%A9%E8%AF%86%E5%88%AB%E4%BE%9D%E6%8D%AE"><span class="toc-number">3.1.</span> <span class="toc-text">风险识别依据</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%A3%8E%E9%99%A9%E8%AF%86%E5%88%AB%E7%9A%84%E5%B7%A5%E5%85%B7%E5%92%8C%E6%8A%80%E6%9C%AF"><span class="toc-number">3.2.</span> <span class="toc-text">风险识别的工具和技术</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%A3%8E%E9%99%A9%E8%AF%86%E5%88%AB%E7%9A%84%E6%88%90%E6%9E%9C"><span class="toc-number">3.3.</span> <span class="toc-text">风险识别的成果</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9E%E6%96%BD%E5%AE%9A%E6%80%A7%E9%A3%8E%E9%99%A9%E5%88%86%E6%9E%90"><span class="toc-number">4.</span> <span class="toc-text">实施定性风险分析</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%9E%E6%96%BD%E5%AE%9A%E6%80%A7%E9%A3%8E%E9%99%A9%E5%88%86%E6%9E%90%E7%9A%84%E4%BE%9D%E6%8D%AE"><span class="toc-number">4.1.</span> <span class="toc-text">实施定性风险分析的依据</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%9E%E6%96%BD%E5%AE%9A%E6%80%A7%E9%A3%8E%E9%99%A9%E5%88%86%E6%9E%90%E7%9A%84%E5%B7%A5%E5%85%B7%E4%B8%8E%E6%8A%80%E6%9C%AF"><span class="toc-number">4.2.</span> <span class="toc-text">实施定性风险分析的工具与技术</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%9E%E6%96%BD%E5%AE%9A%E6%80%A7%E9%A3%8E%E9%99%A9%E5%88%86%E6%9E%90%E7%9A%84%E6%88%90%E6%9E%9C"><span class="toc-number">4.3.</span> <span class="toc-text">实施定性风险分析的成果</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2022/05/06/%E9%A1%B9%E7%9B%AE%E9%A3%8E%E9%99%A9%E7%AE%A1%E7%90%86/" title="项目风险管理"><img src="https://s2.loli.net/2022/03/29/qUDFKvLbuswVlXC.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="项目风险管理"/></a><div class="content"><a class="title" href="/2022/05/06/%E9%A1%B9%E7%9B%AE%E9%A3%8E%E9%99%A9%E7%AE%A1%E7%90%86/" title="项目风险管理">项目风险管理</a><time datetime="2022-05-06T08:47:23.000Z" title="发表于 2022-05-06 16:47:23">2022-05-06</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/04/22/%E9%A1%B9%E7%9B%AE%E6%B2%9F%E9%80%9A%E7%AE%A1%E7%90%86%E5%92%8C%E5%B9%B2%E7%B3%BB%E4%BA%BA%E7%AE%A1%E7%90%86/" title="项目沟通管理和干系人管理"><img src="https://s2.loli.net/2022/03/29/qUDFKvLbuswVlXC.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="项目沟通管理和干系人管理"/></a><div class="content"><a class="title" href="/2022/04/22/%E9%A1%B9%E7%9B%AE%E6%B2%9F%E9%80%9A%E7%AE%A1%E7%90%86%E5%92%8C%E5%B9%B2%E7%B3%BB%E4%BA%BA%E7%AE%A1%E7%90%86/" title="项目沟通管理和干系人管理">项目沟通管理和干系人管理</a><time datetime="2022-04-22T02:10:14.000Z" title="发表于 2022-04-22 10:10:14">2022-04-22</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/04/20/%E9%A1%B9%E7%9B%AE%E4%BA%BA%E5%8A%9B%E8%B5%84%E6%BA%90%E7%AE%A1%E7%90%86/" title="项目人力资源管理"><img src="https://s2.loli.net/2022/03/29/qUDFKvLbuswVlXC.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="项目人力资源管理"/></a><div class="content"><a class="title" href="/2022/04/20/%E9%A1%B9%E7%9B%AE%E4%BA%BA%E5%8A%9B%E8%B5%84%E6%BA%90%E7%AE%A1%E7%90%86/" title="项目人力资源管理">项目人力资源管理</a><time datetime="2022-04-20T07:30:32.000Z" title="发表于 2022-04-20 15:30:32">2022-04-20</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/04/18/%E9%A1%B9%E7%9B%AE%E8%B4%A8%E9%87%8F%E7%AE%A1%E7%90%86/" title="项目质量管理"><img src="https://s2.loli.net/2022/03/29/qUDFKvLbuswVlXC.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="项目质量管理"/></a><div class="content"><a class="title" href="/2022/04/18/%E9%A1%B9%E7%9B%AE%E8%B4%A8%E9%87%8F%E7%AE%A1%E7%90%86/" title="项目质量管理">项目质量管理</a><time datetime="2022-04-18T13:50:10.000Z" title="发表于 2022-04-18 21:50:10">2022-04-18</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/04/11/%E9%A1%B9%E7%9B%AE%E6%88%90%E6%9C%AC%E7%AE%A1%E7%90%86/" title="项目成本管理"><img src="https://s2.loli.net/2022/03/29/qUDFKvLbuswVlXC.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="项目成本管理"/></a><div class="content"><a class="title" href="/2022/04/11/%E9%A1%B9%E7%9B%AE%E6%88%90%E6%9C%AC%E7%AE%A1%E7%90%86/" title="项目成本管理">项目成本管理</a><time datetime="2022-04-11T11:33:57.000Z" title="发表于 2022-04-11 19:33:57">2022-04-11</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url('https://s2.loli.net/2022/03/29/qUDFKvLbuswVlXC.png')"><div id="footer-wrap"><div class="copyright">&copy;2021 - 2022  <i id="heartbeat" class="fa fas fa-heartbeat"></i> Hackt0</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text">Thanks for reading</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><div class="search-dialog__title" id="local-search-title">本地搜索</div><div id="local-input-panel"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div></div><hr/><div id="local-search-results"></div><span class="search-close-button"><i class="fas fa-times"></i></span></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script>function panguFn () {
+  if (typeof pangu === 'object') pangu.autoSpacingPage()
+  else {
+    getScript('https://cdn.jsdelivr.net/npm/pangu/dist/browser/pangu.min.js')
+      .then(() => {
+        pangu.autoSpacingPage()
+      })
+  }
+}
+
+function panguInit () {
+  if (true){
+    GLOBAL_CONFIG_SITE.isPost && panguFn()
+  } else {
+    panguFn()
+  }
+}
+
+document.addEventListener('DOMContentLoaded', panguInit)</script><script src="/js/search/local-search.js"></script><div class="js-pjax"><script>(()=>{
+  const $countDom = document.getElementById('twikoo-count')
+  const init = () => {
+    twikoo.init(Object.assign({
+      el: '#twikoo-wrap',
+      envId: 'hacktu-9g31g5f1db7a6774',
+      region: ''
+    }, null))
+  }
+
+  const getCount = () => {
+    twikoo.getCommentsCount({
+      envId: 'hacktu-9g31g5f1db7a6774',
+      region: '',
+      urls: [window.location.pathname],
+      includeReply: false
+    }).then(function (res) {
+      $countDom.innerText = res[0].count
+    }).catch(function (err) {
+      console.error(err);
+    });
+  }
+
+  const loadTwikoo = (bool = false) => {
+    if (typeof twikoo === 'object') {
+      init()
+      bool && $countDom && setTimeout(getCount,0)
+    } else {
+      getScript('https://cdn.jsdelivr.net/npm/twikoo/dist/twikoo.all.min.js').then(()=> {
+        init()
+        bool && $countDom && setTimeout(getCount,0)
+      })
+    }
+  }
+
+  if ('Twikoo' === 'Twikoo' || !false) {
+    if (false) btf.loadComment(document.getElementById('twikoo-wrap'), loadTwikoo)
+    else loadTwikoo(true)
+  } else {
+    window.loadOtherComment = () => {
+      loadTwikoo()
+    }
+  }
+})()</script></div><script id="click-heart" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/click-heart.min.js" async="async" mobile="false"></script><script src="https://cdn.jsdelivr.net/npm/pjax/pjax.min.js"></script><script>let pjaxSelectors = [
+  'title',
+  '#config-diff',
+  '#body-wrap',
+  '#rightside-config-hide',
+  '#rightside-config-show',
+  '#web_bg',
+  '.js-pjax'
+]
+
+if (false) {
+  pjaxSelectors.unshift('meta[property="og:image"]', 'meta[property="og:title"]', 'meta[property="og:url"]')
+}
+
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: false,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:send', function () {
+
+  // removeEventListener scroll 
+  window.removeEventListener('scroll', window.tocScrollFn)
+  window.removeEventListener('scroll', scrollCollect)
+
+  typeof preloader === 'object' && preloader.initLoading()
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof chatBtnFn === 'function' && chatBtnFn()
+  typeof panguInit === 'function' && panguInit()
+
+  // google analytics
+  typeof gtag === 'function' && gtag('config', '', {'page_path': window.location.pathname});
+
+  // baidu analytics
+  typeof _hmt === 'object' && _hmt.push(['_trackPageview',window.location.pathname]);
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // Analytics
+  if (false) {
+    MtaH5.pgv()
+  }
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+
+  typeof preloader === 'object' && preloader.endLoading()
+})
+
+document.addEventListener('pjax:error', (e) => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/404.html')
+  }
+})</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><!-- hexo injector body_end start --><script async src="//at.alicdn.com/t/font_2032782_8d5kxvn09md.js"></script><!-- hexo injector body_end end --></body></html>
